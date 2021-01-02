@@ -8,27 +8,36 @@ import com.example.popularlibs_homrworks.view.UsersRVAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 import moxy.MvpAppCompatActivity
 import moxy.ktx.moxyPresenter
+import ru.terrakok.cicerone.android.support.SupportAppNavigator
 
-class MainActivity : MvpAppCompatActivity(),
-    MainView {
+class MainActivity : MvpAppCompatActivity(), MainView {
 
-    private val presenter by moxyPresenter {
-        MainPresenter( GithubUsersRepo())
-    }
-    var adapter: UsersRVAdapter? = null
+    val navigatorHolder = App.instance.navigatorHolder
+    val navigator = SupportAppNavigator(this, supportFragmentManager, R.id.container)
+
+    val presenter: MainPresenter by moxyPresenter { MainPresenter(App.instance.router) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
     }
 
-    override fun init() {
-        rv_users.layoutManager = LinearLayoutManager(this)
-        adapter = UsersRVAdapter(presenter.usersListPresenter)
-        rv_users.adapter = adapter
+    override fun onResumeFragments() {
+        super.onResumeFragments()
+        navigatorHolder.setNavigator(navigator)
     }
 
-    override fun updateList() {
-        adapter?.notifyDataSetChanged()
+    override fun onPause() {
+        super.onPause()
+        navigatorHolder.removeNavigator()
+    }
+
+    override fun onBackPressed() {
+        supportFragmentManager.fragments.forEach {
+            if(it is BackButtonListener && it.backPressed()){
+                return
+            }
+        }
+        presenter.backClicked()
     }
 }

@@ -38,6 +38,7 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     //Moxy
     implementation "com.github.moxy-community:moxy:2.1.2"
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     kapt "com.github.moxy-community:moxy-compiler:2.1.2"
     implementation "com.github.moxy-community:moxy-ktx:2.1.2"
     implementation "com.github.moxy-community:moxy-androidx:2.1.2"

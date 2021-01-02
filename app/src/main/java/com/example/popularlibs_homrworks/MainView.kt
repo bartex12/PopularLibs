@@ -9,6 +9,4 @@ import moxy.viewstate.strategy.StateStrategyType
 // View к Presenter и updateList() для обновления содержимого списка.
 @StateStrategyType(SingleStateStrategy::class)
 interface MainView: MvpView {
-    fun init()
-    fun updateList()
 }
