@@ -21,11 +21,13 @@ class UsersRVAdapter(val presenter: IUserListPresenter)
     override fun getItemCount(): Int = presenter.getCount()
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+
         holder.pos =position
+        presenter.bindView(holder)
+
         holder.containerView.setOnClickListener{
-            //presenter.itemClickListener?.invoke(holder) вызовет itemClickListener, если он не равен null
+            //вызовет itemClickListener, если он не равен null
             presenter.itemClickListener?.invoke(holder)
-            presenter.bindView(holder)
         }
     }
 
