@@ -33,8 +33,13 @@ class UsersRVAdapter(val presenter: IUserListPresenter)
         RecyclerView.ViewHolder(containerView), LayoutContainer, UserItemView {
 
         override var pos = -1
-        override fun setLogin(text: String) = with(containerView) {
-            tv_login.text = text
+
+        override fun setLogin(text: String) {
+            containerView.tv_login.text = text
         }
+//        override fun setLogin(text: String) = with(containerView) {
+//            tv_login.text = text
+//        }
+
     }
 }

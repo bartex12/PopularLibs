@@ -1,19 +1,20 @@
 package com.example.popularlibs_homrworks
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.popularlibs_homrworks.model.GithubUsersRepo
-import com.example.popularlibs_homrworks.view.MainPresenter
-import com.example.popularlibs_homrworks.view.MainView
+import com.example.popularlibs_homrworks.presenter.MainPresenter
 import com.example.popularlibs_homrworks.view.UsersRVAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 import moxy.MvpAppCompatActivity
 import moxy.ktx.moxyPresenter
 
-class MainActivity : MvpAppCompatActivity(), MainView {
+class MainActivity : MvpAppCompatActivity(),
+    MainView {
 
-    private val presenter by moxyPresenter { MainPresenter(GithubUsersRepo()) }
+    private val presenter by moxyPresenter {
+        MainPresenter( GithubUsersRepo())
+    }
     var adapter: UsersRVAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -1,13 +1,14 @@
-package com.example.popularlibs_homrworks.view
+package com.example.popularlibs_homrworks.presenter
 
 import com.example.popularlibs_homrworks.model.GithubUser
 import com.example.popularlibs_homrworks.model.GithubUsersRepo
-import com.example.popularlibs_homrworks.presenter.IUserListPresenter
+import com.example.popularlibs_homrworks.MainView
+import com.example.popularlibs_homrworks.view.UserItemView
 import moxy.MvpPresenter
 
 class MainPresenter(val usersRepo: GithubUsersRepo): MvpPresenter<MainView>() {
 
-    val usersListPresenter = UsersListPresenter()
+    val usersListPresenter =  UsersListPresenter()
 
     class UsersListPresenter : IUserListPresenter {
         val users = mutableListOf<GithubUser>()
@@ -20,7 +21,7 @@ class MainPresenter(val usersRepo: GithubUsersRepo): MvpPresenter<MainView>() {
             view.setLogin(user.login)
         }
     }
-    
+
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
         viewState.init()
@@ -28,6 +29,7 @@ class MainPresenter(val usersRepo: GithubUsersRepo): MvpPresenter<MainView>() {
 
         usersListPresenter.itemClickListener = { itemView ->
             //TODO: переход на экран пользователя
+           val pos = itemView.pos
         }
     }
 
