@@ -1,5 +1,6 @@
 package com.example.popularlibs_homrworks.view
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +9,8 @@ import com.example.popularlibs_homrworks.R
 import com.example.popularlibs_homrworks.presenter.IUserListPresenter
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_user.view.*
+
+const val TAG ="33333"
 
 class UsersRVAdapter(val presenter: IUserListPresenter)
     : RecyclerView.Adapter<UsersRVAdapter.ViewHolder> () {
@@ -38,10 +41,7 @@ class UsersRVAdapter(val presenter: IUserListPresenter)
 
         override fun setLogin(text: String) {
             containerView.tv_login.text = text
+            Log.d(TAG, "UsersRVAdapter ViewHolder setLogin text =$text")
         }
-//        override fun setLogin(text: String) = with(containerView) {
-//            tv_login.text = text
-//        }
-
     }
 }

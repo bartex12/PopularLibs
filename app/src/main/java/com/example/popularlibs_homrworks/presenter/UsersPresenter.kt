@@ -1,11 +1,14 @@
 package com.example.popularlibs_homrworks.presenter
 
+import android.util.Log
 import com.example.popularlibs_homrworks.UsersView
 import com.example.popularlibs_homrworks.model.GithubUser
 import com.example.popularlibs_homrworks.model.GithubUsersRepo
 import com.example.popularlibs_homrworks.view.UserItemView
 import moxy.MvpPresenter
 import ru.terrakok.cicerone.Router
+
+const val TAG ="33333"
 
 class UsersPresenter(val usersRepo: GithubUsersRepo, val router: Router):
     MvpPresenter<UsersView>() {
@@ -31,7 +34,8 @@ class UsersPresenter(val usersRepo: GithubUsersRepo, val router: Router):
 
         usersListPresenter.itemClickListener = { itemView ->
             //TODO: переход на экран пользователя
-            val pos = itemView.pos
+           val login =  usersListPresenter.users[itemView.pos].login
+            Log.d(TAG, "UsersPresenter itemClickListener login =$login")
         }
     }
 
