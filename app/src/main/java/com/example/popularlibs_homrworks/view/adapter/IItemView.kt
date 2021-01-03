@@ -1,4 +1,4 @@
-package com.example.popularlibs_homrworks.view
+package com.example.popularlibs_homrworks.view.adapter
 
 //только позиция
 interface IItemView {

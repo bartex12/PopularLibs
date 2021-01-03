@@ -1,19 +1,24 @@
-package com.example.popularlibs_homrworks
+package com.example.popularlibs_homrworks.view.main
 
 import android.os.Bundle
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.popularlibs_homrworks.model.GithubUsersRepo
+import android.util.Log
+import com.example.popularlibs_homrworks.App
+import com.example.popularlibs_homrworks.view.fragments.BackButtonListener
+import com.example.popularlibs_homrworks.R
 import com.example.popularlibs_homrworks.presenter.MainPresenter
-import com.example.popularlibs_homrworks.view.UsersRVAdapter
-import kotlinx.android.synthetic.main.activity_main.*
+import com.example.popularlibs_homrworks.view.fragments.BackButtonListener2
 import moxy.MvpAppCompatActivity
 import moxy.ktx.moxyPresenter
 import ru.terrakok.cicerone.android.support.SupportAppNavigator
 
+const val TAG ="33333"
+
 class MainActivity : MvpAppCompatActivity(), MainView {
 
     val navigatorHolder = App.instance.navigatorHolder
-    val navigator = SupportAppNavigator(this, supportFragmentManager, R.id.container)
+    val navigator = SupportAppNavigator(this, supportFragmentManager,
+        R.id.container
+    )
 
     val presenter: MainPresenter by moxyPresenter { MainPresenter(App.instance.router) }
 
@@ -32,12 +37,15 @@ class MainActivity : MvpAppCompatActivity(), MainView {
         navigatorHolder.removeNavigator()
     }
 
+    //при нажатии на кнопку Назад если фрагмент реализует BackButtonListener, вызываем метод backPressed
+    //при этом если мы в списке- выходим из приложения, а если в пользователе - возвращаемся в список
     override fun onBackPressed() {
         supportFragmentManager.fragments.forEach {
             if(it is BackButtonListener && it.backPressed()){
-                return
+                return@onBackPressed
             }
         }
+        Log.d(TAG, "MainActivity onBackPressed setLogin after if ")
         presenter.backClicked()
     }
 }

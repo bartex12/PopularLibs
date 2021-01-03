@@ -1,6 +1,6 @@
 package com.example.popularlibs_homrworks.presenter
 
-import com.example.popularlibs_homrworks.view.IItemView
+import com.example.popularlibs_homrworks.view.adapter.IItemView
 
 
 //По аналогии с интерфейсом IItemView мы создали интерфейс IListPresenter,
@@ -9,7 +9,7 @@ import com.example.popularlibs_homrworks.view.IItemView
 //Здесь V представляет собой тип View для строки списка, а itemClickListener – функция,
 // принимающая на вход эту самую View. Таким образом при обработке клика мы сможем получить
 // от View позицию и найти нужный элемент
-interface IListPresenter<V:IItemView> {
+interface IListPresenter<V: IItemView> {
     var itemClickListener: ((V)->Unit)?
     fun bindView(view:V)
     fun getCount():Int

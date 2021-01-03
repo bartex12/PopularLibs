@@ -1,4 +1,4 @@
-package com.example.popularlibs_homrworks
+package com.example.popularlibs_homrworks.view.main
 
 import moxy.MvpView
 import moxy.viewstate.strategy.SingleStateStrategy

@@ -1,4 +1,4 @@
-package com.example.popularlibs_homrworks.view
+package com.example.popularlibs_homrworks.view.adapter
 
 import android.util.Log
 import android.view.LayoutInflater
@@ -29,13 +29,15 @@ class UsersRVAdapter(val presenter: IUserListPresenter)
         presenter.bindView(holder)
 
         holder.containerView.setOnClickListener{
+            //нельзя иначе осуществить вызов nullable-значения функционального типа.
             //вызовет itemClickListener, если он не равен null
             presenter.itemClickListener?.invoke(holder)
         }
     }
 
     inner class ViewHolder(override val containerView: View) :
-        RecyclerView.ViewHolder(containerView), LayoutContainer, UserItemView {
+        RecyclerView.ViewHolder(containerView), LayoutContainer,
+        UserItemView {
 
         override var pos = -1
 
