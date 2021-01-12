@@ -2,15 +2,12 @@ package com.example.popularlibs_homrworks.view.fragments
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.popularlibs_homrworks.App
 import com.example.popularlibs_homrworks.R
-import com.example.popularlibs_homrworks.model.GithubUsersRepo
 import com.example.popularlibs_homrworks.presenter.UserPresenter
-import com.example.popularlibs_homrworks.presenter.UsersPresenter
 import com.example.popularlibs_homrworks.view.main.TAG
 import kotlinx.android.synthetic.main.fragment_user.*
 import moxy.MvpAppCompatFragment
