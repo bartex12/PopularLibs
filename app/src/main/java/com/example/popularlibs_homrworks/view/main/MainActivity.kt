@@ -6,7 +6,6 @@ import com.example.popularlibs_homrworks.App
 import com.example.popularlibs_homrworks.view.fragments.BackButtonListener
 import com.example.popularlibs_homrworks.R
 import com.example.popularlibs_homrworks.presenter.MainPresenter
-import com.example.popularlibs_homrworks.view.fragments.BackButtonListener2
 import moxy.MvpAppCompatActivity
 import moxy.ktx.moxyPresenter
 import ru.terrakok.cicerone.android.support.SupportAppNavigator
