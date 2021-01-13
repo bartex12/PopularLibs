@@ -35,7 +35,7 @@ class UsersPresenter(val usersRepo: GithubUsersRepo, val router: Router):
         loadData()
 
         usersListPresenter.itemClickListener = { itemView ->
-            //TODO: переход на экран пользователя
+            //переход на экран пользователя
            val login =  usersListPresenter.users[itemView.pos].login
             Log.d(TAG, "UsersPresenter itemClickListener login =$login")
             router.replaceScreen(Screens.UserScreen(login))
