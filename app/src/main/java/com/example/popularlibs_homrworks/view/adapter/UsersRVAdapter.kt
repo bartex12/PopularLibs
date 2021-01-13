@@ -7,10 +7,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.popularlibs_homrworks.R
 import com.example.popularlibs_homrworks.presenter.IUserListPresenter
+import com.example.popularlibs_homrworks.view.main.TAG
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_user.view.*
 
-const val TAG ="33333"
 
 class UsersRVAdapter(val presenter: IUserListPresenter)
     : RecyclerView.Adapter<UsersRVAdapter.ViewHolder> () {

@@ -6,10 +6,10 @@ import com.example.popularlibs_homrworks.view.fragments.UsersView
 import com.example.popularlibs_homrworks.model.GithubUser
 import com.example.popularlibs_homrworks.model.GithubUsersRepo
 import com.example.popularlibs_homrworks.view.adapter.UserItemView
+import com.example.popularlibs_homrworks.view.main.TAG
 import moxy.MvpPresenter
 import ru.terrakok.cicerone.Router
 
-const val TAG ="33333"
 
 //презентер для работы с фрагментом UsersFragment,  Router для навигации
 class UsersPresenter(val usersRepo: GithubUsersRepo, val router: Router):

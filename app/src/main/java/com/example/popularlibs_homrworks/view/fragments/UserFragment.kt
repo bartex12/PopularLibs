@@ -14,9 +14,20 @@ import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 
 
-private const val ARG_LOGIN = "login"
-
 class UserFragment : MvpAppCompatFragment(), UserView , BackButtonListener{
+
+    companion object {
+
+        private const val ARG_LOGIN = "login"
+
+        @JvmStatic
+        fun newInstance(login: String) =
+            UserFragment().apply {
+                arguments = Bundle().apply {
+                    putString(ARG_LOGIN, login)
+                }
+            }
+    }
 
     private var login: String? = null
 
@@ -38,15 +49,7 @@ class UserFragment : MvpAppCompatFragment(), UserView , BackButtonListener{
         return inflater.inflate(R.layout.fragment_user, container, false)
     }
 
-    companion object {
-        @JvmStatic
-        fun newInstance(login: String) =
-            UserFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_LOGIN, login)
-                }
-            }
-    }
+
 
     //реализация метода UserView
     override fun init() {

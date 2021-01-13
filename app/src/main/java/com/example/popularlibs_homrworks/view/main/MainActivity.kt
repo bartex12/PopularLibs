@@ -3,17 +3,16 @@ package com.example.popularlibs_homrworks.view.main
 import android.os.Bundle
 import android.util.Log
 import com.example.popularlibs_homrworks.App
-import com.example.popularlibs_homrworks.view.fragments.BackButtonListener
 import com.example.popularlibs_homrworks.R
 import com.example.popularlibs_homrworks.presenter.MainPresenter
+import com.example.popularlibs_homrworks.view.fragments.BackButtonListener
 import moxy.MvpAppCompatActivity
 import moxy.ktx.moxyPresenter
 import ru.terrakok.cicerone.android.support.SupportAppNavigator
 
-const val TAG ="33333"
+const val TAG = "33333"
 
-class MainActivity : MvpAppCompatActivity(), MainView {
-
+class MainActivity: MvpAppCompatActivity(), MainView  {
     val navigatorHolder = App.instance.navigatorHolder
     val navigator = SupportAppNavigator(this, supportFragmentManager,
         R.id.container
