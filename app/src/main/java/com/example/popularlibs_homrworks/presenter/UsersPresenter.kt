@@ -9,6 +9,7 @@ import com.example.popularlibs_homrworks.view.adapter.UserItemView
 import com.example.popularlibs_homrworks.view.main.TAG
 import moxy.MvpPresenter
 import ru.terrakok.cicerone.Router
+import rx.Observer
 
 
 //презентер для работы с фрагментом UsersFragment,  Router для навигации
@@ -17,6 +18,7 @@ class UsersPresenter(val usersRepo: GithubUsersRepo, val router: Router):
 
     val usersListPresenter =  UsersListPresenter()
 
+    //вложенный класс для работы с адаптером
     class UsersListPresenter : IUserListPresenter {
         val users = mutableListOf<GithubUser>()
         override var itemClickListener: ((UserItemView) -> Unit)? = null
@@ -43,11 +45,28 @@ class UsersPresenter(val usersRepo: GithubUsersRepo, val router: Router):
     }
 
     fun loadData() {
-        val users =  usersRepo.getUsers()
-        usersListPresenter.users.addAll(users)
-        viewState.updateList()
+        usersRepo.getUsers()
+            .subscribe(UserObserver())
+        viewState.updateList() //обновляем после окончания передачи данных
     }
 
+    //inner - для того, чтобы обеспечить доступ к переменным класса UsersPresenter
+    //Класс может быть отмечен как внутренний с помощью слова inner, тем самым он будет иметь
+    // доступ к членам внешнего класса. Внутренние классы содержат ссылку на объект внешнего класс
+    inner class UserObserver:Observer<GithubUser> {
+
+        override fun onNext(user: GithubUser?) {
+            user?. let {usersListPresenter.users.add(user)}
+        }
+
+        override fun onError(e: Throwable?) {
+            Log.d(TAG, "UsersPresenter onError $e ")
+        }
+
+        override fun onCompleted() {
+            Log.d(TAG, "UsersPresenter onCompleted  ")
+        }
+    }
     //Методичка:
     //Для обработки нажатия клавиши «Назад» добавлена функция backPressed(), возвращающая Boolean,
     // в которой мы передаем обработку выхода с экрана роутеру. Вообще, функции Presenter,
@@ -60,4 +79,5 @@ class UsersPresenter(val usersRepo: GithubUsersRepo, val router: Router):
         router.exit()
         return true
     }
+
 }

@@ -1,9 +1,10 @@
 package com.example.popularlibs_homrworks.presenter
 
-import com.example.popularlibs_homrworks.view.main.MainView
 import com.example.popularlibs_homrworks.Screens
+import com.example.popularlibs_homrworks.view.main.MainView
 import moxy.MvpPresenter
 import ru.terrakok.cicerone.Router
+
 
 class MainPresenter(val router: Router): MvpPresenter<MainView>() {
 
