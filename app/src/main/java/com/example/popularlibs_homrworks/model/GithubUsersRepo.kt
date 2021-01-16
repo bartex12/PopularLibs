@@ -15,4 +15,5 @@ class GithubUsersRepo {
     fun getUsers(): Observable<GithubUser> {
         return Observable.fromIterable(repositories)
     }
+
 }
