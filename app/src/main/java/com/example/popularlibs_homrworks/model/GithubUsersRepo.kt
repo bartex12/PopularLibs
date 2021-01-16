@@ -1,6 +1,7 @@
 package com.example.popularlibs_homrworks.model
 
-import rx.Observable
+import io.reactivex.rxjava3.core.Observable
+
 
 class GithubUsersRepo {
     private val repositories = listOf(
@@ -11,7 +12,7 @@ class GithubUsersRepo {
         GithubUser("login5")
     )
 
-    fun getUsers(): Observable<GithubUser>{
-        return Observable.from(repositories)
+    fun getUsers(): Observable<GithubUser> {
+        return Observable.fromIterable(repositories)
     }
 }

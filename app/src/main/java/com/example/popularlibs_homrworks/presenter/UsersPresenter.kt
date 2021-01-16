@@ -7,9 +7,12 @@ import com.example.popularlibs_homrworks.model.GithubUser
 import com.example.popularlibs_homrworks.model.GithubUsersRepo
 import com.example.popularlibs_homrworks.view.adapter.UserItemView
 import com.example.popularlibs_homrworks.view.main.TAG
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.disposables.Disposable
+import io.reactivex.rxjava3.schedulers.Schedulers
 import moxy.MvpPresenter
 import ru.terrakok.cicerone.Router
-import rx.Observer
+
 
 
 //презентер для работы с фрагментом UsersFragment,  Router для навигации
@@ -17,6 +20,7 @@ class UsersPresenter(val usersRepo: GithubUsersRepo, val router: Router):
     MvpPresenter<UsersView>() {
 
     val usersListPresenter =  UsersListPresenter()
+    var disposable: Disposable? = null
 
     //вложенный класс для работы с адаптером
     class UsersListPresenter : IUserListPresenter {
@@ -41,32 +45,22 @@ class UsersPresenter(val usersRepo: GithubUsersRepo, val router: Router):
            val login =  usersListPresenter.users[itemView.pos].login
             Log.d(TAG, "UsersPresenter itemClickListener login =$login")
             router.replaceScreen(Screens.UserScreen(login))
+            disposable?.dispose()
         }
     }
 
     fun loadData() {
-        usersRepo.getUsers()
-            .subscribe(UserObserver())
-        viewState.updateList() //обновляем после окончания передачи данных
+        disposable =   usersRepo.getUsers()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+            { user -> usersListPresenter.users.add(user)},
+            {error -> Log.d(TAG, "UsersPresenter onError $error ")},
+            {Log.d(TAG, "UsersPresenter onCompleted  ")
+             viewState.updateList() //обновляем после окончания передачи данных
+            })
     }
 
-    //inner - для того, чтобы обеспечить доступ к переменным класса UsersPresenter
-    //Класс может быть отмечен как внутренний с помощью слова inner, тем самым он будет иметь
-    // доступ к членам внешнего класса. Внутренние классы содержат ссылку на объект внешнего класс
-    inner class UserObserver:Observer<GithubUser> {
-
-        override fun onNext(user: GithubUser?) {
-            user?. let {usersListPresenter.users.add(user)}
-        }
-
-        override fun onError(e: Throwable?) {
-            Log.d(TAG, "UsersPresenter onError $e ")
-        }
-
-        override fun onCompleted() {
-            Log.d(TAG, "UsersPresenter onCompleted  ")
-        }
-    }
     //Методичка:
     //Для обработки нажатия клавиши «Назад» добавлена функция backPressed(), возвращающая Boolean,
     // в которой мы передаем обработку выхода с экрана роутеру. Вообще, функции Presenter,
@@ -77,6 +71,7 @@ class UsersPresenter(val usersRepo: GithubUsersRepo, val router: Router):
     // было ли событие нажатия поглощено фрагментом или нужно обработать его стандартным способом.
     fun backPressed(): Boolean {
         router.exit()
+        disposable?.dispose()
         return true
     }
 
