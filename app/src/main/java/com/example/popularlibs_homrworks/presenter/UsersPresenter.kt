@@ -42,8 +42,10 @@ class UsersPresenter(val usersRepo: GithubUsersRepo, val router: Router):
         usersListPresenter.itemClickListener = { itemView ->
             //получение login через RxJava
             val disp =  Observable.just(usersListPresenter.users)
-                .map {it[itemView.pos]}
-                .map {it.login}
+                .map {
+                    it[itemView.pos]}
+                .map {
+                    it.login}
                 .subscribe (
                     {router.replaceScreen(Screens.UserScreen(it))},
                     {Log.d(TAG, "UsersPresenter onError ${it.message}")})
