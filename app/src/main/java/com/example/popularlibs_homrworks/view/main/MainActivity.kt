@@ -1,14 +1,11 @@
 package com.example.popularlibs_homrworks.view.main
 
 import android.os.Bundle
-import android.os.Handler
 import android.util.Log
 import com.example.popularlibs_homrworks.App
 import com.example.popularlibs_homrworks.R
 import com.example.popularlibs_homrworks.presenter.MainPresenter
 import com.example.popularlibs_homrworks.view.fragments.BackButtonListener
-import com.example.popularlibs_homrworks.view.fragments.UsersFragment
-import com.google.android.material.snackbar.Snackbar
 import moxy.MvpAppCompatActivity
 import moxy.ktx.moxyPresenter
 import ru.terrakok.cicerone.android.support.SupportAppNavigator
@@ -21,7 +18,6 @@ class MainActivity: MvpAppCompatActivity(), MainView {
         this, supportFragmentManager,
         R.id.container
     )
-    var doubleBackToExitPressedOnce = false
 
     val presenter: MainPresenter by moxyPresenter { MainPresenter(App.instance.router) }
 
