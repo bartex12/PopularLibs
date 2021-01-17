@@ -17,7 +17,6 @@ class UserPresenter(val router: Router):
     }
 
     fun backPressed():Boolean {
-       // router.navigateTo(Screens.UsersScreen()) //циклический обход - завис
         router.replaceScreen(Screens.UsersScreen())
         Log.d(TAG, "UserPresenter backPressed ")
         return true

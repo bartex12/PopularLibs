@@ -46,6 +46,14 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
      //cicerone
     implementation 'ru.terrakok.cicerone:cicerone:5.0.0'
+    //для rx
+    implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
+    implementation 'io.reactivex.rxjava3:rxjava:3.0.0'
+    //расширения Котлин для RxJava?
+    implementation 'io.reactivex.rxjava2:rxkotlin:2.3.0'
+
+    //материал
+    implementation 'com.google.android.material:material:1.2.1'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'

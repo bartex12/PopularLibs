@@ -7,16 +7,19 @@ import com.example.popularlibs_homrworks.model.GithubUser
 import com.example.popularlibs_homrworks.model.GithubUsersRepo
 import com.example.popularlibs_homrworks.view.adapter.UserItemView
 import com.example.popularlibs_homrworks.view.main.TAG
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.disposables.Disposable
 import moxy.MvpPresenter
 import ru.terrakok.cicerone.Router
-
 
 //презентер для работы с фрагментом UsersFragment,  Router для навигации
 class UsersPresenter(val usersRepo: GithubUsersRepo, val router: Router):
     MvpPresenter<UsersView>() {
 
     val usersListPresenter =  UsersListPresenter()
+    var disposable: Disposable? = null
 
+    //вложенный класс для работы с адаптером
     class UsersListPresenter : IUserListPresenter {
         val users = mutableListOf<GithubUser>()
         override var itemClickListener: ((UserItemView) -> Unit)? = null
@@ -25,6 +28,7 @@ class UsersPresenter(val usersRepo: GithubUsersRepo, val router: Router):
 
         override fun bindView(view: UserItemView) {
             val user = users[view.pos]
+            users[view.pos]
             view.setLogin(user.login)
         }
     }
@@ -34,30 +38,38 @@ class UsersPresenter(val usersRepo: GithubUsersRepo, val router: Router):
         viewState.init()
         loadData()
 
+        //переход на экран детализации
         usersListPresenter.itemClickListener = { itemView ->
-            //переход на экран пользователя
-           val login =  usersListPresenter.users[itemView.pos].login
-            Log.d(TAG, "UsersPresenter itemClickListener login =$login")
-            router.replaceScreen(Screens.UserScreen(login))
+            //получение login через RxJava
+            val disp =  Observable.just(usersListPresenter.users)
+                .map {
+                    it[itemView.pos]}
+                .map {
+                    it.login}
+                .subscribe (
+                    {router.replaceScreen(Screens.UserScreen(it))},
+                    {Log.d(TAG, "UsersPresenter onError ${it.message}")})
+            disp?.dispose() // уход на другой экран - отписка
         }
     }
 
+    //всё в Main потоке, так как имитация данных
     fun loadData() {
-        val users =  usersRepo.getUsers()
-        usersListPresenter.users.addAll(users)
-        viewState.updateList()
+        disposable =   usersRepo.getUsers()
+            .subscribe(
+                { user -> usersListPresenter.users.add(user)},
+                {error -> Log.d(TAG, "UsersPresenter onError ${error.message}")},
+                {Log.d(TAG, "UsersPresenter onCompleted  ")
+                viewState.updateList() //обновляем после окончания передачи данных
+                })
     }
 
-    //Методичка:
-    //Для обработки нажатия клавиши «Назад» добавлена функция backPressed(), возвращающая Boolean,
-    // в которой мы передаем обработку выхода с экрана роутеру. Вообще, функции Presenter,
-    // согласно парадигме, не должны ничего возвращать, но в данном случае приходится
-    // идти на компромисс из-за недостатков фреймворка. Дело в том, что у фрагмента
-    // нет своего коллбэка для обработки перехода назад и нам придется пробрасывать его из Activity.
-    // А возвращаемое значение нужно, чтобы в Activity мы могли определить,
+    // возвращаемое значение нужно, чтобы в Activity мы могли определить,
     // было ли событие нажатия поглощено фрагментом или нужно обработать его стандартным способом.
     fun backPressed(): Boolean {
         router.exit()
+        disposable?.dispose() //выход с экрана - отписка на всякий случай
         return true
     }
+
 }
