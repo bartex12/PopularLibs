@@ -34,16 +34,17 @@ class RepositoryImpl:Repository {
 
     fun convertToPNG(file:File):Boolean {
         var fOut: OutputStream? =null
-        val bitmap = BitmapFactory.decodeFile(file.getAbsolutePath())
+        val oldFile  = File(file, "tree.jpg") // путь к jpg
+        val bitmap = BitmapFactory.decodeFile(oldFile.absolutePath) //bitmap для jpg
+        val newFile = File(file, "tree.png") //меняем файл - новый путь
+        Log.d(TAG, "RepositoryImpl convertToPNG путь к PNG = ${newFile.absolutePath}")
         try{
-            fOut = FileOutputStream(file)
-            bitmap.compress(Bitmap.CompressFormat.PNG, 0, fOut)
+            fOut = FileOutputStream(newFile)
+            bitmap.compress(Bitmap.CompressFormat.PNG, 0, fOut) //конвертация в png
             fOut.flush()
-            Toast.makeText(App.instance, " Сохранено PNG", Toast.LENGTH_SHORT ).show()
             return true
         }catch (e:Exception){
             e.printStackTrace()
-            Toast.makeText(App.instance, "НЕ сохранено PNG ${e.printStackTrace()}", Toast.LENGTH_LONG ).show()
             return false
         }finally {
             fOut?.close()
@@ -60,7 +61,7 @@ class RepositoryImpl:Repository {
             try {
                 sdCard = App.instance.applicationContext
                     .getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-                Log.d(TAG, "saveFile:MEDIA_MOUNTED")
+                Log.d(TAG, "RepositoryImpl : MEDIA_MOUNTED")
             } catch (e: Throwable) {
                 e.printStackTrace()
             }
@@ -68,13 +69,12 @@ class RepositoryImpl:Repository {
         }else if (sdState.equals(Environment.MEDIA_SHARED)){
             try {
                 sdCard = App.instance.getFilesDir()
-                Log.d(TAG, "saveFile:MEDIA_SHARED")
+                Log.d(TAG, "RepositoryImpl : MEDIA_SHARED")
             } catch (e: Throwable) {
                 e.printStackTrace()
             }
         }
         val sdCardCat = sdCard?. let {File(sdCard, "/MyImages")}
-        Log.d(TAG, "saveFile: путь = ${sdCardCat?.absolutePath}")
         sdCardCat?.mkdir()
         return Observable.just(sdCardCat)
 
@@ -101,7 +101,7 @@ class RepositoryImpl:Repository {
     fun saveJPG(fileRepo:File?):Boolean{
         val file: File = File(fileRepo, "tree.jpg"  )
         if (file.exists ()) file.delete()
-
+        Log.d(TAG, "RepositoryImpl saveJPG путь к JPG = ${file.absolutePath}")
         //получаем  Bitmap из ресурсов
         val bitmap =BitmapFactory.decodeResource(App.instance.resources, R.drawable.tree)
         var fOut: OutputStream? =null

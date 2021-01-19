@@ -1,7 +1,6 @@
 package com.example.popularlibs_homrworks.view
 
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -12,9 +11,6 @@ import com.example.popularlibs_homrworks.presenter.MainPresenterImpl
 import com.example.popularlibs_homrworks.presenter.MainView
 import com.example.popularlibs_homrworks.repository.RepositoryImpl
 import kotlinx.android.synthetic.main.activity_main.*
-import java.io.File
-import java.io.FileOutputStream
-import java.io.OutputStream
 
 
 const val TAG = "33333"
@@ -31,7 +27,7 @@ class MainActivity : AppCompatActivity(), MainView {
         setContentView(R.layout.activity_main)
 
         btn_counter1.setOnClickListener {
-            presenter.readJPG()
+            presenter.readAndShowJPG()
             presenter.convertJPG_toPNG()
         }
     }
@@ -60,6 +56,6 @@ class MainActivity : AppCompatActivity(), MainView {
 
     override fun showJPGimage(bitmap: Bitmap) {
         imageView.setImageBitmap(bitmap)
-        Log.d(TAG, "MainActivity showJPGimage: ")
+        //Log.d(TAG, "MainActivity showJPGimage: ")
     }
 }

@@ -25,35 +25,33 @@ class MainPresenterImpl(val view:MainView, val repo: Repository): MainPresenter 
                      {view.saveJPGsuccess_Toast()},
                      {it.message?.let { it1 -> view.showError(it1) }})
             },
-            {it.message?.let { it1 -> view.showError(it1) }},
-            { Log.d(TAG, "MainPresenterImpl saveJPGfile  - Завершено успешно")})
+            {it.message?.let { it1 -> view.showError(it1) }})
 
     }
 
-    override fun readJPG() {
-        repo.readJPGpathFile()
-            .map {BitmapFactory.decodeFile(it)}
+    override fun readAndShowJPG() {
+        repo.getDir()
+            .subscribeOn(Schedulers.io()) //уходим в другой поток
+            .map {File(it, "tree.jpg")} //переход от папки к файлу изображения
+            .map { it.absolutePath} //переход к строке для пути
+            .map {BitmapFactory.decodeFile(it)} //переход к bitmap
+            .observeOn(AndroidSchedulers.mainThread()) //возврат в поток UI
             .subscribe(
                 {view.showJPGimage(it)},
                 {it.message?.let { it1 -> view.showError(it1) }})
     }
 
     override fun convertJPG_toPNG() {
-        repo.readJPGpathFile()
+        repo.getDir()
             .subscribeOn(Schedulers.io())
-            .map { File(it) }
-            .observeOn(AndroidSchedulers.mainThread())
             .subscribe ({
+                //Log.d(TAG, "MainPresenterImpl convertJPG_toPNG  - Путь ${it.absolutePath}")
                 repo.convertJPG_toPNG(it)
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe (
-                        {Log.d(TAG, "MainPresenterImpl convertJPG_toPNG  -${it.absolutePath.substringAfter(".")}")
-                            view.showPNGsuccess_Toast()},
-                        {it.message?.let { it1 -> view.showError(it1)
-                         Log.d(TAG, "MainPresenterImpl convertJPG_toPNG  -Конвертация НЕ успешно")
-                         }})
+                        {view.showPNGsuccess_Toast()},
+                        {it.message?.let { it1 -> view.showError(it1) }})
             },
-                {it.message?.let { it1 -> view.showError(it1) }},
-                {Log.d(TAG, "MainPresenterImpl convertJPG_toPNG  - Путь получен успешно")})
+                {it.message?.let { it1 -> view.showError(it1) }})
     }
 }

@@ -5,6 +5,6 @@ interface MainPresenter {
     fun getJPGBitmap()
     fun saveJPGfile()
 
-    fun readJPG()
+    fun readAndShowJPG()
     fun convertJPG_toPNG()
 }
