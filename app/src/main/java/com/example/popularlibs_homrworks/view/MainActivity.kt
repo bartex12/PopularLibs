@@ -1,8 +1,7 @@
 package com.example.popularlibs_homrworks.view
 
-import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.popularlibs_homrworks.R
@@ -54,8 +53,7 @@ class MainActivity : AppCompatActivity(), MainView {
         Toast.makeText(this, " Сохранено в файл в формате PNG", Toast.LENGTH_LONG ).show()
     }
 
-    override fun showJPGimage(bitmap: Bitmap) {
-        imageView.setImageBitmap(bitmap)
-        //Log.d(TAG, "MainActivity showJPGimage: ")
+    override fun showJPGimage(uri: Uri) {
+        imageView.setImageURI(uri)
     }
 }

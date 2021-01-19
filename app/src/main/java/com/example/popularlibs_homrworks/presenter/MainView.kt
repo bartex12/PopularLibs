@@ -1,7 +1,6 @@
 package com.example.popularlibs_homrworks.presenter
 
-import android.graphics.Bitmap
-import java.io.File
+import android.net.Uri
 
 interface MainView {
 
@@ -10,6 +9,6 @@ interface MainView {
 
     fun showError(message:String)
 
-    fun showJPGimage(bitmap: Bitmap)
+    fun showJPGimage(uri: Uri)
     fun showPNGsuccess_Toast()
 }
