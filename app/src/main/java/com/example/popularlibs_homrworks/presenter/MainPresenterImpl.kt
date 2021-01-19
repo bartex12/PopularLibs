@@ -1,6 +1,8 @@
 package com.example.popularlibs_homrworks.presenter
 
 import android.net.Uri
+import com.example.popularlibs_homrworks.App
+import com.example.popularlibs_homrworks.R
 import com.example.popularlibs_homrworks.repository.Repository
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -17,7 +19,7 @@ class MainPresenterImpl(val view:MainView, val repo: Repository): MainPresenter 
             {repo.saveJPGFile(it)
                  .observeOn(AndroidSchedulers.mainThread())
                  .subscribe(
-                     {view.saveJPGsuccess_Toast()},
+                     {view.showToast(App.instance.resources.getString(R.string.jpg_success))},
                      {it.message?.let { it1 -> view.showError(it1) }})
             },
             {it.message?.let { it1 -> view.showError(it1) }})
@@ -39,14 +41,15 @@ override fun readAndShowJPG() {
     override fun convertJPG_toPNG() {
         repo.getDir()
             .subscribeOn(Schedulers.io())
-            .observeOn(Schedulers.computation())
+            .observeOn(Schedulers.computation())//переход в поток для вычислений
             .subscribe ({
                 repo.convertJPG_toPNG(it)
-                    .observeOn(AndroidSchedulers.mainThread())
+                    .observeOn(AndroidSchedulers.mainThread())//переход в main поток для работы с view
                     .subscribe (
-                        {view.showPNGsuccess_Toast()},
-                        {it.message?.let { it1 -> view.showError(it1) }})
+                        {view.showToast(App.instance.resources.getString(R.string.png_success))},
+                        {it.message?.let { it1 -> view.showToast(it1) }})
             },
                 {it.message?.let { it1 -> view.showError(it1) }})
     }
+
 }

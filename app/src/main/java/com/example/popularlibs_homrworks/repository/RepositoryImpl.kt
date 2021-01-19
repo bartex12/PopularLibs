@@ -14,6 +14,7 @@ import java.io.FileOutputStream
 import java.io.OutputStream
 
 class RepositoryImpl:Repository {
+
     override fun readJPGpathFile():Observable<String> {
         val pathFile = App.instance.applicationContext
             .getExternalFilesDir(Environment.DIRECTORY_PICTURES)?.absolutePath +"/MyImages/tree.jpg"
@@ -78,11 +79,6 @@ class RepositoryImpl:Repository {
         return Observable.just(sdCardCat)
 
 
-    }
-
-    override fun getJPGBitmap():Bitmap {
-        val bitmap =BitmapFactory.decodeResource(App.instance.resources, R.drawable.tree)
-        return bitmap
     }
 
     override fun saveJPGFile(fileRepo:File?) = Completable.create { emitter ->
