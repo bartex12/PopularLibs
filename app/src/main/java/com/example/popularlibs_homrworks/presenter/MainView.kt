@@ -1,7 +1,15 @@
 package com.example.popularlibs_homrworks.presenter
 
+import android.graphics.Bitmap
+import java.io.File
+
 interface MainView {
-    fun setButtonText1(text:String)
-    fun setButtonText2(text:String)
-    fun setButtonText3(text:String)
+
+    fun saveJPGsuccess_Toast()
+    fun showJPGerror(message:String)
+    fun showError(message:String)
+
+    fun showJPGimage(bitmap: Bitmap)
+//    fun convertPNGandSave(file:File)
+    fun showPNGsuccess_Toast()
 }
