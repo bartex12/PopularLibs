@@ -2,6 +2,7 @@ package com.example.popularlibs_homrworks.view
 
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.popularlibs_homrworks.R
@@ -19,22 +20,40 @@ const val TAG = "33333"
 //выводим Toast, если конвертация и запись прошли успешно
 class MainActivity : AppCompatActivity(), MainView {
 
+    companion object{
+        const val IMAGE_URI = "IMAGE_URI"
+        const val JPG_FILE = "tree.jpg"
+        const val PNG_FILE = "tree.png"
+    }
+
+    private var uri:Uri? = null
     private val presenter: MainPresenter = MainPresenterImpl(this, RepositoryImpl())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        btn_counter1.setOnClickListener {
-            presenter.readAndShowJPG()
-            presenter.convertJPG_toPNG()
+        savedInstanceState?. let{
+            val stringUri = savedInstanceState.getString(IMAGE_URI)
+            tv_1.text = stringUri
+
+            uri = Uri.parse(stringUri)
+            uri?. let{imageView.setImageURI(uri)}
         }
+
+        btn_convert.setOnClickListener {
+            presenter.readAndShowJPG() //читаем tree.jpg и показываем на экране
+            presenter.convertJPG_toPNG() //конвертируем jpg в png и пишем на sd карту в tree.png
+            presenter.showFilePath(PNG_FILE) //показываем путь к tree.png
+        }
+
+        presenter.saveJPGfile() //записываем файл из drawable на sd карту в файл tree.jpg
+        presenter.showFilePath(JPG_FILE)//показываем путь к tree.jpg
     }
 
-    override fun onResume() {
-        super.onResume()
-       //записываем файл из drawable на sd карту
-        presenter.saveJPGfile()
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString(IMAGE_URI, uri.toString())
     }
 
     override fun showError(message: String) {
@@ -45,7 +64,14 @@ class MainActivity : AppCompatActivity(), MainView {
         Toast.makeText(this, message, Toast.LENGTH_SHORT ).show()
     }
 
-    override fun showJPGimage(uri: Uri) {
+    override fun showPath(uriString: String) {
+       // Log.d(TAG, "MainActivity showPath $uriString")
+        tv_1.text = uriString
+    }
+
+    override fun showJPGimage(uriString: String) {
+        uri  = Uri.parse(uriString)
         imageView.setImageURI(uri)
+
     }
 }

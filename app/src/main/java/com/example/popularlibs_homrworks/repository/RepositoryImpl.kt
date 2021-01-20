@@ -15,42 +15,6 @@ import java.io.OutputStream
 
 class RepositoryImpl:Repository {
 
-    override fun readJPGpathFile():Observable<String> {
-        val pathFile = App.instance.applicationContext
-            .getExternalFilesDir(Environment.DIRECTORY_PICTURES)?.absolutePath +"/MyImages/tree.jpg"
-        //val bitmap:Bitmap = BitmapFactory.decodeFile(pathFile)
-        return Observable.just(pathFile)
-    }
-
-    override fun convertJPG_toPNG(file:File)= Completable.create {emitter ->
-        convertToPNG(file). let{
-            if (it){
-                emitter.onComplete()
-            }else{
-                emitter.onError(RuntimeException("Ошибка конвертации JPG в PNG"))
-            }
-        }
-    }
-
-    fun convertToPNG(file:File):Boolean {
-        var fOut: OutputStream? =null
-        val oldFile  = File(file, "tree.jpg") // путь к jpg
-        val bitmap = BitmapFactory.decodeFile(oldFile.absolutePath) //bitmap для jpg
-        val newFile = File(file, "tree.png") //меняем файл - новый путь
-        Log.d(TAG, "RepositoryImpl convertToPNG путь к PNG = ${newFile.absolutePath}")
-        try{
-            fOut = FileOutputStream(newFile)
-            bitmap.compress(Bitmap.CompressFormat.PNG, 0, fOut) //конвертация в png
-            fOut.flush()
-            return true
-        }catch (e:Exception){
-            e.printStackTrace()
-            return false
-        }finally {
-            fOut?.close()
-        }
-    }
-
     override fun getDir(): Observable<File> {
         var sdCard: File? = null
 
@@ -77,8 +41,6 @@ class RepositoryImpl:Repository {
         val sdCardCat = sdCard?. let {File(sdCard, "/MyImages")}
         sdCardCat?.mkdir()
         return Observable.just(sdCardCat)
-
-
     }
 
     override fun saveJPGFile(fileRepo:File?) = Completable.create { emitter ->
@@ -91,7 +53,6 @@ class RepositoryImpl:Repository {
             }
         }
     }
-
 
     fun saveJPG(fileRepo:File?):Boolean{
         val file: File = File(fileRepo, "tree.jpg"  )
@@ -107,7 +68,36 @@ class RepositoryImpl:Repository {
             return true
         }catch (e:Exception){
             e.printStackTrace()
-        return false
+            return false
+        }finally {
+            fOut?.close()
+        }
+    }
+
+    override fun convertJPG_toPNG(file:File)= Completable.create {emitter ->
+        convertToPNG(file). let{
+            if (it){
+                emitter.onComplete()
+            }else{
+                emitter.onError(RuntimeException("Ошибка конвертации JPG в PNG"))
+            }
+        }
+    }
+
+    fun convertToPNG(file:File):Boolean {
+        var fOut: OutputStream? =null
+        val oldFile  = File(file, "tree.jpg") // путь к jpg
+        val bitmap = BitmapFactory.decodeFile(oldFile.absolutePath) //bitmap для jpg
+        val newFile = File(file, "tree.png") //меняем файл - новый путь
+        Log.d(TAG, "RepositoryImpl convertToPNG путь к PNG = ${newFile.absolutePath}")
+        try{
+            fOut = FileOutputStream(newFile)
+            bitmap.compress(Bitmap.CompressFormat.PNG, 0, fOut) //конвертация в png
+            fOut.flush()
+            return true
+        }catch (e:Exception){
+            e.printStackTrace()
+            return false
         }finally {
             fOut?.close()
         }

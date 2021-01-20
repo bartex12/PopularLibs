@@ -15,18 +15,18 @@
         android:scaleType="centerCrop"
         tools:srcCompat="@tools:sample/avatars" />
 
+    <Button
+        android:id="@+id/btn_convert"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tv_1"
+        android:text="@string/jpg_png" />
+
     <TextView
         android:id="@+id/tv_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=""/>
-
-    <Button
-        android:id="@+id/btn_counter1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/tv_1"
-        android:text="@string/jpg_png" />
 
 
 </LinearLayout>
