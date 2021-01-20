@@ -15,6 +15,11 @@ import java.io.OutputStream
 
 class RepositoryImpl:Repository {
 
+    companion object{
+        const val JPG_FILE = "tree.jpg"
+        const val PNG_FILE = "tree.png"
+    }
+
     override fun getDir(): Observable<File> {
         var sdCard: File? = null
 
@@ -55,7 +60,7 @@ class RepositoryImpl:Repository {
     }
 
     fun saveJPG(fileRepo:File?):Boolean{
-        val file: File = File(fileRepo, "tree.jpg"  )
+        val file = File(fileRepo, JPG_FILE  )
         if (file.exists ()) file.delete()
         Log.d(TAG, "RepositoryImpl saveJPG путь к JPG = ${file.absolutePath}")
         //получаем  Bitmap из ресурсов
@@ -86,9 +91,9 @@ class RepositoryImpl:Repository {
 
     fun convertToPNG(file:File):Boolean {
         var fOut: OutputStream? =null
-        val oldFile  = File(file, "tree.jpg") // путь к jpg
+        val oldFile  = File(file, JPG_FILE) // путь к jpg
         val bitmap = BitmapFactory.decodeFile(oldFile.absolutePath) //bitmap для jpg
-        val newFile = File(file, "tree.png") //меняем файл - новый путь
+        val newFile = File(file, PNG_FILE) //меняем файл - новый путь
         Log.d(TAG, "RepositoryImpl convertToPNG путь к PNG = ${newFile.absolutePath}")
         try{
             fOut = FileOutputStream(newFile)
