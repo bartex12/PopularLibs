@@ -8,7 +8,7 @@ import androidx.fragment.app.DialogFragment
 import com.example.popularlibs_homrworks.R
 import com.example.popularlibs_homrworks.presenter.MainPresenter
 
-class MyDialofFragment(val presenter:MainPresenter): DialogFragment() {
+class MyDialofFragment(): DialogFragment() {
 
     lateinit var onCancelListener:OnCancelListener
 

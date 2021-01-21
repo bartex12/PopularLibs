@@ -25,7 +25,6 @@ class MainActivity : AppCompatActivity(), MainView , MyDialofFragment.OnCancelLi
 
     private var uri:Uri? = null
     private val presenter: MainPresenter = MainPresenterImpl(this, RepositoryImpl())
-    val dialog = MyDialofFragment(presenter)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,7 +57,7 @@ class MainActivity : AppCompatActivity(), MainView , MyDialofFragment.OnCancelLi
 }
 
     override fun showDialog() {
-       dialog.show(supportFragmentManager, "MyDialog")
+        MyDialofFragment().show(supportFragmentManager, "MyDialog")
     }
 
     override fun showJPGimage(uriString: String) {
