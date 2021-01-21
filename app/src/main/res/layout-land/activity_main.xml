@@ -3,25 +3,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     android:gravity="center_horizontal"
     android:padding="16dp">
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_width="0dp"
+        android:layout_height="140dp"
+        android:layout_weight="1"
         android:scaleType="centerCrop"
         tools:srcCompat="@tools:sample/avatars" />
 
-    <Button
-        android:id="@+id/btn_convert"
-        android:textColor="@color/colorPrimary"
-        android:background="@drawable/ramka"
-        android:padding="8dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="@string/jpg_png" />
+
+        <Button
+            android:id="@+id/btn_convert"
+            android:background="@drawable/ramka"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/jpg_png" />
+
+
 
 </LinearLayout>
