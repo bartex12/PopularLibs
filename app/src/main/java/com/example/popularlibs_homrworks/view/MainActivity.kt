@@ -17,7 +17,7 @@ const val TAG = "33333"
 //при открытии приложения пишем jpg файл из  drawable на  sd карту, выводим Toast если успешно
 //по щелчку на кнопке читаем jpg файл, показываем на экране , конвертируем в PNG и пишем обратно
 //выводим Toast, если конвертация и запись прошли успешно
-class MainActivity : AppCompatActivity(), MainView {
+class MainActivity : AppCompatActivity(), MainView , MyDialofFragment.OnCancelListener{
 
     companion object{
         const val IMAGE_URI = "IMAGE_URI"
@@ -25,6 +25,7 @@ class MainActivity : AppCompatActivity(), MainView {
 
     private var uri:Uri? = null
     private val presenter: MainPresenter = MainPresenterImpl(this, RepositoryImpl())
+    val dialog = MyDialofFragment(presenter)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,7 +39,7 @@ class MainActivity : AppCompatActivity(), MainView {
 
         btn_convert.setOnClickListener {
             presenter.readAndShowJPG() //читаем tree.jpg и показываем на экране
-            presenter.convertJPG_toPNG() //конвертируем jpg в png и пишем на sd карту в tree.png
+            presenter.showConvertDialog() //конвертируем jpg в png и пишем на sd карту в tree.png
         }
         presenter.saveJPGfile() //записываем файл из drawable на sd карту в файл tree.jpg
     }
@@ -54,10 +55,19 @@ class MainActivity : AppCompatActivity(), MainView {
 
     override fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT ).show()
+}
+
+    override fun showDialog() {
+       dialog.show(supportFragmentManager, "MyDialog")
     }
 
     override fun showJPGimage(uriString: String) {
         uri  = Uri.parse(uriString)
         imageView.setImageURI(uri)
     }
-}
+
+    override fun onCancel(isCancel:Boolean) =
+        if (isCancel) presenter.convertJPGtoPNG()
+        else Toast.makeText(this, getString(R.string.abortConvert), Toast.LENGTH_SHORT ).show()
+
+    }

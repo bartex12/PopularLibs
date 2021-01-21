@@ -4,6 +4,7 @@ interface MainPresenter {
 
     fun saveJPGfile()
     fun readAndShowJPG()
-    fun convertJPG_toPNG()
+    fun showConvertDialog()
+    fun convertJPGtoPNG()
 
 }

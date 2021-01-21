@@ -1,10 +1,13 @@
 package com.example.popularlibs_homrworks.presenter
 
 import android.net.Uri
+import android.util.Log
 import com.example.popularlibs_homrworks.App
 import com.example.popularlibs_homrworks.R
 import com.example.popularlibs_homrworks.repository.Repository
+import com.example.popularlibs_homrworks.view.TAG
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import java.io.File
 
@@ -43,7 +46,12 @@ class MainPresenterImpl(val view:MainView, val repo: Repository): MainPresenter 
                 { it.message?.let { it1 -> view.showError(it1) } })
     }
 
-    override fun convertJPG_toPNG() {
+    override fun showConvertDialog() {
+        view.showDialog()
+    }
+
+    override fun convertJPGtoPNG() {
+        Log.d(TAG, "MainPresenterImpl convert *** ")
         repo.getDir()
             .subscribeOn(Schedulers.io())
             .observeOn(Schedulers.computation())//переход в поток для вычислений

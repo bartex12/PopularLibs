@@ -1,7 +1,12 @@
 <resources>
-    <string name="app_name">PopularLibs_Homrworks_Less1</string>
+    <string name="app_name">PopularLibs_Homrworks_Less4</string>
     <string name="jpg_png">показать JPG и сохранить PNG</string>
     <string name="jpg_success">Сохранено в файл в формате JPG</string>
     <string name="png_success"> Сохранено в файл в формате PNG</string>
     <string name="error">Error</string>
+    <string name="abortConvert">Конвертация прервана пользователем</string>
+    <string name="convert">Конвертировать в PNG ?</string>
+    <string name="cont">Продолжить</string>
+    <string name="abort">Отменить</string>
+    <string name="errorDialog">Activity cannot be null</string>
 </resources>

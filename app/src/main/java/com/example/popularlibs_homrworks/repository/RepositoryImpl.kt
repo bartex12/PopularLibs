@@ -4,6 +4,7 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Environment
 import android.util.Log
+import androidx.appcompat.app.AlertDialog
 import com.example.popularlibs_homrworks.App
 import com.example.popularlibs_homrworks.R
 import com.example.popularlibs_homrworks.view.TAG
@@ -58,6 +59,7 @@ class RepositoryImpl:Repository {
             }
         }
     }
+
 
     fun saveJPG(fileRepo:File?):Boolean{
         val file = File(fileRepo, JPG_FILE  )
