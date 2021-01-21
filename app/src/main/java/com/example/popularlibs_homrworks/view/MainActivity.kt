@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity(), MainView , MyDialofFragment.OnCancelLi
 
         btn_convert.setOnClickListener {
             presenter.readAndShowJPG() //читаем tree.jpg и показываем на экране
-            presenter.showConvertDialog() //конвертируем jpg в png и пишем на sd карту в tree.png
+            presenter.showConvertDialog() //вызываем диалог
         }
         presenter.saveJPGfile() //записываем файл из drawable на sd карту в файл tree.jpg
     }
@@ -66,7 +66,7 @@ class MainActivity : AppCompatActivity(), MainView , MyDialofFragment.OnCancelLi
     }
 
     override fun onCancel(isCancel:Boolean) =
-        if (isCancel) presenter.convertJPGtoPNG()
+        if (isCancel) presenter.convertJPGtoPNG() //конвертируем jpg в png и пишем на sd карту в tree.png
         else Toast.makeText(this, getString(R.string.abortConvert), Toast.LENGTH_SHORT ).show()
 
     }
