@@ -9,9 +9,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.popularlibs_homrworks.App
 import com.example.popularlibs_homrworks.R
 import com.example.popularlibs_homrworks.model.GithubUsersRepo
+import com.example.popularlibs_homrworks.model.api.ApiHolder
+import com.example.popularlibs_homrworks.model.repository.IGithubUsersRepo
+import com.example.popularlibs_homrworks.model.repository.RetrofitGithubUsersRepo
 import com.example.popularlibs_homrworks.presenter.UsersPresenter
 import com.example.popularlibs_homrworks.view.adapter.UsersRVAdapter
 import com.example.popularlibs_homrworks.view.main.TAG
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.fragment_users.*
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
@@ -22,7 +26,8 @@ class UsersFragment : MvpAppCompatFragment(),    UsersView,    BackButtonListene
     companion object { fun newInstance() = UsersFragment()}
 
     val presenter: UsersPresenter by moxyPresenter {
-        UsersPresenter(GithubUsersRepo(), App.instance.router) }
+        UsersPresenter(AndroidSchedulers.mainThread(),
+            RetrofitGithubUsersRepo(ApiHolder.api), App.instance.router) }
 
     var adapter: UsersRVAdapter? = null
 
