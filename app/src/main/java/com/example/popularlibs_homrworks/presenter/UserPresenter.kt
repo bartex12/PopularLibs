@@ -20,11 +20,11 @@ class UserPresenter(val mainThreadScheduler: Scheduler,
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
-        
-        user.repos_url?. let{ it ->
-            usersRepo.getUserRepo(it)
+
+        user.repos_url?. let{url->
+            usersRepo.getUserRepo(url)
                 .map {list->list.size }
-                .observeOn(AndroidSchedulers.mainThread())
+                .observeOn(mainThreadScheduler)
                 .subscribe(
                     {viewState.setUserLogin(it.toString())
                     Log.d(TAG, "UserPresenter onFirstViewAttach list.size = $it ")
