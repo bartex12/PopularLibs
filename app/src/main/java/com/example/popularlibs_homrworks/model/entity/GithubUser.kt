@@ -1,4 +1,4 @@
-package com.example.popularlibs_homrworks.model
+package com.example.popularlibs_homrworks.model.entity
 
 import android.os.Parcelable
 import com.google.gson.annotations.Expose
@@ -13,6 +13,7 @@ import java.io.Serializable
 data class GithubUser(
     @Expose val id: String? = null,
     @Expose val login: String? = null,
-    @Expose val avatarUrl: String? = null
+    @Expose val avatarUrl: String? = null,
+    @Expose val repos_url:String? = null
 ):Parcelable, Serializable {
 }

@@ -8,9 +8,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.popularlibs_homrworks.App
 import com.example.popularlibs_homrworks.R
-import com.example.popularlibs_homrworks.model.GithubUsersRepo
+import com.example.popularlibs_homrworks.model.GlideImageLoader
 import com.example.popularlibs_homrworks.model.api.ApiHolder
-import com.example.popularlibs_homrworks.model.repository.IGithubUsersRepo
 import com.example.popularlibs_homrworks.model.repository.RetrofitGithubUsersRepo
 import com.example.popularlibs_homrworks.presenter.UsersPresenter
 import com.example.popularlibs_homrworks.view.adapter.UsersRVAdapter
@@ -36,7 +35,7 @@ class UsersFragment : MvpAppCompatFragment(),    UsersView,    BackButtonListene
 
     override fun init() {
         rv_users.layoutManager = LinearLayoutManager(context)
-        adapter = UsersRVAdapter( presenter.usersListPresenter )
+        adapter = UsersRVAdapter( presenter.usersListPresenter, GlideImageLoader() )
         rv_users.adapter = adapter
     }
 
