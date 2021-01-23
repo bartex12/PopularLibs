@@ -1,6 +1,7 @@
-package com.example.popularlibs_homrworks.model.room
+package com.example.popularlibs_homrworks.model.room.database
 
 import androidx.room.*
+import com.example.popularlibs_homrworks.model.room.tables.RoomGithubRepository
 
 /*
 *  стандартные CRUD разных вариаций для создания, чтения, обновления и удаления данных, а также
