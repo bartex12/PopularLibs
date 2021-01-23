@@ -32,6 +32,4 @@ abstract class Database:RoomDatabase() {
             }
         }
     }
-
-    }
 }
