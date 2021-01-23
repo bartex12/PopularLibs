@@ -1,21 +1,18 @@
-package com.example.popularlibs_homrworks.view.adapter
+package com.example.popularlibs_homrworks.view.adapters.users
 
-import android.net.Uri
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.popularlibs_homrworks.R
-import com.example.popularlibs_homrworks.model.IImageLoader
-import com.example.popularlibs_homrworks.presenter.IUserListPresenter
-import com.example.popularlibs_homrworks.view.main.TAG
+import com.example.popularlibs_homrworks.model.repositories.glide.IImageLoader
+import com.example.popularlibs_homrworks.presenters.users.IUserListPresenter
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_user.view.*
 
 
-class UsersRVAdapter(val presenter: IUserListPresenter, val imageLoader:IImageLoader<ImageView>)
+class UsersRVAdapter(val presenter: IUserListPresenter, val imageLoader: IImageLoader<ImageView>)
     : RecyclerView.Adapter<UsersRVAdapter.ViewHolder> () {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

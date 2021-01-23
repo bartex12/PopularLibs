@@ -1,4 +1,4 @@
-package com.example.popularlibs_homrworks.model.repository
+package com.example.popularlibs_homrworks.model.repositories.users
 
 import com.example.popularlibs_homrworks.model.entity.GithubUser
 import io.reactivex.rxjava3.core.Single

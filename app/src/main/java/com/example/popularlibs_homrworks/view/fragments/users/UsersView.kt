@@ -1,4 +1,4 @@
-package com.example.popularlibs_homrworks.view.fragments
+package com.example.popularlibs_homrworks.view.fragments.users
 
 import moxy.MvpView
 import moxy.viewstate.strategy.AddToEndSingleStrategy

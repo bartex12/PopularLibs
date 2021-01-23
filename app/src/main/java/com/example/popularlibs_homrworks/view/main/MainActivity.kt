@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import com.example.popularlibs_homrworks.App
 import com.example.popularlibs_homrworks.R
-import com.example.popularlibs_homrworks.presenter.MainPresenter
+import com.example.popularlibs_homrworks.presenters.main.MainPresenter
 import com.example.popularlibs_homrworks.view.fragments.BackButtonListener
 import moxy.MvpAppCompatActivity
 import moxy.ktx.moxyPresenter
@@ -19,7 +19,11 @@ class MainActivity: MvpAppCompatActivity(), MainView {
         R.id.container
     )
 
-    val presenter: MainPresenter by moxyPresenter { MainPresenter(App.instance.router) }
+    val presenter: MainPresenter by moxyPresenter {
+        MainPresenter(
+            App.instance.router
+        )
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

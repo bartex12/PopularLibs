@@ -1,4 +1,4 @@
-package com.example.popularlibs_homrworks.model
+package com.example.popularlibs_homrworks.model.repositories.glide
 
 //создадим интерфейс IImageLoader, так как в будущем мы можем вдруг по какой-то причине решить
 // заменить способ загрузки изображений каким-либо образом (например, воспользоваться какой-нибудь

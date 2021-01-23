@@ -1,11 +1,11 @@
-package com.example.popularlibs_homrworks.presenter
+package com.example.popularlibs_homrworks.presenters.users
 
 import android.util.Log
 import com.example.popularlibs_homrworks.Screens
-import com.example.popularlibs_homrworks.view.fragments.UsersView
 import com.example.popularlibs_homrworks.model.entity.GithubUser
-import com.example.popularlibs_homrworks.model.repository.IGithubUsersRepo
-import com.example.popularlibs_homrworks.view.adapter.UserItemView
+import com.example.popularlibs_homrworks.model.repositories.users.IGithubUsersRepo
+import com.example.popularlibs_homrworks.view.adapters.users.UserItemView
+import com.example.popularlibs_homrworks.view.fragments.users.UsersView
 import com.example.popularlibs_homrworks.view.main.TAG
 import io.reactivex.rxjava3.core.Scheduler
 import moxy.MvpPresenter
@@ -13,12 +13,14 @@ import ru.terrakok.cicerone.Router
 
 //презентер для работы с фрагментом UsersFragment,  Router для навигации
 class UsersPresenter(val mainThreadScheduler: Scheduler, val usersRepo: IGithubUsersRepo,
- val router: Router): MvpPresenter<UsersView>() {
+                     val router: Router): MvpPresenter<UsersView>() {
 
-    val usersListPresenter =  UsersListPresenter()
+    val usersListPresenter =
+        UsersListPresenter()
 
     //вложенный класс для работы с адаптером
-    class UsersListPresenter : IUserListPresenter {
+    class UsersListPresenter :
+        IUserListPresenter {
         val users = mutableListOf<GithubUser>()
         override var itemClickListener: ((UserItemView) -> Unit)? = null
 
@@ -36,9 +38,8 @@ class UsersPresenter(val mainThreadScheduler: Scheduler, val usersRepo: IGithubU
         viewState.init()
         loadData()
 
-        //переход на экран детализации
+        //переход на экран списка репозиториев
         usersListPresenter.itemClickListener = { itemView ->
-            //получение login через RxJava
             val user = usersListPresenter.users[itemView.pos]
             router.navigateTo(Screens.UserScreen(user))
         }
