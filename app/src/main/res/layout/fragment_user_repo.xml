@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.fragments.details.DetailsFragment">
-    
+
     <TextView
         android:id="@+id/tv_user_forks"
         android:layout_width="match_parent"
