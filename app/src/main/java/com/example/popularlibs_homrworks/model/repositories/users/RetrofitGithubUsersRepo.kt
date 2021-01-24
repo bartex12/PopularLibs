@@ -4,7 +4,7 @@ import com.example.popularlibs_homrworks.model.api.IDataSource
 import com.example.popularlibs_homrworks.model.entity.GithubUser
 import com.example.popularlibs_homrworks.model.room.database.Database
 import com.example.popularlibs_homrworks.model.room.network.INetworkStatus
-import com.example.popularlibs_homrworks.model.room.tables.RoomGithubUser
+import com.example.popularlibs_homrworks.model.room.tablesroom.RoomGithubUser
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
 

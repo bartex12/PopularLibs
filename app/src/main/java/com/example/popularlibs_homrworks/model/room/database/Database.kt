@@ -3,8 +3,8 @@ package com.example.popularlibs_homrworks.model.room.database
 import android.content.Context
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.popularlibs_homrworks.model.room.tables.RoomGithubRepository
-import com.example.popularlibs_homrworks.model.room.tables.RoomGithubUser
+import com.example.popularlibs_homrworks.model.room.tablesroom.RoomGithubRepository
+import com.example.popularlibs_homrworks.model.room.tablesroom.RoomGithubUser
 
 /*
 * Перечисляем сущности в аннотации, наследуемся от RoomDatabase и перечисляем DAO в виде

@@ -5,7 +5,7 @@ import com.example.popularlibs_homrworks.model.entity.GithubUser
 import com.example.popularlibs_homrworks.model.entity.GithubUserRepos
 import com.example.popularlibs_homrworks.model.room.database.Database
 import com.example.popularlibs_homrworks.model.room.network.INetworkStatus
-import com.example.popularlibs_homrworks.model.room.tables.RoomGithubRepository
+import com.example.popularlibs_homrworks.model.room.tablesroom.RoomGithubRepository
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
 
