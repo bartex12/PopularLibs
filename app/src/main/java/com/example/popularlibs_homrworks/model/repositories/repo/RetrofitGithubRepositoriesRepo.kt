@@ -3,14 +3,15 @@ package com.example.popularlibs_homrworks.model.repositories.repo
 import com.example.popularlibs_homrworks.model.api.IDataSource
 import com.example.popularlibs_homrworks.model.entity.GithubUser
 import com.example.popularlibs_homrworks.model.entity.GithubUserRepos
+import com.example.popularlibs_homrworks.model.repositories.repo.cash.IRoomRepositiriesRepoCash
 import com.example.popularlibs_homrworks.model.room.database.Database
 import com.example.popularlibs_homrworks.model.room.network.INetworkStatus
-import com.example.popularlibs_homrworks.model.room.tablesroom.RoomGithubRepository
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
 
-class RetrofitGithubRepositiriesRepo(val api: IDataSource, val networkStatus: INetworkStatus,
-    val db: Database):IGithubRepositoriesRepo {
+class RetrofitGithubRepositoriesRepo(val api: IDataSource, val networkStatus: INetworkStatus,
+                                     val db: Database, val roomCash: IRoomRepositiriesRepoCash
+):IGithubRepositoriesRepo {
 
     override fun getUserRepo(user: GithubUser): Single<List<GithubUserRepos>> =
         networkStatus.isOnlineSingle().flatMap {isOnLine->
@@ -21,22 +22,9 @@ class RetrofitGithubRepositiriesRepo(val api: IDataSource, val networkStatus: IN
                     user.repos_url?. let{url->
                         api.getUserRepos(url) //получаем репозитории в виде  Single<List<GithubUserRepos>>
                             .flatMap {repos->  //доступ к List<GithubUserRepos>
-                                Single.fromCallable { //возвращаемся к Single<List<GithubUserRepos>>
-                                    //получаем в базе юзера по его логину -для того, чтобы
-                                    // записать его id во вторую таблицу
-                                    // если в базе такого юзера нет - бросаем исключение
-                                    val roomUser =user.login?. let {
-                                        db.userDao.findByLogin(it)
-                                    }?:throw RuntimeException("No such user in cache")
-                                    //
-                                    val roomRepos  = repos.map {repos->
-                                        RoomGithubRepository(id =repos.id?:"",  name = repos.name?:"",
-                                            forksCount=repos.forks?:0, userId = roomUser.id)
-                                    }
-                                    //пишем в таблицу репозитории roomRepos юзера roomUser  с заданным логином
-                                    db.repositoryDao.insert(roomRepos)
-                                    return@fromCallable  repos  //возвращаем тот же  Single<List<GithubUserRepos>>
-                                }
+                                //реализация кэширования списка репозиториев
+                                // конкретного пользователя user из сети в базу данных
+                                roomCash.doUserReposCache(user, repos, db)
                             }
                     }?:Single.error<List<GithubUserRepos>>(RuntimeException("User has no repos url"))
                         .subscribeOn(Schedulers.io())

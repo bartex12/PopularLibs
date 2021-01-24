@@ -11,6 +11,7 @@ import com.example.popularlibs_homrworks.R
 import com.example.popularlibs_homrworks.model.api.ApiHolder
 import com.example.popularlibs_homrworks.model.repositories.glide.GlideImageLoader
 import com.example.popularlibs_homrworks.model.repositories.users.RetrofitGithubUsersRepo
+import com.example.popularlibs_homrworks.model.repositories.users.cash.RoomGithubUsersCache
 import com.example.popularlibs_homrworks.model.room.database.Database
 import com.example.popularlibs_homrworks.model.room.network.AndroidNetworkStatus
 import com.example.popularlibs_homrworks.presenters.users.UsersPresenter
@@ -34,7 +35,10 @@ class UsersFragment : MvpAppCompatFragment(),
         UsersPresenter(
             AndroidSchedulers.mainThread(),
             RetrofitGithubUsersRepo(
-                ApiHolder.api, AndroidNetworkStatus(App.instance), Database.getInstance()),
+                ApiHolder.api, AndroidNetworkStatus(App.instance),
+                Database.getInstance(),
+                RoomGithubUsersCache()
+            ),
             App.instance.router
         )
     }
