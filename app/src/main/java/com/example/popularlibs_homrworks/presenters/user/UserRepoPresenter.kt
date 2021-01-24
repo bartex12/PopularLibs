@@ -4,7 +4,7 @@ import android.util.Log
 import com.example.popularlibs_homrworks.Screens
 import com.example.popularlibs_homrworks.model.entity.GithubUser
 import com.example.popularlibs_homrworks.model.entity.GithubUserRepos
-import com.example.popularlibs_homrworks.model.repositories.user.IGithubUserRepo
+import com.example.popularlibs_homrworks.model.repositories.repo.IGithubRepositoriesRepo
 import com.example.popularlibs_homrworks.view.adapters.user.UserRepoItemView
 import com.example.popularlibs_homrworks.view.fragments.user.UserView
 import com.example.popularlibs_homrworks.view.main.TAG
@@ -14,7 +14,7 @@ import ru.terrakok.cicerone.Router
 
 
 class UserRepoPresenter(val mainThreadScheduler: Scheduler,
-    val usersRepo: IGithubUserRepo, val router: Router, val user: GithubUser)
+                        val usersRepo: IGithubRepositoriesRepo, val router: Router, val user: GithubUser)
     :MvpPresenter<UserView>()  {
 
     val userListPresenter = UserListPresenter()
@@ -50,8 +50,7 @@ class UserRepoPresenter(val mainThreadScheduler: Scheduler,
     }
 
     private fun loadRepos() {
-        user.repos_url?.let { url ->
-            usersRepo.getUserRepo(url)
+            usersRepo.getUserRepo(user)
                 .observeOn(mainThreadScheduler)
                 .subscribe(
                     {
@@ -61,7 +60,6 @@ class UserRepoPresenter(val mainThreadScheduler: Scheduler,
                         Log.d(TAG, "UserRepoPresenter onFirstViewAttach list.size = ${it.size} ")
                     },
                     { Log.d(TAG, "error ") })
-        }
     }
 
     fun backPressed():Boolean {

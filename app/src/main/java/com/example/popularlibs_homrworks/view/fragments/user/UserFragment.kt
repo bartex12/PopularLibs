@@ -10,7 +10,9 @@ import com.example.popularlibs_homrworks.App
 import com.example.popularlibs_homrworks.R
 import com.example.popularlibs_homrworks.model.api.ApiHolder
 import com.example.popularlibs_homrworks.model.entity.GithubUser
-import com.example.popularlibs_homrworks.model.repositories.user.RetrofitGithubUserRepo
+import com.example.popularlibs_homrworks.model.repositories.repo.RetrofitGithubRepositiriesRepo
+import com.example.popularlibs_homrworks.model.room.database.Database
+import com.example.popularlibs_homrworks.model.room.network.AndroidNetworkStatus
 import com.example.popularlibs_homrworks.presenters.user.UserRepoPresenter
 import com.example.popularlibs_homrworks.view.adapters.user.UserRepoAdapter
 import com.example.popularlibs_homrworks.view.fragments.BackButtonListener
@@ -29,7 +31,8 @@ class UserFragment(val user: GithubUser) : MvpAppCompatFragment(),
     val repoPresenter: UserRepoPresenter by moxyPresenter {
         UserRepoPresenter(
             AndroidSchedulers.mainThread(),
-            RetrofitGithubUserRepo(ApiHolder.api),
+            RetrofitGithubRepositiriesRepo(
+                ApiHolder.api, AndroidNetworkStatus(App.instance),Database.getInstance()),
             App.instance.router,
             user
         )

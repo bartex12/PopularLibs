@@ -11,6 +11,8 @@ import com.example.popularlibs_homrworks.R
 import com.example.popularlibs_homrworks.model.api.ApiHolder
 import com.example.popularlibs_homrworks.model.repositories.glide.GlideImageLoader
 import com.example.popularlibs_homrworks.model.repositories.users.RetrofitGithubUsersRepo
+import com.example.popularlibs_homrworks.model.room.database.Database
+import com.example.popularlibs_homrworks.model.room.network.AndroidNetworkStatus
 import com.example.popularlibs_homrworks.presenters.users.UsersPresenter
 import com.example.popularlibs_homrworks.view.adapters.users.UsersRVAdapter
 import com.example.popularlibs_homrworks.view.fragments.BackButtonListener
@@ -19,7 +21,6 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.fragment_users.*
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
-
 
 class UsersFragment : MvpAppCompatFragment(),
     UsersView,
@@ -33,8 +34,8 @@ class UsersFragment : MvpAppCompatFragment(),
         UsersPresenter(
             AndroidSchedulers.mainThread(),
             RetrofitGithubUsersRepo(
-                ApiHolder.api
-            ), App.instance.router
+                ApiHolder.api, AndroidNetworkStatus(App.instance), Database.getInstance()),
+            App.instance.router
         )
     }
 
