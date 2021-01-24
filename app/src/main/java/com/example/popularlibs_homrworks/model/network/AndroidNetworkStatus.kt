@@ -1,4 +1,4 @@
-package com.example.popularlibs_homrworks.model.room.network
+package com.example.popularlibs_homrworks.model.network
 
 import android.content.Context
 import android.net.ConnectivityManager
@@ -8,7 +8,8 @@ import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.subjects.BehaviorSubject
 
-class AndroidNetworkStatus(context: Context):INetworkStatus {
+class AndroidNetworkStatus(context: Context):
+    INetworkStatus {
     private val statusSubject:BehaviorSubject<Boolean> = BehaviorSubject.create()
 
     init {

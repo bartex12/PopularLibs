@@ -1,7 +1,7 @@
-package com.example.popularlibs_homrworks.model.room.database
+package com.example.popularlibs_homrworks.model.room.dao
 
 import androidx.room.*
-import com.example.popularlibs_homrworks.model.room.tablesroom.RoomGithubUser
+import com.example.popularlibs_homrworks.model.room.tables.RoomGithubRepository
 
 /*
 *  стандартные CRUD разных вариаций для создания, чтения, обновления и удаления данных, а также
@@ -10,35 +10,37 @@ import com.example.popularlibs_homrworks.model.room.tablesroom.RoomGithubUser
 * с помощью аргумента аннотации onConflict мы указываем, что при возникновении конфликта
 * по первичному ключу необходимо заменить старое значение новым*/
 @Dao
-interface UserDao {
+interface RepositoryDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(user: RoomGithubUser)
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(vararg user: RoomGithubUser)
+    fun insert(user: RoomGithubRepository)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(users:List<RoomGithubUser>)
+    fun insert(vararg users: RoomGithubRepository)
 
-    @Delete
-    fun delete(user: RoomGithubUser)
-
-    @Delete
-    fun delete(vararg user: RoomGithubUser)
-
-    @Delete
-    fun delete(users:List<RoomGithubUser>)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insert(users: List<RoomGithubRepository>)
 
     @Update
-    fun update(user: RoomGithubUser)
-    @Update
-    fun update(vararg user: RoomGithubUser)
-    @Update
-    fun update(users:List<RoomGithubUser>)
+    fun update(user: RoomGithubRepository)
 
-    @Query("SELECT * FROM RoomGithubUser")
-    fun getAll():List<RoomGithubUser>
+    @Update
+    fun update(vararg users: RoomGithubRepository)
 
-    @Query("SELECT * FROM RoomGithubUser WHERE login = :login LIMIT 1")
-    fun findByLogin(login:String): RoomGithubUser?
+    @Update
+    fun update(users: List<RoomGithubRepository>)
+
+    @Delete
+    fun delete(user: RoomGithubRepository)
+
+    @Delete
+    fun delete(vararg users: RoomGithubRepository)
+
+    @Delete
+    fun delete(users: List<RoomGithubRepository>)
+
+    @Query("SELECT * FROM RoomGithubRepository")
+    fun getAll(): List<RoomGithubRepository>
+
+    @Query("SELECT * FROM RoomGithubRepository WHERE userId = :userId")
+    fun findForUser(userId: String): List<RoomGithubRepository>
 }

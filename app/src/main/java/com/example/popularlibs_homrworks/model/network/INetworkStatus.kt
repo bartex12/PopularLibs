@@ -1,4 +1,4 @@
-package com.example.popularlibs_homrworks.model.room.network
+package com.example.popularlibs_homrworks.model.network
 
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single

@@ -1,4 +1,4 @@
-package com.example.popularlibs_homrworks.model.room.tablesroom
+package com.example.popularlibs_homrworks.model.room.tables
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

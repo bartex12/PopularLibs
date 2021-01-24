@@ -1,7 +1,7 @@
 package com.example.popularlibs_homrworks
 
 import android.app.Application
-import com.example.popularlibs_homrworks.model.room.database.Database
+import com.example.popularlibs_homrworks.model.room.Database
 import ru.terrakok.cicerone.Cicerone
 import ru.terrakok.cicerone.Router
 

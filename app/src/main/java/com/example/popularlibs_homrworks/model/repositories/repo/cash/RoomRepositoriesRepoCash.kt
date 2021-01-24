@@ -2,8 +2,8 @@ package com.example.popularlibs_homrworks.model.repositories.repo.cash
 
 import com.example.popularlibs_homrworks.model.entity.GithubUser
 import com.example.popularlibs_homrworks.model.entity.GithubUserRepos
-import com.example.popularlibs_homrworks.model.room.database.Database
-import com.example.popularlibs_homrworks.model.room.tablesroom.RoomGithubRepository
+import com.example.popularlibs_homrworks.model.room.Database
+import com.example.popularlibs_homrworks.model.room.tables.RoomGithubRepository
 import io.reactivex.rxjava3.core.Single
 
 
@@ -24,8 +24,10 @@ class RoomRepositoriesRepoCash :IRoomRepositiriesRepoCash{
             }?:throw RuntimeException("No such user in cache")
             //
             val roomRepos  = repos.map {repos->
-                RoomGithubRepository(id =repos.id?:"",  name = repos.name?:"",
-                    forksCount=repos.forks?:0, userId = roomUser.id)
+                RoomGithubRepository(
+                    id = repos.id ?: "", name = repos.name ?: "",
+                    forksCount = repos.forks ?: 0, userId = roomUser.id
+                )
             }
             //пишем в таблицу все репозитории roomRepos юзера roomUser  с заданным логином login
             db.repositoryDao.insert(roomRepos)
