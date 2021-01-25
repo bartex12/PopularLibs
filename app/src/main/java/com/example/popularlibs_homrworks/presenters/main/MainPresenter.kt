@@ -1,4 +1,4 @@
-package com.example.popularlibs_homrworks.presenter
+package com.example.popularlibs_homrworks.presenters.main
 
 import com.example.popularlibs_homrworks.Screens
 import com.example.popularlibs_homrworks.view.main.MainView
@@ -10,7 +10,7 @@ class MainPresenter(val router: Router): MvpPresenter<MainView>() {
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
-        router.replaceScreen(Screens.UsersScreen())
+        router.navigateTo(Screens.UsersScreen())
     }
 
     fun backClicked() {

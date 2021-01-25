@@ -1,6 +1,6 @@
-package com.example.popularlibs_homrworks.presenter
+package com.example.popularlibs_homrworks.presenters
 
-import com.example.popularlibs_homrworks.view.adapter.IItemView
+import com.example.popularlibs_homrworks.view.adapters.IItemView
 
 
 //По аналогии с интерфейсом IItemView мы создали интерфейс IListPresenter,

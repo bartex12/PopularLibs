@@ -1,18 +1,18 @@
-package com.example.popularlibs_homrworks.view.adapter
+package com.example.popularlibs_homrworks.view.adapters.users
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.popularlibs_homrworks.R
-import com.example.popularlibs_homrworks.presenter.IUserListPresenter
-import com.example.popularlibs_homrworks.view.main.TAG
+import com.example.popularlibs_homrworks.model.repositories.glide.IImageLoader
+import com.example.popularlibs_homrworks.presenters.users.IUserListPresenter
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_user.view.*
 
 
-class UsersRVAdapter(val presenter: IUserListPresenter)
+class UsersRVAdapter(val presenter: IUserListPresenter, val imageLoader: IImageLoader<ImageView>)
     : RecyclerView.Adapter<UsersRVAdapter.ViewHolder> () {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -43,7 +43,11 @@ class UsersRVAdapter(val presenter: IUserListPresenter)
 
         override fun setLogin(text: String) {
             containerView.tv_login.text = text
-            Log.d(TAG, "UsersRVAdapter ViewHolder setLogin text =$text")
         }
+
+        override fun loadAvatar(url: String) {
+           imageLoader.loadInto(url, containerView.iv_avatar)
+        }
+
     }
 }

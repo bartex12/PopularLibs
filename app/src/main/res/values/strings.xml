@@ -1,6 +1,12 @@
 <resources>
-    <string name="app_name">PL_HW_Less2_Cicerone_Rx</string>
+    <string name="app_name">Less5_Rx_Server</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="hello_login">Hello login!</string>
+    <string name="hello_login">Hello forks!</string>
     <string name="login">login1</string>
+    <string name="id">123</string>
+    <string name="name">иванопуло</string>
+    <string name="forks">22</string>
+    <string name="idtxt">id</string>
+    <string name="nametxt">Name</string>
+    <string name="forkstxt">Forks</string>
 </resources>
