@@ -1,11 +1,9 @@
-package com.example.popularlibs_homrworks.model.repositories.users
+package com.example.popularlibs_homrworks.model.repositories.usersrepo
 
 import com.example.popularlibs_homrworks.model.api.IDataSource
-import com.example.popularlibs_homrworks.model.entity.GithubUser
-import com.example.popularlibs_homrworks.model.repositories.users.cash.IRoomGithubUsersCache
-import com.example.popularlibs_homrworks.model.room.Database
 import com.example.popularlibs_homrworks.model.network.INetworkStatus
-import io.reactivex.rxjava3.core.Single
+import com.example.popularlibs_homrworks.model.repositories.usersrepo.cashusersroom.IRoomGithubUsersCache
+import com.example.popularlibs_homrworks.model.room.Database
 import io.reactivex.rxjava3.schedulers.Schedulers
 
 //Получаем интерфейс через конструктор и пользуемся им для получения пользователей.
@@ -28,12 +26,8 @@ class RetrofitGithubUsersRepo(val api:IDataSource, val networkStatus: INetworkSt
                         roomCash.doUsersCache(users, db)
                     }
             }else{
-                Single.fromCallable {
-                    db.userDao.getAll().map {roomUser->
-                        GithubUser(roomUser.id, roomUser.login,
-                            roomUser.avatarUrl, roomUser.repos_url)
-                    }
-                }
+                //получение списка пользователей из кэша
+                roomCash.getUsersFromCash(db)
             }
         }.subscribeOn(Schedulers.io())
 

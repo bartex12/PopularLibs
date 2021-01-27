@@ -10,10 +10,10 @@ import com.example.popularlibs_homrworks.App
 import com.example.popularlibs_homrworks.R
 import com.example.popularlibs_homrworks.model.api.ApiHolder
 import com.example.popularlibs_homrworks.model.entity.GithubUser
-import com.example.popularlibs_homrworks.model.repositories.repo.RetrofitGithubRepositoriesRepo
-import com.example.popularlibs_homrworks.model.repositories.repo.cash.RoomRepositoriesRepoCash
-import com.example.popularlibs_homrworks.model.room.Database
 import com.example.popularlibs_homrworks.model.network.AndroidNetworkStatus
+import com.example.popularlibs_homrworks.model.repositories.reporepos.RetrofitGithubRepositoriesRepo
+import com.example.popularlibs_homrworks.model.repositories.reporepos.cashrepos.RoomRepositoriesRepoCash
+import com.example.popularlibs_homrworks.model.room.Database
 import com.example.popularlibs_homrworks.presenters.user.UserRepoPresenter
 import com.example.popularlibs_homrworks.view.adapters.user.UserRepoAdapter
 import com.example.popularlibs_homrworks.view.fragments.BackButtonListener

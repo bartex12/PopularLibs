@@ -3,7 +3,7 @@ package com.example.popularlibs_homrworks.presenters.users
 import android.util.Log
 import com.example.popularlibs_homrworks.Screens
 import com.example.popularlibs_homrworks.model.entity.GithubUser
-import com.example.popularlibs_homrworks.model.repositories.users.IGithubUsersRepo
+import com.example.popularlibs_homrworks.model.repositories.usersrepo.IGithubUsersRepo
 import com.example.popularlibs_homrworks.view.adapters.users.UserItemView
 import com.example.popularlibs_homrworks.view.fragments.users.UsersView
 import com.example.popularlibs_homrworks.view.main.TAG

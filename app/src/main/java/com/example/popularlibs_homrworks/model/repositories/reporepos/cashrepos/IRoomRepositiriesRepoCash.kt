@@ -1,4 +1,4 @@
-package com.example.popularlibs_homrworks.model.repositories.repo.cash
+package com.example.popularlibs_homrworks.model.repositories.reporepos.cashrepos
 
 import com.example.popularlibs_homrworks.model.entity.GithubUser
 import com.example.popularlibs_homrworks.model.entity.GithubUserRepos

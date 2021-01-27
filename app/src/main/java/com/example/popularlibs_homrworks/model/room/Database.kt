@@ -3,8 +3,10 @@ package com.example.popularlibs_homrworks.model.room
 import android.content.Context
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.example.popularlibs_homrworks.model.room.dao.CashedImageDao
 import com.example.popularlibs_homrworks.model.room.dao.RepositoryDao
 import com.example.popularlibs_homrworks.model.room.dao.UserDao
+import com.example.popularlibs_homrworks.model.room.tables.CashedImage
 import com.example.popularlibs_homrworks.model.room.tables.RoomGithubRepository
 import com.example.popularlibs_homrworks.model.room.tables.RoomGithubUser
 
@@ -14,10 +16,11 @@ import com.example.popularlibs_homrworks.model.room.tables.RoomGithubUser
 * пока мы не внедрим в проект DI.
 */
 @androidx.room.Database(entities = [
-RoomGithubUser::class, RoomGithubRepository::class], version = 1 )
+RoomGithubUser::class, RoomGithubRepository::class, CashedImage::class], version = 1 )
 abstract class Database:RoomDatabase() {
     abstract val userDao: UserDao
     abstract val repositoryDao: RepositoryDao
+    abstract val cashedImage: CashedImageDao
 
     companion object{
         private const val DB_NAME = "database.db"

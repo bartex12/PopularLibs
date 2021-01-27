@@ -1,4 +1,4 @@
-package com.example.popularlibs_homrworks.model.repositories.repo
+package com.example.popularlibs_homrworks.model.repositories.reporepos
 
 import com.example.popularlibs_homrworks.model.entity.GithubUser
 import com.example.popularlibs_homrworks.model.entity.GithubUserRepos
