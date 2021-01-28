@@ -9,12 +9,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.popularlibs_homrworks.App
 import com.example.popularlibs_homrworks.R
 import com.example.popularlibs_homrworks.model.api.ApiHolder
+import com.example.popularlibs_homrworks.model.glide.GlideImageLoader
 import com.example.popularlibs_homrworks.model.network.AndroidNetworkStatus
-import com.example.popularlibs_homrworks.model.repositories.glide.GlideImageLoader
 import com.example.popularlibs_homrworks.model.repositories.usersrepo.RetrofitGithubUsersRepo
 import com.example.popularlibs_homrworks.model.repositories.usersrepo.cashfile.AvatarFile
-import com.example.popularlibs_homrworks.model.repositories.usersrepo.cashimageroom.RoomGithubAvatarCache
-import com.example.popularlibs_homrworks.model.repositories.usersrepo.cashusersroom.RoomGithubUsersCache
+import com.example.popularlibs_homrworks.model.repositories.usersrepo.cashimage.RoomGithubAvatarCache
+import com.example.popularlibs_homrworks.model.repositories.usersrepo.cashusers.RoomGithubUsersCache
 import com.example.popularlibs_homrworks.model.room.Database
 import com.example.popularlibs_homrworks.presenters.users.UsersPresenter
 import com.example.popularlibs_homrworks.view.adapters.users.UsersRVAdapter
@@ -58,7 +58,10 @@ class UsersFragment : MvpAppCompatFragment(),
         adapter =
             UsersRVAdapter(
                 presenter.usersListPresenter,
-                GlideImageLoader(Database.getInstance(), RoomGithubAvatarCache(AvatarFile()))
+                GlideImageLoader(
+                    Database.getInstance(),
+                    RoomGithubAvatarCache(AvatarFile()), AndroidNetworkStatus(App.instance)
+                )
             )
         rv_users.adapter = adapter
     }

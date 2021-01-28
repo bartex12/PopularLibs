@@ -1,4 +1,4 @@
-package com.example.popularlibs_homrworks.model.repositories.usersrepo.cashusersroom
+package com.example.popularlibs_homrworks.model.repositories.usersrepo.cashusers
 
 import com.example.popularlibs_homrworks.model.entity.GithubUser
 import com.example.popularlibs_homrworks.model.room.Database

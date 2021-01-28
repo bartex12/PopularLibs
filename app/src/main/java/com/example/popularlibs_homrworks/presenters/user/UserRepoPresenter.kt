@@ -4,7 +4,7 @@ import android.util.Log
 import com.example.popularlibs_homrworks.Screens
 import com.example.popularlibs_homrworks.model.entity.GithubUser
 import com.example.popularlibs_homrworks.model.entity.GithubUserRepos
-import com.example.popularlibs_homrworks.model.repositories.reporepos.IGithubRepositoriesRepo
+import com.example.popularlibs_homrworks.model.repositories.userrepo.IGithubRepositoriesRepo
 import com.example.popularlibs_homrworks.view.adapters.user.UserRepoItemView
 import com.example.popularlibs_homrworks.view.fragments.user.UserView
 import com.example.popularlibs_homrworks.view.main.TAG

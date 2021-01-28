@@ -1,10 +1,10 @@
-package com.example.popularlibs_homrworks.model.repositories.reporepos
+package com.example.popularlibs_homrworks.model.repositories.userrepo
 
 import com.example.popularlibs_homrworks.model.api.IDataSource
 import com.example.popularlibs_homrworks.model.entity.GithubUser
 import com.example.popularlibs_homrworks.model.entity.GithubUserRepos
 import com.example.popularlibs_homrworks.model.network.INetworkStatus
-import com.example.popularlibs_homrworks.model.repositories.reporepos.cashrepos.IRoomRepositiriesRepoCash
+import com.example.popularlibs_homrworks.model.repositories.userrepo.cashrepos.IRoomRepositiriesRepoCash
 import com.example.popularlibs_homrworks.model.room.Database
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers

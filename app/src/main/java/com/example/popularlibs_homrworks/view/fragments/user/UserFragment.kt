@@ -11,8 +11,8 @@ import com.example.popularlibs_homrworks.R
 import com.example.popularlibs_homrworks.model.api.ApiHolder
 import com.example.popularlibs_homrworks.model.entity.GithubUser
 import com.example.popularlibs_homrworks.model.network.AndroidNetworkStatus
-import com.example.popularlibs_homrworks.model.repositories.reporepos.RetrofitGithubRepositoriesRepo
-import com.example.popularlibs_homrworks.model.repositories.reporepos.cashrepos.RoomRepositoriesRepoCash
+import com.example.popularlibs_homrworks.model.repositories.userrepo.RetrofitGithubRepositoriesRepo
+import com.example.popularlibs_homrworks.model.repositories.userrepo.cashrepos.RoomRepositoriesRepoCash
 import com.example.popularlibs_homrworks.model.room.Database
 import com.example.popularlibs_homrworks.presenters.user.UserRepoPresenter
 import com.example.popularlibs_homrworks.view.adapters.user.UserRepoAdapter

@@ -2,7 +2,7 @@ package com.example.popularlibs_homrworks.model.repositories.usersrepo
 
 import com.example.popularlibs_homrworks.model.api.IDataSource
 import com.example.popularlibs_homrworks.model.network.INetworkStatus
-import com.example.popularlibs_homrworks.model.repositories.usersrepo.cashusersroom.IRoomGithubUsersCache
+import com.example.popularlibs_homrworks.model.repositories.usersrepo.cashusers.IRoomGithubUsersCache
 import com.example.popularlibs_homrworks.model.room.Database
 import io.reactivex.rxjava3.schedulers.Schedulers
 

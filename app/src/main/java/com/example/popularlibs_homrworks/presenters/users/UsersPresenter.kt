@@ -48,9 +48,8 @@ class UsersPresenter(val mainThreadScheduler: Scheduler, val usersRepo: IGithubU
 //можно же в loadData() вместо usersRepo.getUsers() написать просто
 //ApiHolder.api.getUsers().subscribeOn(Schedulers.io())
 //Зачем плодить дополнительные класс и интерфейс репозитория
-//Или это заготовка на будущее?
+//Или это заготовка на будущее? - да
     fun loadData() {
-        //ApiHolder.api.getUsers().subscribeOn(Schedulers.io()) //Блин, так же проще
         usersRepo.getUsers()
             .observeOn(mainThreadScheduler)
             .subscribe({ repos ->
