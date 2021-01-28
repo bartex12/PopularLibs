@@ -9,8 +9,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.popularlibs_homrworks.App
 import com.example.popularlibs_homrworks.R
 import com.example.popularlibs_homrworks.model.api.ApiHolder
-import com.example.popularlibs_homrworks.model.repositories.glide.GlideImageLoader
-import com.example.popularlibs_homrworks.model.repositories.users.RetrofitGithubUsersRepo
+import com.example.popularlibs_homrworks.model.glide.GlideImageLoader
+import com.example.popularlibs_homrworks.model.network.AndroidNetworkStatus
+import com.example.popularlibs_homrworks.model.repositories.usersrepo.RetrofitGithubUsersRepo
+import com.example.popularlibs_homrworks.model.repositories.usersrepo.cashfile.AvatarFile
+import com.example.popularlibs_homrworks.model.repositories.usersrepo.cashimage.RoomGithubAvatarCache
+import com.example.popularlibs_homrworks.model.repositories.usersrepo.cashusers.RoomGithubUsersCache
+import com.example.popularlibs_homrworks.model.room.Database
 import com.example.popularlibs_homrworks.presenters.users.UsersPresenter
 import com.example.popularlibs_homrworks.view.adapters.users.UsersRVAdapter
 import com.example.popularlibs_homrworks.view.fragments.BackButtonListener
@@ -19,7 +24,6 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.fragment_users.*
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
-
 
 class UsersFragment : MvpAppCompatFragment(),
     UsersView,
@@ -33,8 +37,14 @@ class UsersFragment : MvpAppCompatFragment(),
         UsersPresenter(
             AndroidSchedulers.mainThread(),
             RetrofitGithubUsersRepo(
-                ApiHolder.api
-            ), App.instance.router
+                ApiHolder.api,
+                AndroidNetworkStatus(
+                    App.instance
+                ),
+                Database.getInstance(),
+                RoomGithubUsersCache()
+            ),
+            App.instance.router
         )
     }
 
@@ -48,7 +58,10 @@ class UsersFragment : MvpAppCompatFragment(),
         adapter =
             UsersRVAdapter(
                 presenter.usersListPresenter,
-                GlideImageLoader()
+                GlideImageLoader(
+                    Database.getInstance(),
+                    RoomGithubAvatarCache(AvatarFile()), AndroidNetworkStatus(App.instance)
+                )
             )
         rv_users.adapter = adapter
     }

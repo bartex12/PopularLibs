@@ -3,7 +3,7 @@ package com.example.popularlibs_homrworks.presenters.users
 import android.util.Log
 import com.example.popularlibs_homrworks.Screens
 import com.example.popularlibs_homrworks.model.entity.GithubUser
-import com.example.popularlibs_homrworks.model.repositories.users.IGithubUsersRepo
+import com.example.popularlibs_homrworks.model.repositories.usersrepo.IGithubUsersRepo
 import com.example.popularlibs_homrworks.view.adapters.users.UserItemView
 import com.example.popularlibs_homrworks.view.fragments.users.UsersView
 import com.example.popularlibs_homrworks.view.main.TAG
@@ -48,9 +48,8 @@ class UsersPresenter(val mainThreadScheduler: Scheduler, val usersRepo: IGithubU
 //можно же в loadData() вместо usersRepo.getUsers() написать просто
 //ApiHolder.api.getUsers().subscribeOn(Schedulers.io())
 //Зачем плодить дополнительные класс и интерфейс репозитория
-//Или это заготовка на будущее?
+//Или это заготовка на будущее? - да
     fun loadData() {
-        //ApiHolder.api.getUsers().subscribeOn(Schedulers.io()) //Блин, так же проще
         usersRepo.getUsers()
             .observeOn(mainThreadScheduler)
             .subscribe({ repos ->
@@ -64,6 +63,7 @@ class UsersPresenter(val mainThreadScheduler: Scheduler, val usersRepo: IGithubU
     // было ли событие нажатия поглощено фрагментом или нужно обработать его стандартным способом.
     fun backPressed(): Boolean {
         router.exit()
+        router.exit() //иначе показывает пустой экран
         return true
     }
 

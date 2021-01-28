@@ -1,4 +1,4 @@
-package com.example.popularlibs_homrworks.presenters.userdetails
+package com.example.popularlibs_homrworks.presenters.details
 
 import android.util.Log
 import com.example.popularlibs_homrworks.Screens

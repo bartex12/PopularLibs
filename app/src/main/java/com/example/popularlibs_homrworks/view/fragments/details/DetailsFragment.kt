@@ -9,7 +9,7 @@ import com.example.popularlibs_homrworks.App
 import com.example.popularlibs_homrworks.R
 import com.example.popularlibs_homrworks.model.entity.GithubUser
 import com.example.popularlibs_homrworks.model.entity.GithubUserRepos
-import com.example.popularlibs_homrworks.presenters.userdetails.DetailsPresenter
+import com.example.popularlibs_homrworks.presenters.details.DetailsPresenter
 import com.example.popularlibs_homrworks.view.fragments.BackButtonListener
 import com.example.popularlibs_homrworks.view.main.TAG
 import kotlinx.android.synthetic.main.fragment_user_repo.*

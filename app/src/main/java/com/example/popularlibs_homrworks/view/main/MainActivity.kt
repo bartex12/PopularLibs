@@ -49,7 +49,6 @@ class MainActivity: MvpAppCompatActivity(), MainView {
                 Log.d(TAG, "MainActivity onBackPressed forEach")
                 return@onBackPressed
             }
-
             presenter.backClicked()
         }
     }
