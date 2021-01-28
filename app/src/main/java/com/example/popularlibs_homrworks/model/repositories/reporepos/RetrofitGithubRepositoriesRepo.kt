@@ -37,9 +37,10 @@ class RetrofitGithubRepositoriesRepo(val api: IDataSource, val networkStatus: IN
                             db.userDao.findByLogin(it)
                         }?:throw RuntimeException("No such user in cache")
                         //находим список репозиториев конкретного юзера по его id  - в таблице это  userId
-                        db.repositoryDao.findForUser(roomUser.id).map {room->
+                      val list  =   db.repositoryDao.findForUser(roomUser.id).map {room->
                             GithubUserRepos(id= room.id,name=room.name, forks = room.forksCount)
                             }
+                        return@fromCallable list
                     }
                 }
             }.subscribeOn(Schedulers.io())

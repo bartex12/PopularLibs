@@ -40,10 +40,12 @@ class GlideImageLoader(val db: Database, val avatarCash: IRoomGithubAvatarCache)
                 ): Boolean {
                     //Log.d(TAG, "GlideImageLoader Online url = $url ")
                     //todo нужно сделать так же как и со списком - через сабжект и обзервербал
+//                    Single.fromCallable {
+//                    }
+                    
                     avatarCash.doAvatarsCache( db, resource, url)
 
 //                    //реализация кэширования аватарок из сети на диск и внесение в базу данных пути к файлу
-//                    //todo return false значит использовать встроенный cash
 //                    AndroidNetworkStatus(App.instance).isOnline()
 //                        .flatMap {isOnline->
 //                            if (isOnline){
@@ -58,6 +60,7 @@ class GlideImageLoader(val db: Database, val avatarCash: IRoomGithubAvatarCache)
 //                            }
 //                        }.subscribeOn(Schedulers.io())
 //                    //Log.d(TAG, "GlideImageLoader listener itemView  onResourceReady = false")
+                    //todo return false значит использовать встроенный cash
                     return false
                 }
             })

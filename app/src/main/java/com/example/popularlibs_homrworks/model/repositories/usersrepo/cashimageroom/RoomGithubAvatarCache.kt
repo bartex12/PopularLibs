@@ -15,7 +15,8 @@ class RoomGithubAvatarCache(val repoFile: IAvatarFile) :IRoomGithubAvatarCache{
         db: Database,
         bitmap: Bitmap?,
         url: String
-    ) {repoFile.getDir() // /MyImages
+    ) {
+        repoFile.getDir() // /MyImages
         .subscribeOn(Schedulers.io())
         .observeOn(Schedulers.computation())
         .subscribe(
