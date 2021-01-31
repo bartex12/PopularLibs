@@ -43,7 +43,9 @@ class UsersFragment : MvpAppCompatFragment(),
         adapter =
             UsersRVAdapter(
                 presenter.usersListPresenter,
-                GlideImageLoader()
+                GlideImageLoader().apply {
+                    App.instance.appComponent.inject(this)
+                }
             )
         rv_users.adapter = adapter
     }

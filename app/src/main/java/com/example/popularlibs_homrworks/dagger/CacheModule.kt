@@ -17,17 +17,17 @@ class CacheModule {
     @Singleton
     @Provides
     fun database(app: App): Database =
-        Room.databaseBuilder(app, Database::class.java, Database.DB_NAME ).build()
+        Room.databaseBuilder(app, Database::class.java, Database.DB_NAME).build()
 
     @Singleton
     @Provides
-    fun usersCash(database: Database): IRoomGithubUsersCache{
-       return RoomGithubUsersCache(database)
+    fun usersCash(database: Database): IRoomGithubUsersCache {
+        return RoomGithubUsersCache(database)
     }
 
     @Singleton
     @Provides
-    fun userCash(database: Database): IRoomRepositiriesRepoCash{
-      return  RoomRepositoriesRepoCash(database)
+    fun userCash(database: Database): IRoomRepositiriesRepoCash {
+        return RoomRepositoriesRepoCash(database)
     }
 }
