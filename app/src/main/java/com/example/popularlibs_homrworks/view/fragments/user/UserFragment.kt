@@ -37,7 +37,7 @@ class UserFragment(val user: GithubUser) : MvpAppCompatFragment(),
                 AndroidNetworkStatus(
                     App.instance
                 ),
-                Database.getInstance(), RoomRepositoriesRepoCash()
+                RoomRepositoriesRepoCash(Database.getInstance())
             ),
             App.instance.router,
             user

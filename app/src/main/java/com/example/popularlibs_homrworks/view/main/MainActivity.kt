@@ -26,7 +26,9 @@ class MainActivity: MvpAppCompatActivity(), MainView {
     )
 
     val presenter: MainPresenter by moxyPresenter {
-        MainPresenter( router)
+        MainPresenter().apply {
+            App.instance.appComponent.inject(this)
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

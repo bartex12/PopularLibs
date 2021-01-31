@@ -10,10 +10,14 @@ import com.example.popularlibs_homrworks.view.main.TAG
 import io.reactivex.rxjava3.core.Scheduler
 import moxy.MvpPresenter
 import ru.terrakok.cicerone.Router
+import javax.inject.Inject
 
 //презентер для работы с фрагментом UsersFragment,  Router для навигации
-class UsersPresenter(val mainThreadScheduler: Scheduler, val usersRepo: IGithubUsersRepo,
-                     val router: Router): MvpPresenter<UsersView>() {
+class UsersPresenter(val mainThreadScheduler: Scheduler): MvpPresenter<UsersView>() {
+    @Inject
+    lateinit var usersRepo: IGithubUsersRepo
+    @Inject
+    lateinit var router: Router
 
     val usersListPresenter =
         UsersListPresenter()
