@@ -9,10 +9,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.popularlibs_homrworks.App
 import com.example.popularlibs_homrworks.R
 import com.example.popularlibs_homrworks.model.glide.GlideImageLoader
-import com.example.popularlibs_homrworks.model.network.AndroidNetworkStatus
-import com.example.popularlibs_homrworks.model.repositories.usersrepo.cashfile.AvatarFile
-import com.example.popularlibs_homrworks.model.repositories.usersrepo.cashimage.RoomGithubAvatarCache
-import com.example.popularlibs_homrworks.model.room.Database
 import com.example.popularlibs_homrworks.presenters.users.UsersPresenter
 import com.example.popularlibs_homrworks.view.adapters.users.UsersRVAdapter
 import com.example.popularlibs_homrworks.view.fragments.BackButtonListener
@@ -21,14 +17,13 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.fragment_users.*
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
-import javax.inject.Inject
 
 class UsersFragment : MvpAppCompatFragment(),
     UsersView,
     BackButtonListener {
-
-    @Inject
-    lateinit var database:Database
+//
+//    @Inject
+//    lateinit var database:Database
 
     companion object { fun newInstance() =
         UsersFragment().apply {
@@ -52,10 +47,7 @@ class UsersFragment : MvpAppCompatFragment(),
         adapter =
             UsersRVAdapter(
                 presenter.usersListPresenter,
-                GlideImageLoader(
-                    database,
-                    RoomGithubAvatarCache(AvatarFile()), AndroidNetworkStatus(App.instance)
-                )
+                GlideImageLoader()
             )
         rv_users.adapter = adapter
     }
