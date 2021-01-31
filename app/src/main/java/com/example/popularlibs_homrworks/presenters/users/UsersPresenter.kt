@@ -69,7 +69,6 @@ private fun loadData() {
     // было ли событие нажатия поглощено фрагментом или нужно обработать его стандартным способом.
     fun backPressed(): Boolean {
         router.exit()
-        router.exit() //иначе показывает пустой экран
         return true
     }
 
