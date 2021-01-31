@@ -28,10 +28,8 @@ class DetailsFragment()
                 putParcelable(REPO_ARG, userRepos)
                 putParcelable(UserFragment.USER_ARG, user)
             }
-            App.instance.appComponent.inject(this)
         }
     }
-
 
    val presenter: DetailsPresenter by moxyPresenter {
        val user = arguments?.getParcelable<GithubUser>(UserFragment.USER_ARG) as GithubUser

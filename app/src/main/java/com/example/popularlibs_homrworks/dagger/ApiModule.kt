@@ -42,28 +42,4 @@ class ApiModule {
     @Singleton
     @Provides
     fun networkStatus(app: App): INetworkStatus = AndroidNetworkStatus(app)
-//    @Singleton
-//    @Provides
-//   fun  json(): Gson = GsonBuilder()
-//                .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
-//                .excludeFieldsWithoutExposeAnnotation()
-//                .create()
-//
-//    @Named("baseUrl")
-//    @Provides
-//    fun baseUrl():String = "https://api.github.com/"
-//
-//    @Singleton  //так как Singleton - нужно передавать параметры в конструкторе!
-//    @Provides
-//    fun api(@Named("baseUrl")baseUrl:String, json: Gson) : IDataSource =
-//        Retrofit.Builder()
-//                .baseUrl(baseUrl)
-//                .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
-//                .addConverterFactory(GsonConverterFactory.create(json))
-//                .build()
-//                .create(IDataSource::class.java)
-//
-//    @Singleton
-//    @Provides
-//    fun networkStatus(app: App): INetworkStatus = AndroidNetworkStatus(app)
 }

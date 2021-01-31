@@ -8,33 +8,18 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.popularlibs_homrworks.App
 import com.example.popularlibs_homrworks.R
-import com.example.popularlibs_homrworks.model.api.ApiHolder
 import com.example.popularlibs_homrworks.model.entity.GithubUser
-import com.example.popularlibs_homrworks.model.network.AndroidNetworkStatus
-import com.example.popularlibs_homrworks.model.repositories.userrepo.RetrofitGithubRepositoriesRepo
-import com.example.popularlibs_homrworks.model.repositories.userrepo.cashrepos.RoomRepositoriesRepoCash
-import com.example.popularlibs_homrworks.model.room.Database
 import com.example.popularlibs_homrworks.presenters.user.UserRepoPresenter
 import com.example.popularlibs_homrworks.view.adapters.user.UserRepoAdapter
 import com.example.popularlibs_homrworks.view.fragments.BackButtonListener
 import com.example.popularlibs_homrworks.view.main.TAG
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.fragment_user.*
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
-import ru.terrakok.cicerone.Router
-import javax.inject.Inject
 
 
 class UserFragment() : MvpAppCompatFragment(),
     UserView,    BackButtonListener {
-
-
-    // ДЗ избавиться из зависимостей ниже
-    @Inject
-    lateinit var router: Router
-    @Inject
-    lateinit var database: Database
 
     companion object {
         const val USER_ARG = "user"
@@ -43,27 +28,16 @@ class UserFragment() : MvpAppCompatFragment(),
             arguments = Bundle().apply {
                 putParcelable(USER_ARG, user)
             }
-
-            App.instance.appComponent.inject(this)
         }
     }
 
     var adapter: UserRepoAdapter? = null
 
     val repoPresenter: UserRepoPresenter by moxyPresenter {
-
         val user = arguments?.getParcelable<GithubUser>(USER_ARG) as GithubUser
-
-        UserRepoPresenter(
-            AndroidSchedulers.mainThread(),
-            RetrofitGithubRepositoriesRepo(
-                ApiHolder.api,
-                AndroidNetworkStatus(App.instance ),
-                RoomRepositoriesRepoCash(database)
-            ),
-            router,
-            user
-        )
+        UserRepoPresenter(user).apply {
+            App.instance.appComponent.inject(this)
+        }
     }
 
 

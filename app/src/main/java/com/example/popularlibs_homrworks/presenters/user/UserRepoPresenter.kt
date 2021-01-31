@@ -11,11 +11,18 @@ import com.example.popularlibs_homrworks.view.main.TAG
 import io.reactivex.rxjava3.core.Scheduler
 import moxy.MvpPresenter
 import ru.terrakok.cicerone.Router
+import javax.inject.Inject
 
 
-class UserRepoPresenter(val mainThreadScheduler: Scheduler,
-                        val usersRepo: IGithubRepositoriesRepo, val router: Router, val user: GithubUser)
+class UserRepoPresenter(val user: GithubUser)
     :MvpPresenter<UserView>()  {
+
+    @Inject
+    lateinit var router: Router
+    @Inject
+    lateinit var mainThreadScheduler:Scheduler
+    @Inject
+    lateinit var usersRepo: IGithubRepositoriesRepo
 
     val userListPresenter = UserListPresenter()
     //вложенный класс для работы с адаптером
