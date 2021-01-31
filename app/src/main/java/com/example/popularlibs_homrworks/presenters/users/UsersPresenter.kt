@@ -13,8 +13,10 @@ import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 
 //презентер для работы с фрагментом UsersFragment,  Router для навигации
-class UsersPresenter(val usersRepo: IGithubUsersRepo): MvpPresenter<UsersView>() {
+class UsersPresenter: MvpPresenter<UsersView>() {
 
+    @Inject
+    lateinit var usersRepo: IGithubUsersRepo
     @Inject
     lateinit var router: Router
     @Inject

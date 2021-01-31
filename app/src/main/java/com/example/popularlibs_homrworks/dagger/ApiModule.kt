@@ -3,6 +3,7 @@ package com.example.popularlibs_homrworks.dagger
 import com.example.popularlibs_homrworks.App
 import com.example.popularlibs_homrworks.model.api.IDataSource
 import com.example.popularlibs_homrworks.model.network.AndroidNetworkStatus
+import com.example.popularlibs_homrworks.model.network.INetworkStatus
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -18,28 +19,51 @@ import javax.inject.Singleton
 @Module
 class ApiModule {
 
-    @Singleton
-    @Provides
-   fun  json(): Gson = GsonBuilder()
-                .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
-                .excludeFieldsWithoutExposeAnnotation()
-                .create()
-
     @Named("baseUrl")
     @Provides
-    fun baseUrl():String = "https://api.github.com/"
-
-    @Singleton  //так как Singleton - нужно передавать параметры в конструкторе!
-    @Provides
-    fun api(@Named("baseUrl")baseUrl:String, json: Gson) : IDataSource =
-        Retrofit.Builder()
-                .baseUrl(baseUrl)
-                .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create(json))
-                .build()
-                .create(IDataSource::class.java)
+    fun baseUrl(): String = "https://api.github.com/"
 
     @Singleton
     @Provides
-    fun networkStatus(app: App) = AndroidNetworkStatus(app)
+    fun gson() = GsonBuilder()
+        .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+        .excludeFieldsWithoutExposeAnnotation()
+        .create()
+
+    @Singleton
+    @Provides
+    fun api(@Named("baseUrl") baseUrl: String, gson: Gson) : IDataSource = Retrofit.Builder()
+        .baseUrl(baseUrl)
+        .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
+        .addConverterFactory(GsonConverterFactory.create(gson))
+        .build()
+        .create(IDataSource::class.java)
+
+    @Singleton
+    @Provides
+    fun networkStatus(app: App): INetworkStatus = AndroidNetworkStatus(app)
+//    @Singleton
+//    @Provides
+//   fun  json(): Gson = GsonBuilder()
+//                .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+//                .excludeFieldsWithoutExposeAnnotation()
+//                .create()
+//
+//    @Named("baseUrl")
+//    @Provides
+//    fun baseUrl():String = "https://api.github.com/"
+//
+//    @Singleton  //так как Singleton - нужно передавать параметры в конструкторе!
+//    @Provides
+//    fun api(@Named("baseUrl")baseUrl:String, json: Gson) : IDataSource =
+//        Retrofit.Builder()
+//                .baseUrl(baseUrl)
+//                .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
+//                .addConverterFactory(GsonConverterFactory.create(json))
+//                .build()
+//                .create(IDataSource::class.java)
+//
+//    @Singleton
+//    @Provides
+//    fun networkStatus(app: App): INetworkStatus = AndroidNetworkStatus(app)
 }

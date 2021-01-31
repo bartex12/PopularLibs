@@ -8,11 +8,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.popularlibs_homrworks.App
 import com.example.popularlibs_homrworks.R
-import com.example.popularlibs_homrworks.model.api.ApiHolder
 import com.example.popularlibs_homrworks.model.glide.GlideImageLoader
-import com.example.popularlibs_homrworks.model.network.AndroidNetworkStatus
-import com.example.popularlibs_homrworks.model.repositories.usersrepo.RetrofitGithubUsersRepo
-import com.example.popularlibs_homrworks.model.repositories.usersrepo.cashusers.RoomGithubUsersCache
 import com.example.popularlibs_homrworks.model.room.Database
 import com.example.popularlibs_homrworks.presenters.users.UsersPresenter
 import com.example.popularlibs_homrworks.view.adapters.users.UsersRVAdapter
@@ -39,14 +35,7 @@ class UsersFragment : MvpAppCompatFragment(),
     }
 
     val presenter: UsersPresenter by moxyPresenter {
-        UsersPresenter(
-            //2
-            RetrofitGithubUsersRepo(
-                ApiHolder.api,
-                AndroidNetworkStatus( App.instance),
-                RoomGithubUsersCache(database)
-            )
-        ).apply {
+        UsersPresenter().apply {
             App.instance.appComponent.inject(this)
         }
     }

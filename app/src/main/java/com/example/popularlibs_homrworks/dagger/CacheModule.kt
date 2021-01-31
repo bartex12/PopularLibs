@@ -21,9 +21,13 @@ class CacheModule {
 
     @Singleton
     @Provides
-    fun usersCash(database: Database): IRoomGithubUsersCache = RoomGithubUsersCache(database)
+    fun usersCash(database: Database): IRoomGithubUsersCache{
+       return RoomGithubUsersCache(database)
+    }
 
     @Singleton
     @Provides
-    fun userCash(database: Database): IRoomRepositiriesRepoCash = RoomRepositoriesRepoCash(database)
+    fun userCash(database: Database): IRoomRepositiriesRepoCash{
+      return  RoomRepositoriesRepoCash(database)
+    }
 }
