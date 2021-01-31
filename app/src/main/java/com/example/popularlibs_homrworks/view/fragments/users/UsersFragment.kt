@@ -27,13 +27,13 @@ class UsersFragment : MvpAppCompatFragment(),
         fun newInstance() =UsersFragment()
     }
 
-    val presenter: UsersPresenter by moxyPresenter {
+    private val presenter: UsersPresenter by moxyPresenter {
         UsersPresenter().apply {
             App.instance.appComponent.inject(this)
         }
     }
 
-    var adapter: UsersRVAdapter? = null
+    private var adapter: UsersRVAdapter? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) =
         View.inflate(context, R.layout.fragment_users, null)

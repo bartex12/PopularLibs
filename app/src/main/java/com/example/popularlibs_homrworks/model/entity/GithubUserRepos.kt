@@ -9,5 +9,4 @@ data class GithubUserRepos(
     @Expose val id:String? = null,
     @Expose val name:String? = null,
     @Expose val forks:Int? = 0
-) :Parcelable{
-}
+) :Parcelable

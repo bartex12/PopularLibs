@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.fragment_user_repo.*
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 
-class DetailsFragment()
+class DetailsFragment
     : MvpAppCompatFragment(), DetailsView, BackButtonListener {
 
     companion object {
@@ -31,7 +31,7 @@ class DetailsFragment()
         }
     }
 
-   val presenter: DetailsPresenter by moxyPresenter {
+   private val presenter: DetailsPresenter by moxyPresenter {
        val user = arguments?.getParcelable<GithubUser>(UserFragment.USER_ARG) as GithubUser
        DetailsPresenter(user).apply {
            App.instance.appComponent.inject(this)

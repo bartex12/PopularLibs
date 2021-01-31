@@ -20,12 +20,12 @@ class MainActivity: MvpAppCompatActivity(), MainView {
     lateinit var router: Router
     @Inject
     lateinit var navigatorHolder: NavigatorHolder
-    val navigator = SupportAppNavigator(
+    private val navigator = SupportAppNavigator(
         this, supportFragmentManager,
         R.id.container
     )
 
-    val presenter: MainPresenter by moxyPresenter {
+    private val presenter: MainPresenter by moxyPresenter {
         MainPresenter().apply {
             App.instance.appComponent.inject(this)
         }

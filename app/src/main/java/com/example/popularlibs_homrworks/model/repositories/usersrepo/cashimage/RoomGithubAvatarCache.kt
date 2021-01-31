@@ -22,7 +22,7 @@ class RoomGithubAvatarCache(val repoFile: IAvatarFile) :IRoomGithubAvatarCache{
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.computation())
                 .subscribe(
-                    {
+                    { it ->
                         //делаем из информативной части url название файла
                         val subUrl = url.substringAfterLast("/")
                         val file = File(it, "/$subUrl.jpg") //создаём файл jpg

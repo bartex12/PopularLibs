@@ -18,7 +18,7 @@ class AvatarFile:IAvatarFile {
         //Получаем состояние SD карты
         val sdState = Environment.getExternalStorageState()
         //если sdState == MEDIA_MOUNTED
-        if (sdState.equals(Environment.MEDIA_MOUNTED)){
+        if (sdState == Environment.MEDIA_MOUNTED){
             try {
                 sdCard = App.instance.applicationContext
                     .getExternalFilesDir(Environment.DIRECTORY_PICTURES)
@@ -27,9 +27,9 @@ class AvatarFile:IAvatarFile {
                 e.printStackTrace()
             }
             //если sdState == MEDIA_SHARED
-        }else if (sdState.equals(Environment.MEDIA_SHARED)){
+        }else if (sdState == Environment.MEDIA_SHARED){
             try {
-                sdCard = App.instance.getFilesDir()
+                sdCard = App.instance.filesDir
                 Log.d(TAG, "RepositoryImpl : MEDIA_SHARED")
             } catch (e: Throwable) {
                 e.printStackTrace()
@@ -52,17 +52,17 @@ class AvatarFile:IAvatarFile {
             }
         }
 
-    fun saveJPG(file:File?,  bitmap: Bitmap?):Boolean{
+    private fun saveJPG(file:File?, bitmap: Bitmap?):Boolean{
         file?. let{if (it.exists ()) it.delete()}
         var fOut: OutputStream? =null
-        try{
+        return try{
             fOut = FileOutputStream(file)
             bitmap?.compress(Bitmap.CompressFormat.JPEG, 100, fOut)
             fOut.flush()
-            return true
+            true
         }catch (e:Exception){
             e.printStackTrace()
-            return false
+            false
         }finally {
             fOut?.close()
         }

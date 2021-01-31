@@ -55,7 +55,7 @@ class UsersPresenter: MvpPresenter<UsersView>() {
 //ApiHolder.api.getUsers().subscribeOn(Schedulers.io())
 //Зачем плодить дополнительные класс и интерфейс репозитория
 //Или это заготовка на будущее? - да
-    fun loadData() {
+private fun loadData() {
         usersRepo.getUsers()
             .observeOn(mainThreadScheduler)
             .subscribe({ repos ->

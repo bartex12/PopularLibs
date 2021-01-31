@@ -17,13 +17,13 @@ import javax.inject.Singleton
 
     @Provides
     @Singleton
-        fun UsersRepo (api: IDataSource, networkStatus: INetworkStatus,
-                  roomCash: IRoomGithubUsersCache): IGithubUsersRepo =
+        fun usersRepo (api: IDataSource, networkStatus: INetworkStatus,
+                       roomCash: IRoomGithubUsersCache): IGithubUsersRepo =
     RetrofitGithubUsersRepo(api, networkStatus,  roomCash)
 
     @Provides
     @Singleton
-    fun UserRepo (api: IDataSource, networkStatus: INetworkStatus,
-                   roomCash: IRoomRepositiriesRepoCash): IGithubRepositoriesRepo =
+    fun userRepo (api: IDataSource, networkStatus: INetworkStatus,
+                  roomCash: IRoomRepositiriesRepoCash): IGithubRepositoriesRepo =
         RetrofitGithubRepositoriesRepo(api, networkStatus,  roomCash)
 }

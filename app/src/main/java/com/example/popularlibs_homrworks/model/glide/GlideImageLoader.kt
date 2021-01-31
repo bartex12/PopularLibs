@@ -16,7 +16,7 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.inject.Inject
 
-class GlideImageLoader() : IImageLoader<ImageView> {
+class GlideImageLoader : IImageLoader<ImageView> {
 
     @Inject
     lateinit var database: Database
