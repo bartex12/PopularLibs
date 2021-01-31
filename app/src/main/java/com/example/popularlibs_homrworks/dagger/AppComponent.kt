@@ -1,5 +1,6 @@
 package com.example.popularlibs_homrworks.dagger
 
+import com.example.popularlibs_homrworks.presenters.details.DetailsPresenter
 import com.example.popularlibs_homrworks.presenters.main.MainPresenter
 import com.example.popularlibs_homrworks.presenters.users.UsersPresenter
 import com.example.popularlibs_homrworks.view.fragments.details.DetailsFragment
@@ -24,6 +25,8 @@ interface AppComponent {
     fun inject(mainActivity: MainActivity)
     fun inject(mainPresenter: MainPresenter)
     fun inject(usersPresenter: UsersPresenter)
+
+    fun inject(detailsPresenter: DetailsPresenter)
 
     //todo убрать
     fun inject(usersFragment: UsersFragment)

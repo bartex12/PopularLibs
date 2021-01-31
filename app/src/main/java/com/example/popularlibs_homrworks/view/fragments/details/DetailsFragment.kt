@@ -11,16 +11,33 @@ import com.example.popularlibs_homrworks.model.entity.GithubUser
 import com.example.popularlibs_homrworks.model.entity.GithubUserRepos
 import com.example.popularlibs_homrworks.presenters.details.DetailsPresenter
 import com.example.popularlibs_homrworks.view.fragments.BackButtonListener
+import com.example.popularlibs_homrworks.view.fragments.user.UserFragment
 import com.example.popularlibs_homrworks.view.main.TAG
 import kotlinx.android.synthetic.main.fragment_user_repo.*
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 
-class DetailsFragment(val userRepos:GithubUserRepos, val user: GithubUser)
+class DetailsFragment()
     : MvpAppCompatFragment(), DetailsView, BackButtonListener {
 
+    companion object {
+        private const val REPO_ARG = "repository"
+
+        fun newInstance(userRepos:GithubUserRepos, user: GithubUser) = DetailsFragment().apply {
+            arguments = Bundle().apply {
+                putParcelable(REPO_ARG, userRepos)
+                putParcelable(UserFragment.USER_ARG, user)
+            }
+            App.instance.appComponent.inject(this)
+        }
+    }
+
+
    val presenter: DetailsPresenter by moxyPresenter {
-       DetailsPresenter(App.instance.router, user)
+       val user = arguments?.getParcelable<GithubUser>(UserFragment.USER_ARG) as GithubUser
+       DetailsPresenter(user).apply {
+           App.instance.appComponent.inject(this)
+       }
    }
 
     override fun onCreateView(
@@ -32,6 +49,7 @@ class DetailsFragment(val userRepos:GithubUserRepos, val user: GithubUser)
     }
 
     override fun setUserForks() {
+        val userRepos = arguments?.getParcelable<GithubUserRepos>(REPO_ARG) as GithubUserRepos
         userRepos.forks?. let{
             tv_user_forks.text = it.toString()
         }

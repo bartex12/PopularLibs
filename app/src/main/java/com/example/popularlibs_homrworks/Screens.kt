@@ -13,11 +13,11 @@ class Screens {
         override fun getFragment() = UsersFragment.newInstance()
     }
     class UserScreen(val user: GithubUser) : SupportAppScreen() {
-        // через конструктор - для разнообразия
-        override fun getFragment() = UserFragment( user)
+        //через статический метод newInstance()
+        override fun getFragment() = UserFragment.newInstance( user)
     }
     class UserForksScreen(val userRepos: GithubUserRepos, val user: GithubUser) : SupportAppScreen() {
-        // через конструктор - user нужен для возврата на предыдущий экран
-        override fun getFragment() = DetailsFragment(userRepos, user)
+        // через статический метод newInstance()
+        override fun getFragment() = DetailsFragment.newInstance(userRepos, user)
     }
 }
