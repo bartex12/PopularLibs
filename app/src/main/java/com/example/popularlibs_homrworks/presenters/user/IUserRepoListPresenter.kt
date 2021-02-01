@@ -4,5 +4,4 @@ import com.example.popularlibs_homrworks.presenters.IListPresenter
 import com.example.popularlibs_homrworks.view.adapters.user.UserRepoItemView
 
 interface IUserRepoListPresenter:
-    IListPresenter<UserRepoItemView> {
-}
+    IListPresenter<UserRepoItemView>

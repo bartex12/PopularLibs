@@ -11,6 +11,6 @@ interface IDataSource {
    fun getUsers():Single<List<GithubUser>>
 
     //Чтобы загрузить данные одного пользователя, нам потребуется еще один метод
-    @GET()
+    @GET
     fun getUserRepos(@Url url:String):Single<List<GithubUserRepos>>
 }

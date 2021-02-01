@@ -7,10 +7,10 @@ import io.reactivex.rxjava3.core.Single
 
 //класс для реализации кэширования списка пользователей из сети в базу данных
 //метод doUsersCache - это метод интерфейса IRoomGithubUsersCache
-class RoomGithubUsersCache:    IRoomGithubUsersCache {
+class RoomGithubUsersCache(val db: Database):    IRoomGithubUsersCache {
 
     //пишем пользователей в кэш на случай пропадания сети
-    override fun doUsersCache(githubUserList: List<GithubUser>, db: Database
+    override fun doUsersCache(githubUserList: List<GithubUser>
     ): Single<List<GithubUser>> {
        return Single.fromCallable{ //создаём  Single из списка, по пути пишем в базу
             // map для базы, так как классы разные
@@ -26,7 +26,7 @@ class RoomGithubUsersCache:    IRoomGithubUsersCache {
     }
 
     //достаём пользователей из кэша в случае пропадания сети
-    override fun getUsersFromCash(db: Database): Single<List<GithubUser>> {
+    override fun getUsersFromCash(): Single<List<GithubUser>> {
        return Single.fromCallable {
             db.userDao.getAll().map {roomUser->
                 GithubUser(roomUser.id, roomUser.login,

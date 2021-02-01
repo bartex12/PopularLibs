@@ -10,13 +10,19 @@ import com.example.popularlibs_homrworks.view.main.TAG
 import io.reactivex.rxjava3.core.Scheduler
 import moxy.MvpPresenter
 import ru.terrakok.cicerone.Router
+import javax.inject.Inject
 
 //презентер для работы с фрагментом UsersFragment,  Router для навигации
-class UsersPresenter(val mainThreadScheduler: Scheduler, val usersRepo: IGithubUsersRepo,
-                     val router: Router): MvpPresenter<UsersView>() {
+class UsersPresenter: MvpPresenter<UsersView>() {
 
-    val usersListPresenter =
-        UsersListPresenter()
+    @Inject
+    lateinit var usersRepo: IGithubUsersRepo
+    @Inject
+    lateinit var router: Router
+    @Inject
+    lateinit var mainThreadScheduler:Scheduler
+
+    val usersListPresenter = UsersListPresenter()
 
     //вложенный класс для работы с адаптером
     class UsersListPresenter :
@@ -49,7 +55,7 @@ class UsersPresenter(val mainThreadScheduler: Scheduler, val usersRepo: IGithubU
 //ApiHolder.api.getUsers().subscribeOn(Schedulers.io())
 //Зачем плодить дополнительные класс и интерфейс репозитория
 //Или это заготовка на будущее? - да
-    fun loadData() {
+private fun loadData() {
         usersRepo.getUsers()
             .observeOn(mainThreadScheduler)
             .subscribe({ repos ->
@@ -63,7 +69,6 @@ class UsersPresenter(val mainThreadScheduler: Scheduler, val usersRepo: IGithubU
     // было ли событие нажатия поглощено фрагментом или нужно обработать его стандартным способом.
     fun backPressed(): Boolean {
         router.exit()
-        router.exit() //иначе показывает пустой экран
         return true
     }
 

@@ -14,10 +14,16 @@ import com.example.popularlibs_homrworks.model.room.Database
 import com.example.popularlibs_homrworks.view.main.TAG
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
+import javax.inject.Inject
 
-class GlideImageLoader(val db: Database, val avatarCash: IRoomGithubAvatarCache,
-                       val networkStatus: INetworkStatus):
-    IImageLoader<ImageView> {
+class GlideImageLoader : IImageLoader<ImageView> {
+
+    @Inject
+    lateinit var database: Database
+    @Inject
+    lateinit var networkStatus: INetworkStatus
+    @Inject
+    lateinit var avatarCash: IRoomGithubAvatarCache
 
     override fun loadInto(url: String, container: ImageView) {
         var urlNew  = url  //нужна изменяемая переменная!!!
@@ -30,7 +36,8 @@ class GlideImageLoader(val db: Database, val avatarCash: IRoomGithubAvatarCache,
                     target: Target<Bitmap>?,
                     isFirstResource: Boolean
                 ): Boolean {
-                    Log.d(TAG, "GlideImageLoader listener itemView onLoadFailed " +
+                    Log.d(
+                        TAG, "GlideImageLoader listener itemView onLoadFailed " +
                             "Error = ${e?.message}")
                     return true
                 }
@@ -47,19 +54,21 @@ class GlideImageLoader(val db: Database, val avatarCash: IRoomGithubAvatarCache,
                         .flatMap { isOnline ->
                             if (isOnline) {
                                 //если сеть есть - кэшируем аватарки на диск
-                                avatarCash.doAvatarsCache( db, resource, url)
+                                avatarCash.doAvatarsCache( database, resource, url)
                             } else {
                                 //если сети нет - достаём аватарки из кэша
-                                avatarCash.getAvatarsFromCash( db,  url)
+                                avatarCash.getAvatarsFromCash( database,  url)
                             }
                         }.subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe (
                             {urlNew =it  //получаем url в зависимости от наличия сети !!!
-                                Log.d(TAG, "GlideImageLoader onResourceReady Online:  url = $url " +
+                                Log.d(
+                                    TAG, "GlideImageLoader onResourceReady Online:  url = $url " +
                                         "*** urlNew $urlNew" )
                             },{error->
-                                Log.d(TAG, "GlideImageLoader onResourceReady Online:" +
+                                Log.d(
+                                    TAG, "GlideImageLoader onResourceReady Online:" +
                                         " Error ${error.message} ")
                             }
                         )

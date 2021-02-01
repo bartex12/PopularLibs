@@ -8,40 +8,36 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.popularlibs_homrworks.App
 import com.example.popularlibs_homrworks.R
-import com.example.popularlibs_homrworks.model.api.ApiHolder
 import com.example.popularlibs_homrworks.model.entity.GithubUser
-import com.example.popularlibs_homrworks.model.network.AndroidNetworkStatus
-import com.example.popularlibs_homrworks.model.repositories.userrepo.RetrofitGithubRepositoriesRepo
-import com.example.popularlibs_homrworks.model.repositories.userrepo.cashrepos.RoomRepositoriesRepoCash
-import com.example.popularlibs_homrworks.model.room.Database
 import com.example.popularlibs_homrworks.presenters.user.UserRepoPresenter
 import com.example.popularlibs_homrworks.view.adapters.user.UserRepoAdapter
 import com.example.popularlibs_homrworks.view.fragments.BackButtonListener
 import com.example.popularlibs_homrworks.view.main.TAG
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.fragment_user.*
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 
 
-class UserFragment(val user: GithubUser) : MvpAppCompatFragment(),
+class UserFragment() : MvpAppCompatFragment(),
     UserView,    BackButtonListener {
+
+    companion object {
+        const val USER_ARG = "user"
+
+        fun newInstance(user: GithubUser) = UserFragment().apply {
+            arguments = Bundle().apply {
+                putParcelable(USER_ARG, user)
+            }
+        }
+    }
 
     var adapter: UserRepoAdapter? = null
 
     val repoPresenter: UserRepoPresenter by moxyPresenter {
-        UserRepoPresenter(
-            AndroidSchedulers.mainThread(),
-            RetrofitGithubRepositoriesRepo(
-                ApiHolder.api,
-                AndroidNetworkStatus(
-                    App.instance
-                ),
-                Database.getInstance(), RoomRepositoriesRepoCash()
-            ),
-            App.instance.router,
-            user
-        )
+        val user = arguments?.getParcelable<GithubUser>(USER_ARG) as GithubUser
+        UserRepoPresenter(user).apply {
+            App.instance.appComponent.inject(this)
+        }
     }
 
 
