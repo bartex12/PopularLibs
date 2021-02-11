@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">State_Rx_Less5</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_state">Hello state!</string>
+    <string name="state">state1</string>
+    <string name="name">Россия</string>
+    <string name="connecting">Подключение к серверу…</string>
+    <string name="weatherInCap">Погода в столице</string>
+    <string name="hello_capital">hello_capital</string>
+    <string name="unknown">Unknown</string>
+    <string name="Unknown">Unknown</string>
+</resources>

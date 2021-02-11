@@ -1,0 +1,119 @@
+package com.bartex.states.view.fragments.weather
+
+import android.annotation.SuppressLint
+import android.graphics.drawable.Drawable
+import android.os.Bundle
+import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import com.bartex.states.App
+import com.bartex.states.R
+import com.bartex.states.model.api.weather.ApiHolderWeather
+import com.bartex.states.model.entity.state.State
+import com.bartex.states.model.repositories.weather.WeatherRepo
+import com.bartex.states.presenter.weather.WeatherPresenter
+import com.bartex.states.view.fragments.BackButtonListener
+import com.bartex.states.view.main.TAG
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import kotlinx.android.synthetic.main.fragment_weather.*
+import moxy.MvpAppCompatFragment
+import moxy.ktx.moxyPresenter
+
+class WeatherFragment : MvpAppCompatFragment(),
+    IWeatherView,
+    BackButtonListener {
+
+    private var state: State? = null
+
+    companion object {
+        private const val ARG_STATE = "state"
+
+        @JvmStatic
+        fun newInstance(state: State) =
+            WeatherFragment()
+                .apply {
+                    arguments = Bundle().apply {
+                        putParcelable(ARG_STATE, state)
+                    }
+                }
+    }
+
+    val presenter: WeatherPresenter by moxyPresenter {
+        arguments?.let {
+            state = it.getParcelable<State>(
+                ARG_STATE
+            )
+        }
+        Log.d(TAG, "WeatherFragment  capital = ${state?.capital}")
+        WeatherPresenter(
+            AndroidSchedulers.mainThread(),
+            WeatherRepo(
+                ApiHolderWeather.api
+            )
+            ,
+            App.instance.router,
+            state
+        )
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.fragment_weather, container, false)
+
+    }
+
+    override fun setStateName(state: String) {
+        tv_state_name.text = state
+    }
+
+    override fun setCapitalName(head: String) {
+        tv_capital_name.text = head
+    }
+
+    override fun setTemp(temp: Float) {
+        tv_capital_temp.text = String.format("%.0f \u2103", temp)
+
+    }
+
+    override fun setPressure(pressure: Int) {
+        tv_capital_pressure.text = String.format("атм. давление %d мбар", pressure)
+    }
+
+    override fun setHumidity(humidity: Int) {
+        tv_capital_humidity.text = String.format("отн.влажность %d проц.", humidity)
+    }
+
+    override fun setDescription(description: String) {
+        tv_capital_description.text = description
+    }
+
+    override fun setIconDrawble(icon: String) {
+        iv_icon.setImageDrawable(getIconFromIconCod(icon))
+    }
+
+    override fun backPressed(): Boolean {
+        presenter.backPressed()
+        return true
+    }
+
+    @SuppressLint("UseCompatLoadingForDrawables")
+    private fun getIconFromIconCod(iconCod: String): Drawable {
+        return   when (iconCod) {
+            "01d", "01n" -> requireActivity().resources.getDrawable(R.drawable.sun, null)
+            "02d", "02n" -> requireActivity().resources.getDrawable(R.drawable.partly_cloudy, null)
+            "03d", "03n" -> requireActivity().resources.getDrawable(R.drawable.cloudy, null)
+            "04d", "04n" -> requireActivity().resources.getDrawable(R.drawable.cloudy, null)
+            "09d", "09n" -> requireActivity().resources.getDrawable(R.drawable.rain, null)
+            "10d", "10n" ->requireActivity().resources.getDrawable(R.drawable.little_rain, null)
+            "11d", "11n" -> requireActivity().resources.getDrawable(R.drawable.boom, null)
+            "13d", "13n" ->requireActivity().resources.getDrawable(R.drawable.snow, null)
+            "50d", "50n" ->requireActivity().resources.getDrawable(R.drawable.smog, null)
+            else -> requireActivity().resources.getDrawable(R.drawable.what, null)
+        }
+
+    }
+}

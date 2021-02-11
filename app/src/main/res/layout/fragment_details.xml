@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#80cff2da"
+    android:orientation="vertical"
+    tools:context=".view.fragments.details.DetailsFragment">
+
+<TextView
+    android:id="@+id/tv_state_name"
+    style="@style/GreetingCityStyle"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:gravity="center"
+    android:layout_marginTop="10dp"
+    android:textSize="24sp"
+    android:text="@string/connecting"
+    tools:text="@string/hello_state" />
+
+<ImageView
+    android:id="@+id/iv_flag_big"
+    android:layout_width="160dp"
+    android:layout_height="120dp"
+    android:layout_gravity="center_horizontal"
+    tools:text="@string/hello_state"
+    tools:src="@tools:sample/avatars"/>
+
+<TextView
+    android:id="@+id/tv_state_region"
+    style="@style/StateStyleMiddle"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="start"
+    android:layout_marginTop="16dp"
+    tools:text="@string/hello_state" />
+
+<TextView
+    android:id="@+id/tv_state_area"
+    style="@style/StateStyleMiddle"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="start"
+    tools:text="@string/hello_state" />
+
+<TextView
+    android:id="@+id/tv_state_population"
+    style="@style/StateStyleMiddle"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="start"
+    tools:text="@string/hello_state" />
+
+<TextView
+    android:id="@+id/tv_state_capital"
+    style="@style/StateStyle"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="start"
+    tools:text="@string/hello_state"
+    />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_show_weater"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:background="@drawable/ramka"
+            android:drawableStart="@drawable/ic_baseline_beach_access_24"
+            android:paddingTop="16dp"
+            android:paddingStart="24dp"
+            android:paddingEnd="24dp"
+            android:paddingBottom="16dp"
+            android:text="@string/weatherInCap"
+            android:textColor="@color/colorPrimary" />
+    </LinearLayout>
+
+</LinearLayout>
