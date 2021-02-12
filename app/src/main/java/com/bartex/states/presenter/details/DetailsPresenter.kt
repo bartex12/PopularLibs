@@ -33,7 +33,7 @@ class DetailsPresenter(val router: Router):
 
     fun backPressed():Boolean {
         Log.d(TAG, "DetailsPresenter backPressed ")
-        router.replaceScreen(Screens.StatesScreen())
+        router.backTo(Screens.StatesScreen())
         return true
     }
 }

@@ -46,7 +46,7 @@ class StatesPresenter(val mainThreadScheduler: Scheduler, val statesRepo: IState
             //переход на экран пользователя
             val state =  statesListPresenter.states[itemView.pos]
             Log.d(TAG, "StatesPresenter itemClickListener state name =${state.name}")
-            router.replaceScreen(Screens.DetailsScreen(state))
+            router.navigateTo(Screens.DetailsScreen(state))
         }
     }
 
@@ -63,6 +63,7 @@ class StatesPresenter(val mainThreadScheduler: Scheduler, val statesRepo: IState
     }
 
     fun backPressed(): Boolean {
+        router.exit()
         router.exit()
         return true
     }

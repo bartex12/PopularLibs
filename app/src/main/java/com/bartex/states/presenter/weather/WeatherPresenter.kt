@@ -42,7 +42,7 @@ class WeatherPresenter(val mainThreadScheduler: Scheduler, val weatherRepo: IWea
 
     fun backPressed():Boolean {
         Log.d(TAG, "DetailsPresenter backPressed ")
-        state?. let{router.replaceScreen(Screens.DetailsScreen(it))}
+        state?. let{router.backTo(Screens.DetailsScreen(it))}
         return true
     }
 }

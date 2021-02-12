@@ -1,6 +1,5 @@
 package com.bartex.states.view.fragments.weather
 
-import android.annotation.SuppressLint
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
@@ -102,7 +101,6 @@ class WeatherFragment : MvpAppCompatFragment(),
         iv_icon.setImageDrawable(getIconFromIconCod(icon))
     }
 
-    @SuppressLint("UseCompatLoadingForDrawables")
     override fun setErrorMessage() {
         tv_capital_description.text = getString(R.string.ErrorCity)
         iv_icon.setImageDrawable( ContextCompat.getDrawable(requireContext(),R.drawable.whatcanido))
@@ -113,6 +111,7 @@ class WeatherFragment : MvpAppCompatFragment(),
         return true
     }
 
+    //Drawable это import android.graphics.drawable.Drawable
     private fun getIconFromIconCod(iconCod: String): Drawable? {
         return   when (iconCod) {
             "01d", "01n" -> ContextCompat.getDrawable(requireContext(), R.drawable.sun)
