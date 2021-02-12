@@ -13,6 +13,6 @@ data class State(
     @Expose val name :String? = null,
     @Expose val region :String? = null,
     @Expose val population :Int? = null,
-    @Expose val area :Float? = null
-   /* @Expose val latlng:List<LatLng>? = null*/
+    @Expose val area :Float? = null,
+    @Expose val latlng:Array<Float>? = null
 ): Parcelable

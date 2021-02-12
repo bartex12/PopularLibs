@@ -54,7 +54,7 @@ class StatesPresenter(val mainThreadScheduler: Scheduler, val statesRepo: IState
         statesRepo.getStates()
             .observeOn(mainThreadScheduler)
             .subscribe ({states->
-                Log.d(TAG, "StatesRepo  states.size = ${states.size}")
+                Log.d(TAG, "StatesPresenter  loadData states.size = ${states.size}")
                 statesListPresenter.states.clear()
                 statesListPresenter.states.addAll(states)
                 viewState.updateList()

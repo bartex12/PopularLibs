@@ -13,5 +13,7 @@ class RoomState(
     @PrimaryKey var name :String,
     var region :String,
     var population :Int,
-    var area :Float
+    var area :Float,
+    var lat :Float,
+    var lng :Float
 )

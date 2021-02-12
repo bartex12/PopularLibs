@@ -27,8 +27,9 @@ val db:Database, val roomCash: IRoomStateCash):    IStatesRepo {
                     Log.d(TAG, "StatesRepo  isOnLine  = true")
                     api.getStates() //получаем данные из сети в виде Single<List<State>>
                         .flatMap {states->  //получаем доступ к списку List<State>
+                            Log.d(TAG, "StatesRepo  getStates states.size = ${states.size}")
                             //реализация кэширования списка пользователей из сети в базу данных
-                            roomCash.doStatesCash(states, db)
+                           roomCash.doStatesCash(states, db)
                         }
                 }else{
                     Log.d(TAG, "StatesRepo  isOnLine  = false")
