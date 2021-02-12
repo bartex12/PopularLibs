@@ -26,7 +26,7 @@ class RoomStateCash: IRoomStateCash {
          }
          Log.d(TAG, "RoomStateCash doStatesCash: roomUsers.size = ${roomUsers.size}")
         db.stateDao.insert(roomUsers) //пишем в базу
-           return@fromCallable listStates //возвращаем states  в виде Single<List<State>>
+           return@fromCallable listStates //возвращаем states_search  в виде Single<List<State>>
        }
     }
 
