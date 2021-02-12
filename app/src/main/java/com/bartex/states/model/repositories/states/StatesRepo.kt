@@ -26,10 +26,15 @@ val db:Database, val roomCash: IRoomStateCash):    IStatesRepo {
                 if (isOnLine){ //если сеть есть
                     Log.d(TAG, "StatesRepo  isOnLine  = true")
                     api.getStates() //получаем данные из сети в виде Single<List<State>>
-                        .flatMap {states->  //получаем доступ к списку List<State>
-                            Log.d(TAG, "StatesRepo  getStates states.size = ${states.size}")
+                        .flatMap {states->//получаем доступ к списку List<State>
+                            val filtr_states =   states.filter {state->
+                                state.capital!=null &&  //только со столицами !=null
+                                state.latlng?.size == 2 && //только с известными координатами
+                                state.capital.isNotEmpty() //только с известными столицами
+                            }
+                            Log.d(TAG, "StatesRepo  getStates states.size = ${filtr_states.size}")
                             //реализация кэширования списка пользователей из сети в базу данных
-                           roomCash.doStatesCash(states, db)
+                           roomCash.doStatesCash(filtr_states, db)
                         }
                 }else{
                     Log.d(TAG, "StatesRepo  isOnLine  = false")
