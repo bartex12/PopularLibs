@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import com.bartex.states.App
 import com.bartex.states.R
 import com.bartex.states.model.api.weather.ApiHolderWeather
@@ -104,7 +105,7 @@ class WeatherFragment : MvpAppCompatFragment(),
     @SuppressLint("UseCompatLoadingForDrawables")
     override fun setErrorMessage() {
         tv_capital_description.text = getString(R.string.ErrorCity)
-        iv_icon.setImageDrawable( requireActivity().resources.getDrawable(R.drawable.whatcanido, null))
+        iv_icon.setImageDrawable( ContextCompat.getDrawable(requireContext(),R.drawable.whatcanido))
     }
 
     override fun backPressed(): Boolean {
@@ -112,19 +113,18 @@ class WeatherFragment : MvpAppCompatFragment(),
         return true
     }
 
-    @SuppressLint("UseCompatLoadingForDrawables")
-    private fun getIconFromIconCod(iconCod: String): Drawable {
+    private fun getIconFromIconCod(iconCod: String): Drawable? {
         return   when (iconCod) {
-            "01d", "01n" -> requireActivity().resources.getDrawable(R.drawable.sun, null)
-            "02d", "02n" -> requireActivity().resources.getDrawable(R.drawable.partly_cloudy, null)
-            "03d", "03n" -> requireActivity().resources.getDrawable(R.drawable.cloudy, null)
-            "04d", "04n" -> requireActivity().resources.getDrawable(R.drawable.cloudy, null)
-            "09d", "09n" -> requireActivity().resources.getDrawable(R.drawable.rain, null)
-            "10d", "10n" ->requireActivity().resources.getDrawable(R.drawable.little_rain, null)
-            "11d", "11n" -> requireActivity().resources.getDrawable(R.drawable.boom, null)
-            "13d", "13n" ->requireActivity().resources.getDrawable(R.drawable.snow, null)
-            "50d", "50n" ->requireActivity().resources.getDrawable(R.drawable.smog, null)
-            else -> requireActivity().resources.getDrawable(R.drawable.what, null)
+            "01d", "01n" -> ContextCompat.getDrawable(requireContext(), R.drawable.sun)
+            "02d", "02n" ->ContextCompat.getDrawable(requireContext(),R.drawable.partly_cloudy)
+            "03d", "03n" -> ContextCompat.getDrawable(requireContext(),R.drawable.cloudy)
+            "04d", "04n" ->ContextCompat.getDrawable(requireContext(),R.drawable.cloudy)
+            "09d", "09n" -> ContextCompat.getDrawable(requireContext(),R.drawable.rain)
+            "10d", "10n" ->ContextCompat.getDrawable(requireContext(),R.drawable.little_rain)
+            "11d", "11n" -> ContextCompat.getDrawable(requireContext(),R.drawable.boom)
+            "13d", "13n" ->ContextCompat.getDrawable(requireContext(),R.drawable.snow)
+            "50d", "50n" ->ContextCompat.getDrawable(requireContext(),R.drawable.smog)
+            else -> ContextCompat.getDrawable(requireContext(),R.drawable.whatcanido)
         }
 
     }
