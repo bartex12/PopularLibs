@@ -64,7 +64,7 @@ class StatesPresenter(val mainThreadScheduler: Scheduler, val statesRepo: IState
 
     fun backPressed(): Boolean {
         router.exit()
-        router.exit()
+        router.exit() //выход с белого экрана App
         return true
     }
 }
