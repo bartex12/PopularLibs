@@ -9,9 +9,17 @@ interface IDataSourceWeather {
 
     @GET("data/2.5/weather")
     fun loadWeatherInCapitalRu(
-        @Query("q") city: String?,
+        @Query("q") capital: String?,
         @Query("appid") keyApi: String?,
         @Query("units") units: String?,
         @Query("lang") lang: String?
+    ): Single<WeatherInCapital>
+
+
+    @GET("data/2.5/weather")
+    fun loadWeatherInCapitalEng(
+        @Query("q") capital: String?,
+        @Query("appid") keyApi: String?,
+        @Query("units") units: String?
     ): Single<WeatherInCapital>
 }

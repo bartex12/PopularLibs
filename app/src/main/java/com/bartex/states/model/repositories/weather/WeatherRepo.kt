@@ -1,15 +1,41 @@
 package com.bartex.states.model.repositories.weather
 
+import android.util.Log
 import com.bartex.states.model.api.weather.IDataSourceWeather
+import com.bartex.states.model.entity.state.State
 import com.bartex.states.model.entity.weather.WeatherInCapital
+import com.bartex.states.model.network.INetworkStatus
+import com.bartex.states.model.repositories.weather.cash.IRoomWeatherCash
+import com.bartex.states.model.room.Database
+import com.bartex.states.view.main.TAG
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
 
-class WeatherRepo(val api: IDataSourceWeather):
-    IWeatherRepo {
+class WeatherRepo(val api: IDataSourceWeather, val networkStatus: INetworkStatus,
+                 val  roomWeatherCash: IRoomWeatherCash, val db:Database):IWeatherRepo {
 
-    override fun getWeatherInCapital(
-        city: String?,keyApi: String?,units: String?, lang:String?): Single<WeatherInCapital> =
-        api.loadWeatherInCapitalRu(city, keyApi, units, lang).subscribeOn(Schedulers.io())
-
+    //в зависимости от статуса сети
+    //мы или получаем данные из сети, записывая их в базу данных с помощью Room через map
+    //или берём из базы, преобразуя их также через map
+    override fun getWeatherInCapital(capital: String?,keyApi: String?,units: String?, lang:String?)
+            : Single<WeatherInCapital> =
+        networkStatus.isOnlineSingle()
+            .flatMap {isOnLine-> //получаем доступ к Boolean значениям
+                if (isOnLine){ //если сеть есть
+                    Log.d(TAG, "WeatherRepo  isOnLine  = true")
+                    //получаем данные из сети в виде Single<WeatherInCapital>
+                    //api.loadWeatherInCapitalRu(capital, keyApi, units, lang)
+                    api.loadWeatherInCapitalEng(capital, keyApi, units)
+                        .flatMap {weatherInCapital->
+                            Log.d(TAG, "WeatherRepo  loadWeatherInCapitalRu name = " +
+                                    "${weatherInCapital.name} temp = ${weatherInCapital.main?.temp}")
+                            //реализация кэширования погоды в столице из сети в базу данных
+                            roomWeatherCash.doWeatherCash(weatherInCapital, db)
+                        }
+                }else{
+                    Log.d(TAG, "WeatherRepo  isOnLine  = false")
+                    //получение погоды в столице из кэша
+                    roomWeatherCash.getWeatherFromCash(capital, db)
+                }
+            }.subscribeOn(Schedulers.io())
 }

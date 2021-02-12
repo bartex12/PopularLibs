@@ -5,5 +5,5 @@ import io.reactivex.rxjava3.core.Single
 
 interface IWeatherRepo {
     fun getWeatherInCapital(
-        city: String?,keyApi: String?,units: String?, lang:String?): Single<WeatherInCapital>
+        capital: String?,keyApi: String?,units: String?, lang:String?): Single<WeatherInCapital>
 }

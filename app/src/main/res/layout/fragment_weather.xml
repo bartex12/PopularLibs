@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="10dp"
+        android:gravity="center_horizontal"
         android:text="@string/connecting" />
 
     <TextView
@@ -34,6 +35,7 @@
         style="@style/StateStyleMiddleBase"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
         android:layout_gravity="center_horizontal" />
 
     <TextView

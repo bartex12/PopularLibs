@@ -32,7 +32,7 @@ val db:Database, val roomCash: IRoomStateCash):    IStatesRepo {
                                 state.latlng?.size == 2 && //только с известными координатами
                                 state.capital.isNotEmpty() //только с известными столицами
                             }
-                            Log.d(TAG, "StatesRepo  getStates states.size = ${filtr_states.size}")
+                            Log.d(TAG, "StatesRepo  getStates filtr_states.size = ${filtr_states.size}")
                             //реализация кэширования списка пользователей из сети в базу данных
                            roomCash.doStatesCash(filtr_states, db)
                         }

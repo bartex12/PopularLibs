@@ -13,13 +13,15 @@ class RoomStateCash: IRoomStateCash {
      return  Single.fromCallable { //создаём  Single из списка, по пути пишем в базу
          // map для базы, так как классы разные
          val roomUsers = listStates.map {state->
-//             Log.d(TAG, "RoomStateCash doStatesCash: lat = ${state.latlng?.get(0)}" +
-//                     "  lng =  ${state.latlng?.get(1)}")
              RoomState(
-                 state.capital ?: "", state.flag ?: "",
-                 state.name ?: "", state.region ?: "",
-                 state.population ?: 0, state.area?:0f,
-                 state.latlng?.get(0) ?:0f, state.latlng?.get(1) ?:0f
+                 state.capital ?: "",
+                 state.flag ?: "",
+                 state.name ?: "",
+                 state.region ?: "",
+                 state.population ?: 0,
+                 state.area?:0f,
+                 state.latlng?.get(0) ?:0f,
+                 state.latlng?.get(1) ?:0f
              )
          }
          Log.d(TAG, "RoomStateCash doStatesCash: roomUsers.size = ${roomUsers.size}")

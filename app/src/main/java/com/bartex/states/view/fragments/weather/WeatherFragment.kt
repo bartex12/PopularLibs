@@ -11,7 +11,11 @@ import com.bartex.states.App
 import com.bartex.states.R
 import com.bartex.states.model.api.weather.ApiHolderWeather
 import com.bartex.states.model.entity.state.State
+import com.bartex.states.model.network.NetworkStatus
+import com.bartex.states.model.repositories.states.cash.RoomStateCash
 import com.bartex.states.model.repositories.weather.WeatherRepo
+import com.bartex.states.model.repositories.weather.cash.RoomWeatherCash
+import com.bartex.states.model.room.Database
 import com.bartex.states.presenter.weather.WeatherPresenter
 import com.bartex.states.view.fragments.BackButtonListener
 import com.bartex.states.view.main.TAG
@@ -49,9 +53,11 @@ class WeatherFragment : MvpAppCompatFragment(),
         WeatherPresenter(
             AndroidSchedulers.mainThread(),
             WeatherRepo(
-                ApiHolderWeather.api
-            )
-            ,
+                ApiHolderWeather.api,
+                NetworkStatus(App.instance),
+                RoomWeatherCash(),
+                Database.getInstance()
+            ) ,
             App.instance.router,
             state
         )
@@ -95,8 +101,10 @@ class WeatherFragment : MvpAppCompatFragment(),
         iv_icon.setImageDrawable(getIconFromIconCod(icon))
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     override fun setErrorMessage() {
-        tv_capital_name.text = getString(R.string.ErrorCity)
+        tv_capital_description.text = getString(R.string.ErrorCity)
+        iv_icon.setImageDrawable( requireActivity().resources.getDrawable(R.drawable.whatcanido, null))
     }
 
     override fun backPressed(): Boolean {
