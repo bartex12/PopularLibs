@@ -1,6 +1,7 @@
 package com.bartex.states
 
 import android.app.Application
+import com.bartex.states.model.room.Database
 import ru.terrakok.cicerone.Cicerone
 import ru.terrakok.cicerone.Router
 
@@ -17,6 +18,7 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
         instance = this
+        Database.create(this)
     }
 
     val navigatorHolder

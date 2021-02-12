@@ -8,9 +8,9 @@
     <application
         android:allowBackup="true"
         android:name="com.bartex.states.App"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/globus160x160"
+        android:roundIcon="@mipmap/globus160x160"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".view.main.MainActivity">

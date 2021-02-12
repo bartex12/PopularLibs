@@ -21,7 +21,7 @@ class GlideToVectorYouLoader(val activity: Activity):
                 }
 
                 override fun onResourceReady() {
-                    Log.d(TAG, "GlideToVectorYouLoader onResourceReady: ")
+                    //Log.d(TAG, "GlideToVectorYouLoader onResourceReady: ")
                 }
             })
             //.setPlaceHolder(placeholderLoading, placeholderError)

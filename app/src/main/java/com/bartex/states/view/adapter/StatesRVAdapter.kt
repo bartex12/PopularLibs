@@ -44,11 +44,11 @@ class StatesRVAdapter(val presenter: IStateListPresenter, val imageLoader: IImag
 
         override fun setName(name: String) {
             containerView.tv_name.text = name
-            Log.d(TAG, "StatesRVAdapter ViewHolder setLogin name =$name")
+           // Log.d(TAG, "StatesRVAdapter ViewHolder setLogin name =$name")
         }
 
         override fun loadFlag(url: String) {
-            Log.d(TAG, "StatesRVAdapter ViewHolder loadFlag url =$url")
+            //Log.d(TAG, "StatesRVAdapter ViewHolder loadFlag url =$url")
             imageLoader.loadInto(url, containerView.iv_flag)
         }
     }

@@ -13,4 +13,5 @@ interface IWeatherView: MvpView {
     fun setHumidity(humidity:Int)
     fun setDescription(description:String)
     fun setIconDrawble(icon:String)
+    fun setErrorMessage()
 }

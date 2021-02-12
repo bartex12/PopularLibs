@@ -35,7 +35,8 @@ class WeatherPresenter(val mainThreadScheduler: Scheduler, val weatherRepo: IWea
                     it.weather?.get(0)?.icon?. let{icon->viewState.setIconDrawble(icon)}
                     Log.d(TAG, "WeatherPresenter onSuccess ${it.name} ${it.main?.temp}")
                 },
-                {error -> Log.d(TAG, "WeatherPresenter onError ${error.message}")}
+                {error -> viewState.setErrorMessage()
+                    Log.d(TAG, "WeatherPresenter onError ${error.message}")}
             )
     }
 

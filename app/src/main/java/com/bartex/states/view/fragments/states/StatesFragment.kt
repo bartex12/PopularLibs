@@ -8,7 +8,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bartex.states.App
 import com.bartex.states.R
 import com.bartex.states.model.api.state.ApiHolderState
+import com.bartex.states.model.network.NetworkStatus
 import com.bartex.states.model.repositories.states.StatesRepo
+import com.bartex.states.model.repositories.states.cash.RoomStateCash
+import com.bartex.states.model.room.Database
 import com.bartex.states.presenter.states.StatesPresenter
 import com.bartex.states.view.adapter.StatesRVAdapter
 import com.bartex.states.view.adapter.imageloader.GlideToVectorYouLoader
@@ -29,9 +32,9 @@ class StatesFragment : MvpAppCompatFragment(),
     val presenter: StatesPresenter by moxyPresenter {
         StatesPresenter(
             AndroidSchedulers.mainThread(),
-            StatesRepo(
-                ApiHolderState.api
-            ), App.instance.router
+            StatesRepo(ApiHolderState.api, NetworkStatus(App.instance),
+            Database.getInstance(), RoomStateCash()),
+            App.instance.router
         )
     }
 

@@ -2,6 +2,7 @@ package com.bartex.states.view.fragments.details
 
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,7 @@ import com.bartex.states.R
 import com.bartex.states.model.entity.state.State
 import com.bartex.states.presenter.details.DetailsPresenter
 import com.bartex.states.view.fragments.BackButtonListener
+import com.bartex.states.view.main.TAG
 import com.github.twocoffeesoneteam.glidetovectoryou.GlideToVectorYou
 import kotlinx.android.synthetic.main.fragment_details.*
 import moxy.MvpAppCompatFragment
@@ -44,6 +46,7 @@ class DetailsFragment : MvpAppCompatFragment(),
                 ARG_STATE
             )
         }
+        Log.d(TAG, "DetailsFragment onCreate state = ${state}")
     }
 
     override fun onCreateView(

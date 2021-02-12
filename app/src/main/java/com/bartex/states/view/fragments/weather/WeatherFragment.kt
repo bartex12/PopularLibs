@@ -95,6 +95,10 @@ class WeatherFragment : MvpAppCompatFragment(),
         iv_icon.setImageDrawable(getIconFromIconCod(icon))
     }
 
+    override fun setErrorMessage() {
+        tv_capital_name.text = getString(R.string.ErrorCity)
+    }
+
     override fun backPressed(): Boolean {
         presenter.backPressed()
         return true
