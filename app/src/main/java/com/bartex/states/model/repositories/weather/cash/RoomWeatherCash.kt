@@ -1,7 +1,6 @@
 package com.bartex.states.model.repositories.weather.cash
 
 import android.util.Log
-import com.bartex.states.model.entity.state.State
 import com.bartex.states.model.entity.weather.Main
 import com.bartex.states.model.entity.weather.Sys
 import com.bartex.states.model.entity.weather.Weather
@@ -11,9 +10,9 @@ import com.bartex.states.model.room.tables.RoomWeather
 import com.bartex.states.view.main.TAG
 import io.reactivex.rxjava3.core.Single
 
-class RoomWeatherCash:IRoomWeatherCash {
+class RoomWeatherCash(val db: Database):IRoomWeatherCash {
 
-    override fun doWeatherCash( weatherInCapital: WeatherInCapital, db: Database)
+    override fun doWeatherCash( weatherInCapital: WeatherInCapital)
             : Single<WeatherInCapital> {
 
        return Single.fromCallable{
@@ -34,7 +33,7 @@ class RoomWeatherCash:IRoomWeatherCash {
        }
     }
 
-    override fun getWeatherFromCash(capital: String?,db: Database): Single<WeatherInCapital> {
+    override fun getWeatherFromCash(capital: String?): Single<WeatherInCapital> {
        return Single.fromCallable{
            capital?. let{cap->
             val roomWeather =   db.weatherDao.findByName(cap)

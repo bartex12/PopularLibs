@@ -1,11 +1,10 @@
 package com.bartex.states.model.repositories.states
 
 import android.util.Log
-import com.bartex.states.model.api.state.IDataSourceState
+import com.bartex.states.model.api.IDataSourceState
 import com.bartex.states.model.entity.state.State
 import com.bartex.states.model.network.INetworkStatus
 import com.bartex.states.model.repositories.states.cash.IRoomStateCash
-import com.bartex.states.model.room.Database
 import com.bartex.states.view.main.TAG
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -16,7 +15,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 // выполнялись именно в io-потоке. Всегда лучше поступать именно таким образом, даже когда речь
 // не идёт о сети — во избежание выполнения операций в неверном потоке в вызывающем коде.
 class StatesRepo(val api: IDataSourceState, val networkStatus: INetworkStatus,
-val db:Database, val roomCash: IRoomStateCash):    IStatesRepo {
+                 val roomCash: IRoomStateCash):    IStatesRepo {
     //метод  интерфейса IDataSourceState getStates() - в зависимости от статуса сети
     //мы или получаем данные из сети, записывая их в базу данных с помощью Room через map
     //или берём из базы, преобразуя их также через map
@@ -34,12 +33,12 @@ val db:Database, val roomCash: IRoomStateCash):    IStatesRepo {
                             }
                             Log.d(TAG, "StatesRepo  getStates filtr_states.size = ${filtr_states.size}")
                             //реализация кэширования списка пользователей из сети в базу данных
-                           roomCash.doStatesCash(filtr_states, db)
+                           roomCash.doStatesCash(filtr_states)
                         }
                 }else{
                     Log.d(TAG, "StatesRepo  isOnLine  = false")
                             //получение списка пользователей из кэша
-                            roomCash.getStatesFromCash(db)
+                            roomCash.getStatesFromCash()
                 }
             }.subscribeOn(Schedulers.io())
 }

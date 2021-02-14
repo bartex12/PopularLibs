@@ -1,7 +1,6 @@
 package com.bartex.states.model.room.dao
 
 import androidx.room.*
-import com.bartex.states.model.room.tables.RoomState
 import com.bartex.states.model.room.tables.RoomWeather
 
 @Dao

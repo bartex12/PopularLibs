@@ -1,4 +1,4 @@
-package com.bartex.states.presenter.details
+package com.bartex.states.presenter
 
 import android.util.Log
 import com.bartex.states.Screens
@@ -7,9 +7,12 @@ import com.bartex.states.view.fragments.details.IDetailsView
 import com.bartex.states.view.main.TAG
 import moxy.MvpPresenter
 import ru.terrakok.cicerone.Router
+import javax.inject.Inject
 
-class DetailsPresenter(val router: Router):
-    MvpPresenter<IDetailsView>()  {
+class DetailsPresenter:MvpPresenter<IDetailsView>()  {
+
+    @Inject
+    lateinit var router: Router
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
@@ -19,7 +22,6 @@ class DetailsPresenter(val router: Router):
         viewState.setStatePopulation()
         viewState.setStateCapital()
         viewState.setStateFlag()
-
     }
 
     fun btnEnabled(){

@@ -7,9 +7,9 @@ import com.bartex.states.model.room.tables.RoomState
 import com.bartex.states.view.main.TAG
 import io.reactivex.rxjava3.core.Single
 
-class RoomStateCash: IRoomStateCash {
+class RoomStateCash(val db: Database): IRoomStateCash {
 
-    override fun doStatesCash(listStates: List<State>, db: Database): Single<List<State>> {
+    override fun doStatesCash(listStates: List<State>): Single<List<State>> {
      return  Single.fromCallable { //создаём  Single из списка, по пути пишем в базу
          // map для базы, так как классы разные
          val roomUsers = listStates.map {state->
@@ -30,7 +30,7 @@ class RoomStateCash: IRoomStateCash {
        }
     }
 
-    override fun getStatesFromCash(db: Database): Single<List<State>> {
+    override fun getStatesFromCash(): Single<List<State>> {
       return  Single.fromCallable {
           db.stateDao.getAll().map {roomState->
               State(roomState.capital,roomState.flag, roomState.name, roomState.region,

@@ -1,18 +1,16 @@
 package com.bartex.states.model.repositories.weather
 
 import android.util.Log
-import com.bartex.states.model.api.weather.IDataSourceWeather
-import com.bartex.states.model.entity.state.State
+import com.bartex.states.model.api.IDataSourceWeather
 import com.bartex.states.model.entity.weather.WeatherInCapital
 import com.bartex.states.model.network.INetworkStatus
 import com.bartex.states.model.repositories.weather.cash.IRoomWeatherCash
-import com.bartex.states.model.room.Database
 import com.bartex.states.view.main.TAG
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
 
 class WeatherRepo(val api: IDataSourceWeather, val networkStatus: INetworkStatus,
-                 val  roomWeatherCash: IRoomWeatherCash, val db:Database):IWeatherRepo {
+                  val  roomWeatherCash: IRoomWeatherCash):IWeatherRepo {
 
     //в зависимости от статуса сети
     //мы или получаем данные из сети, записывая их в базу данных с помощью Room через map
@@ -30,12 +28,12 @@ class WeatherRepo(val api: IDataSourceWeather, val networkStatus: INetworkStatus
                             Log.d(TAG, "WeatherRepo  loadWeatherInCapitalRu name = " +
                                     "${weatherInCapital.name} temp = ${weatherInCapital.main?.temp}")
                             //реализация кэширования погоды в столице из сети в базу данных
-                            roomWeatherCash.doWeatherCash(weatherInCapital, db)
+                            roomWeatherCash.doWeatherCash(weatherInCapital)
                         }
                 }else{
                     Log.d(TAG, "WeatherRepo  isOnLine  = false")
                     //получение погоды в столице из кэша
-                    roomWeatherCash.getWeatherFromCash(capital, db)
+                    roomWeatherCash.getWeatherFromCash(capital)
                 }
             }.subscribeOn(Schedulers.io())
 }

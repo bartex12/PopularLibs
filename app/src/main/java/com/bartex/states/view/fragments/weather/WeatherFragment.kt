@@ -9,17 +9,10 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import com.bartex.states.App
 import com.bartex.states.R
-import com.bartex.states.model.api.weather.ApiHolderWeather
 import com.bartex.states.model.entity.state.State
-import com.bartex.states.model.network.NetworkStatus
-import com.bartex.states.model.repositories.states.cash.RoomStateCash
-import com.bartex.states.model.repositories.weather.WeatherRepo
-import com.bartex.states.model.repositories.weather.cash.RoomWeatherCash
-import com.bartex.states.model.room.Database
-import com.bartex.states.presenter.weather.WeatherPresenter
+import com.bartex.states.presenter.WeatherPresenter
 import com.bartex.states.view.fragments.BackButtonListener
 import com.bartex.states.view.main.TAG
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.fragment_weather.*
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
@@ -50,17 +43,9 @@ class WeatherFragment : MvpAppCompatFragment(),
             )
         }
         Log.d(TAG, "WeatherFragment  capital = ${state?.capital}")
-        WeatherPresenter(
-            AndroidSchedulers.mainThread(),
-            WeatherRepo(
-                ApiHolderWeather.api,
-                NetworkStatus(App.instance),
-                RoomWeatherCash(),
-                Database.getInstance()
-            ) ,
-            App.instance.router,
-            state
-        )
+        WeatherPresenter(state).apply {
+            App.instance.appComponent.inject(this)
+        }
     }
 
     override fun onCreateView(

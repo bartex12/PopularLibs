@@ -1,4 +1,4 @@
-package com.bartex.states.presenter.states
+package com.bartex.states.presenter
 
 import com.bartex.states.view.adapter.IItemView
 

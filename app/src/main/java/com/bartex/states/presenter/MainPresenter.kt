@@ -1,11 +1,15 @@
-package com.bartex.states.presenter.main
+package com.bartex.states.presenter
 
 import com.bartex.states.Screens
 import com.bartex.states.view.main.MainView
 import moxy.MvpPresenter
 import ru.terrakok.cicerone.Router
+import javax.inject.Inject
 
-class MainPresenter(val router: Router): MvpPresenter<MainView>() {
+class MainPresenter: MvpPresenter<MainView>() {
+
+    @Inject
+    lateinit var router: Router
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()

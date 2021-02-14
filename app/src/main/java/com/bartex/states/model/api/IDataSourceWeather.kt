@@ -1,4 +1,4 @@
-package com.bartex.states.model.api.weather
+package com.bartex.states.model.api
 
 import com.bartex.states.model.entity.weather.WeatherInCapital
 import io.reactivex.rxjava3.core.Single

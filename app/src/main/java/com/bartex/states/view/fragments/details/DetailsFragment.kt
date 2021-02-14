@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import com.bartex.states.App
 import com.bartex.states.R
 import com.bartex.states.model.entity.state.State
-import com.bartex.states.presenter.details.DetailsPresenter
+import com.bartex.states.presenter.DetailsPresenter
 import com.bartex.states.view.fragments.BackButtonListener
 import com.bartex.states.view.main.TAG
 import com.github.twocoffeesoneteam.glidetovectoryou.GlideToVectorYou
@@ -36,7 +36,9 @@ class DetailsFragment : MvpAppCompatFragment(),
     private var state: State? = null
 
     val presenter: DetailsPresenter by moxyPresenter {
-        DetailsPresenter(App.instance.router)
+        DetailsPresenter().apply {
+            App.instance.appComponent.inject(this)
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -90,11 +92,11 @@ class DetailsFragment : MvpAppCompatFragment(),
         state?. let {
             if(it.area != 0f ){
                 it.area?. let{
-                    if (it>1000000){
+                    if (it>1000000f){
                         val area = (it)/1000000
                         tv_state_area.text =
                             String.format("Площадь: %.1f млн. кв. км.", area)
-                    }else if (it >1000 && it<=1000000){
+                    }else if (it in 1000f..1000000f){
                         val area = (it)/1000
                         tv_state_area.text =
                             String.format("Площадь: %.1f тыс. кв. км.", area)
@@ -112,18 +114,19 @@ class DetailsFragment : MvpAppCompatFragment(),
             if (it.population!=0){
                 it.population?. let{
                     if(it>1000000){
-                        val population = (it)/1000000
+                        val population = (it.toFloat())/1000000
                         tv_state_population.text =
-                            String.format("Население:   %S млн. чел.", population.toString())
-                    }else if (it >1000 && it<=1000000){
-                        val population = (it)/1000
+                            String.format("Население: %.1f млн. чел.", population)
+                    }else if (it in 1000..1000000){
+                        val population = (it.toFloat())/1000
                         tv_state_population.text =
-                            String.format("Население:   %S тыс. чел.", population.toString())
+                            String.format("Население: %.1f тыс. чел.", population)
+
                     }else{
                         tv_state_population.text =
-                            String.format("Население:   %S чел.", it)
+                            String.format("Население: %s чел.", it)
                     }
-                }?: let{tv_state_area.text ="Численность населения неизвестна"}
+                }?: let{tv_state_area.text ="Население: численность неизвестна"}
             }
         }
     }

@@ -1,4 +1,4 @@
-package com.bartex.states.model.api.state
+package com.bartex.states.model.api
 
 import com.bartex.states.model.entity.state.State
 import io.reactivex.rxjava3.core.Single

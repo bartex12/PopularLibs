@@ -1,30 +1,24 @@
 package com.bartex.states
 
 import android.app.Application
-import com.bartex.states.model.room.Database
-import ru.terrakok.cicerone.Cicerone
-import ru.terrakok.cicerone.Router
+import com.bartex.states.dagger.AppComponent
+import com.bartex.states.dagger.AppModule
+import com.bartex.states.dagger.DaggerAppComponent
 
 class App : Application() {
     companion object {
         lateinit var instance: App
     }
 
-    //Временно до даггера положим это тут
-    private val cicerone: Cicerone<Router> by lazy {
-        Cicerone.create()
-    }
+    lateinit var appComponent: AppComponent
+
 
     override fun onCreate() {
         super.onCreate()
-        instance = this
-        Database.create(this)
+        instance = this //здесь определяем свойство instance - контекст приложения
+
+        appComponent = DaggerAppComponent.builder()
+            .appModule(AppModule(this))
+            .build()
     }
-
-    val navigatorHolder
-        get() = cicerone.navigatorHolder
-
-    val router
-        get() = cicerone.router
-
 }

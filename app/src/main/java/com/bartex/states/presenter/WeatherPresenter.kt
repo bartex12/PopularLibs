@@ -1,4 +1,4 @@
-package com.bartex.states.presenter.weather
+package com.bartex.states.presenter
 
 import android.util.Log
 import com.bartex.states.Screens
@@ -9,9 +9,17 @@ import com.bartex.states.view.main.TAG
 import io.reactivex.rxjava3.core.Scheduler
 import moxy.MvpPresenter
 import ru.terrakok.cicerone.Router
+import javax.inject.Inject
 
-class WeatherPresenter(val mainThreadScheduler: Scheduler, val weatherRepo: IWeatherRepo,
-                       val router: Router, val state: State?): MvpPresenter<IWeatherView>() {
+class WeatherPresenter( val state: State?): MvpPresenter<IWeatherView>() {
+    @Inject
+    lateinit var mainThreadScheduler: Scheduler
+
+    @Inject
+    lateinit var weatherRepo: IWeatherRepo
+
+    @Inject
+    lateinit var router: Router
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()

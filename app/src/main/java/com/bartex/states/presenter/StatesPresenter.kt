@@ -1,4 +1,4 @@
-package com.bartex.states.presenter.states
+package com.bartex.states.presenter
 
 import android.util.Log
 import com.bartex.states.Screens
@@ -10,12 +10,18 @@ import com.bartex.states.view.main.TAG
 import io.reactivex.rxjava3.core.Scheduler
 import moxy.MvpPresenter
 import ru.terrakok.cicerone.Router
+import javax.inject.Inject
 
 //презентер для работы с фрагментом StatesFragment,  Router для навигации
-class StatesPresenter(val mainThreadScheduler: Scheduler, val statesRepo: IStatesRepo,
-                      val router: Router
-):
-    MvpPresenter<IStatesView>() {
+class StatesPresenter:MvpPresenter<IStatesView>() {
+    @Inject
+    lateinit var mainThreadScheduler: Scheduler
+
+    @Inject
+    lateinit var statesRepo: IStatesRepo
+
+    @Inject
+    lateinit var router: Router
 
     val statesListPresenter =
         StatesListPresenter()
