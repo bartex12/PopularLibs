@@ -3,6 +3,7 @@ package com.bartex.states.presenter
 import android.util.Log
 import com.bartex.states.Screens
 import com.bartex.states.model.entity.state.State
+import com.bartex.states.model.repositories.prefs.IPreferenceHelper
 import com.bartex.states.model.repositories.states.IStatesRepo
 import com.bartex.states.view.adapter.StatesItemView
 import com.bartex.states.view.fragments.search.ISearchView
@@ -14,6 +15,9 @@ import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 
 class SearchPresenter( val search:String? ): MvpPresenter<ISearchView>() {
+
+    @Inject
+    lateinit var helper : IPreferenceHelper
 
     @Inject
     lateinit var mainThreadScheduler: Scheduler
@@ -51,7 +55,7 @@ class SearchPresenter( val search:String? ): MvpPresenter<ISearchView>() {
         //переход на экран списка репозиториев
         searchListPresenter.itemClickListener = { itemView ->
             val state = searchListPresenter.states[itemView.pos]
-            viewState.savePosition(itemView.pos)
+            helper.savePositionSearch(itemView.pos) //сохраняем позицию
             router.navigateTo(Screens.DetailsScreen(state))
         }
     }
@@ -68,6 +72,14 @@ class SearchPresenter( val search:String? ): MvpPresenter<ISearchView>() {
                 }, {error -> Log.d(TAG, "SearchPresenter onError ${error.message}")
                 })
         } ?: Log.d(TAG, "SearchPresenter searchData search = null")
+    }
+
+    fun getPositionSearch(): Int{
+        return helper.getPositionSearch()
+    }
+
+    fun savePositionSearch(position: Int){
+        helper.savePositionSearch(position)
     }
 
     fun backPressed():Boolean {

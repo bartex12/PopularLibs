@@ -8,6 +8,7 @@ import io.reactivex.rxjava3.core.Scheduler
 
 @Module
 class AppModule(val app: App) {
+
     @Provides
     fun app(): App {
         return app

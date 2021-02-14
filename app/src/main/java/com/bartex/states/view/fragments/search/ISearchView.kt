@@ -8,5 +8,5 @@ import moxy.viewstate.strategy.StateStrategyType
 interface ISearchView : MvpView {
     fun init()
     fun updateList()
-    fun savePosition(pos:Int)
+
 }

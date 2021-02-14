@@ -8,5 +8,4 @@ import moxy.viewstate.strategy.StateStrategyType
 interface IStatesView: MvpView {
     fun init()
     fun updateList()
-    fun savePosition(pos:Int)
 }

@@ -13,7 +13,8 @@ import javax.inject.Singleton
         CiceroneModule::class,
         CacheModule::class,
         ApiModule::class,
-        RepoModule::class
+        RepoModule::class,
+        PrefModule::class
     ]
 )
 

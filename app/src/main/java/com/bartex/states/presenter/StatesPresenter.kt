@@ -3,6 +3,7 @@ package com.bartex.states.presenter
 import android.util.Log
 import com.bartex.states.Screens
 import com.bartex.states.model.entity.state.State
+import com.bartex.states.model.repositories.prefs.IPreferenceHelper
 import com.bartex.states.model.repositories.states.IStatesRepo
 import com.bartex.states.view.adapter.StatesItemView
 import com.bartex.states.view.fragments.states.IStatesView
@@ -14,6 +15,9 @@ import javax.inject.Inject
 
 //презентер для работы с фрагментом StatesFragment,  Router для навигации
 class StatesPresenter:MvpPresenter<IStatesView>() {
+
+    @Inject
+    lateinit var helper : IPreferenceHelper
 
     @Inject
     lateinit var mainThreadScheduler: Scheduler
@@ -52,7 +56,7 @@ class StatesPresenter:MvpPresenter<IStatesView>() {
         statesListPresenter.itemClickListener = { itemView ->
             //переход на экран пользователя
             val state =  statesListPresenter.states[itemView.pos]
-            viewState.savePosition(itemView.pos)
+            helper.savePosition(itemView.pos) //сохраняем позицию
             Log.d(TAG, "StatesPresenter itemClickListener state name =${state.name}")
             router.navigateTo(Screens.DetailsScreen(state))
         }
@@ -68,6 +72,14 @@ class StatesPresenter:MvpPresenter<IStatesView>() {
                 viewState.updateList()
             }, {error -> Log.d(TAG, "StatesPresenter onError ${error.message}")
             })
+    }
+
+    fun getPosition(): Int{
+        return helper.getPosition()
+    }
+
+    fun savePosition(position: Int){
+        helper.savePosition(position)
     }
 
     fun backPressed(): Boolean {

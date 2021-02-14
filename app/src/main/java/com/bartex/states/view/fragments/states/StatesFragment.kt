@@ -1,13 +1,10 @@
 package com.bartex.states.view.fragments.states
 
-import android.content.Context.MODE_PRIVATE
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bartex.states.App
 import com.bartex.states.R
@@ -28,8 +25,6 @@ class StatesFragment : MvpAppCompatFragment(),
     var adapter: StatesRVAdapter? = null
 
     companion object {
-        const val FIRST_POSITION = "FIRST_POSITION"
-
         fun newInstance() = StatesFragment()
     }
 
@@ -47,8 +42,7 @@ class StatesFragment : MvpAppCompatFragment(),
         super.onViewCreated(view, savedInstanceState)
         Log.d(TAG, "StatesFragment onViewCreated ")
         //восстанавливаем позицию списка после поворота или возвращения на экран
-        val pref = requireActivity().getSharedPreferences("State", MODE_PRIVATE )
-        position = pref.getInt(FIRST_POSITION, 0)
+        position = presenter.getPosition()
     }
 
     //запоминаем  позицию списка, на которой сделан клик - на случай поворота экрана
@@ -57,10 +51,7 @@ class StatesFragment : MvpAppCompatFragment(),
         //определяем первую видимую позицию
         val manager = rv_states.layoutManager as LinearLayoutManager
         val firstPosition = manager.findFirstVisibleItemPosition()
-        val editor = requireActivity().getSharedPreferences("State", MODE_PRIVATE ).edit()
-        //запоминаем  позицию списка
-        editor.putInt(FIRST_POSITION, firstPosition)
-        editor.apply()
+        presenter.savePosition(firstPosition)
     }
 
     override fun init() {
@@ -77,14 +68,6 @@ class StatesFragment : MvpAppCompatFragment(),
 
     override fun updateList() {
         adapter?.notifyDataSetChanged()
-    }
-
-    //запоминаем  позицию списка, на которой сделан клик - на случай ухода с экрана
-    override fun savePosition(pos: Int) {
-        val editor = requireActivity().getSharedPreferences("State", MODE_PRIVATE ).edit()
-        editor.putInt(FIRST_POSITION, pos)
-        editor.apply()
-        Log.d(TAG,"StatesFragment savePosition pos =$pos")
     }
 
     override fun backPressed() = presenter.backPressed()
