@@ -47,6 +47,12 @@ class SearchPresenter( val search:String? ): MvpPresenter<ISearchView>() {
         super.onFirstViewAttach()
         viewState.init()
         searchData()
+
+        //переход на экран списка репозиториев
+        searchListPresenter.itemClickListener = { itemView ->
+            val state = searchListPresenter.states[itemView.pos]
+            router.navigateTo(Screens.DetailsScreen(state))
+        }
     }
 
     private fun searchData() {

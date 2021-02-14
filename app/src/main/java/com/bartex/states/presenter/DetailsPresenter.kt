@@ -35,7 +35,7 @@ class DetailsPresenter:MvpPresenter<IDetailsView>()  {
 
     fun backPressed():Boolean {
         Log.d(TAG, "DetailsPresenter backPressed ")
-        router.backTo(Screens.StatesScreen())
+        router.exit()
         return true
     }
 }

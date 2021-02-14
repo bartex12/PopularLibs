@@ -73,16 +73,12 @@ class MainActivity: MvpAppCompatActivity(),
     }
 
     override fun onQueryTextSubmit(query: String?): Boolean {
-        //todo
         Log.d(TAG, "MainActivity onQueryTextSubmit query = $query ")
         query?. let{presenter.doSearch(it)}
-       // query?. let{router.navigateTo(Screens.SearchScreen(it))}
         return false
     }
 
     override fun onQueryTextChange(newText: String?): Boolean {
-        //todo
-        //Log.d(TAG, "MainActivity onQueryTextSubmit newText = $newText ")
         return false
     }
 
