@@ -1,9 +1,6 @@
 package com.bartex.states.dagger
 
-import com.bartex.states.presenter.DetailsPresenter
-import com.bartex.states.presenter.MainPresenter
-import com.bartex.states.presenter.StatesPresenter
-import com.bartex.states.presenter.WeatherPresenter
+import com.bartex.states.presenter.*
 import com.bartex.states.view.main.MainActivity
 import dagger.Component
 import javax.inject.Singleton
@@ -28,7 +25,7 @@ interface AppComponent {
     fun inject(statesPresenter: StatesPresenter)
     fun inject(detailsPresenter: DetailsPresenter)
     fun inject(weatherPresenter: WeatherPresenter)
-
+    fun inject(searchPresenter: SearchPresenter)
     //fun inject(glideToVectorYouLoader: GlideToVectorYouLoader)
 
 }

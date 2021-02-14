@@ -1,6 +1,7 @@
 package com.bartex.states.view.fragments.states
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +12,7 @@ import com.bartex.states.presenter.StatesPresenter
 import com.bartex.states.view.adapter.StatesRVAdapter
 import com.bartex.states.view.adapter.imageloader.GlideToVectorYouLoader
 import com.bartex.states.view.fragments.BackButtonListener
+import com.bartex.states.view.main.TAG
 import kotlinx.android.synthetic.main.fragment_states.*
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter

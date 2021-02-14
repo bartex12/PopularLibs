@@ -23,7 +23,7 @@ class StatesRepo(val api: IDataSourceState, val networkStatus: INetworkStatus,
         networkStatus.isOnlineSingle()
             .flatMap {isOnLine-> //получаем доступ к Boolean значениям
                 if (isOnLine){ //если сеть есть
-                    Log.d(TAG, "StatesRepo  isOnLine  = true")
+                    Log.d(TAG, "StatesRepo getStates  isOnLine  = true")
                     api.getStates() //получаем данные из сети в виде Single<List<State>>
                         .flatMap {states->//получаем доступ к списку List<State>
                             val filtr_states =   states.filter {state->
@@ -41,4 +41,27 @@ class StatesRepo(val api: IDataSourceState, val networkStatus: INetworkStatus,
                             roomCash.getStatesFromCash()
                 }
             }.subscribeOn(Schedulers.io())
+
+    override fun searchStates(search:String): Single<List<State>> =
+    networkStatus.isOnlineSingle()
+    .flatMap {isOnLine-> //получаем доступ к Boolean значениям
+        if (isOnLine){ //если сеть есть
+            Log.d(TAG, "StatesRepo searchStates isOnLine  = true   search = $search")
+            api.searchStates(search) //получаем данные из сети в виде Single<List<State>>
+//                .flatMap {states->//получаем доступ к списку List<State>
+//                    val filtr_states =   states.filter {state->
+//                        state.capital!=null &&  //только со столицами !=null
+//                                state.latlng?.size == 2 && //только с известными координатами
+//                                state.capital.isNotEmpty() //только с известными столицами
+//                    }
+//                    Log.d(TAG, "StatesRepo  searchStates filtr_states.size = ${filtr_states.size}")
+//                    //реализация кэширования списка пользователей из сети в базу данных
+//                    roomCash.doStatesCash(filtr_states)
+//                }
+        }else{
+            Log.d(TAG, "StatesRepo  isOnLine  = false")
+            //получение списка пользователей из кэша
+            roomCash.getStatesFromCash()
+        }
+    }.subscribeOn(Schedulers.io())
 }

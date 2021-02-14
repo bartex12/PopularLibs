@@ -14,4 +14,6 @@
     <string name="Help">"Справка "</string>
     <string name="search">Поиск</string>
     <string name="identifier">android:id/search_close_btn</string>
+    <string name="about">О приложении</string>
+    <string name="settings">Настройки</string>
 </resources>
