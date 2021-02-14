@@ -1,5 +1,6 @@
 package com.bartex.states.view.fragments.search
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -15,6 +16,7 @@ import com.bartex.states.view.adapter.StatesRVAdapter
 import com.bartex.states.view.adapter.imageloader.GlideToVectorYouLoader
 import com.bartex.states.view.fragments.BackButtonListener
 import com.bartex.states.view.fragments.states.IStatesView
+import com.bartex.states.view.fragments.states.StatesFragment
 import com.bartex.states.view.fragments.weather.WeatherFragment
 import com.bartex.states.view.main.TAG
 import kotlinx.android.synthetic.main.fragment_search.*
@@ -26,7 +28,11 @@ class SearchFragment(): MvpAppCompatFragment(),
     ISearchView,
     BackButtonListener {
 
+    private var position = 0
+    var adapter: StatesRVAdapter? = null
+
     companion object {
+        const val FIRST_POSITION_SEARCH = "FIRST_POSITION_SEARCH"
         private const val ARG_SEARCH = "search"
 
         @JvmStatic
@@ -50,7 +56,27 @@ class SearchFragment(): MvpAppCompatFragment(),
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) =
         View.inflate(context, R.layout.fragment_search, null)
 
-    var adapter: StatesRVAdapter? = null
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        Log.d(TAG, "SearchFragment onViewCreated ")
+        //восстанавливаем позицию списка после поворота или возвращения на экран
+        val pref =
+            requireActivity().getSharedPreferences("Search", Context.MODE_PRIVATE)
+        position = pref.getInt(FIRST_POSITION_SEARCH, 0)
+    }
+
+    //запоминаем  позицию списка, на которой сделан клик - на случай поворота экрана
+    override fun onPause() {
+        super.onPause()
+        //определяем первую видимую позицию
+        val manager = rv_search.layoutManager as LinearLayoutManager
+        val firstPosition = manager.findFirstVisibleItemPosition()
+        val editor =
+            requireActivity().getSharedPreferences("Search", Context.MODE_PRIVATE).edit()
+        //запоминаем  позицию списка
+        editor.putInt(FIRST_POSITION_SEARCH, firstPosition)
+        editor.apply()
+    }
 
     override fun init() {
         Log.d(TAG, "SearchFragment init ")
@@ -62,10 +88,20 @@ class SearchFragment(): MvpAppCompatFragment(),
             )
         )
         rv_search.adapter = adapter
+        rv_search.layoutManager?.scrollToPosition(position) //крутим в запомненную позицию списка
     }
 
     override fun updateList() {
         adapter?.notifyDataSetChanged()
+    }
+
+    //запоминаем  позицию списка, на которой сделан клик - на случай ухода с экрана
+    override fun savePosition(pos: Int) {
+        val editor =
+            requireActivity().getSharedPreferences("Search", Context.MODE_PRIVATE).edit()
+        editor.putInt(FIRST_POSITION_SEARCH, pos)
+        editor.apply()
+        Log.d(TAG,"SearchFragment savePosition pos =$pos")
     }
 
     override fun backPressed(): Boolean = presenter.backPressed()

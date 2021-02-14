@@ -52,6 +52,7 @@ class StatesPresenter:MvpPresenter<IStatesView>() {
         statesListPresenter.itemClickListener = { itemView ->
             //переход на экран пользователя
             val state =  statesListPresenter.states[itemView.pos]
+            viewState.savePosition(itemView.pos)
             Log.d(TAG, "StatesPresenter itemClickListener state name =${state.name}")
             router.navigateTo(Screens.DetailsScreen(state))
         }
