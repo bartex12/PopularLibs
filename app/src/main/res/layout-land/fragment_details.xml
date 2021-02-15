@@ -86,6 +86,20 @@
             android:text="@string/weatherInCap"
             android:textColor="@color/colorPrimary" />
 
+        <Button
+            android:id="@+id/btn_show_geo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:background="@drawable/ramka"
+            android:drawableStart="@drawable/ic_baseline_location_on_24"
+            android:paddingTop="16dp"
+            android:paddingStart="24dp"
+            android:paddingEnd="24dp"
+            android:paddingBottom="16dp"
+            android:text="@string/geoLocation"
+            android:textColor="@color/colorPrimary" />
+
     </LinearLayout>
 
 </LinearLayout>

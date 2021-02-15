@@ -15,7 +15,7 @@ import moxy.ktx.moxyPresenter
 import ru.terrakok.cicerone.NavigatorHolder
 import ru.terrakok.cicerone.android.support.SupportAppNavigator
 import javax.inject.Inject
-
+ 
 const val TAG = "33333"
 
 class MainActivity: MvpAppCompatActivity(),

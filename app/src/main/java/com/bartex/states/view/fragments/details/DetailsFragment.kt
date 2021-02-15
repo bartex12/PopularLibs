@@ -62,8 +62,11 @@ class DetailsFragment : MvpAppCompatFragment(),
         super.onViewCreated(view, savedInstanceState)
 
         btn_show_weater.setOnClickListener {
-            state?. let { presenter.btnCapitalClick(it)}
+            state?. let {presenter.btnCapitalClick(it)}
+        }
 
+        btn_show_geo.setOnClickListener {
+            state?. let {presenter.btnGeoClick(it)}
         }
     }
 

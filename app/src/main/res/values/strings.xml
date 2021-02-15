@@ -6,6 +6,7 @@
     <string name="name">Россия</string>
     <string name="connecting">Подключение к серверу…</string>
     <string name="weatherInCap">Погода в столице</string>
+    <string name="geoLocation">Место на карте мира</string>
     <string name="hello_capital">hello_capital</string>
     <string name="unknown">Unknown</string>
     <string name="Unknown">Unknown</string>

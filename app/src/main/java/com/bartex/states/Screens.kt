@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import com.bartex.states.model.entity.state.State
 import com.bartex.states.view.fragments.details.DetailsFragment
+import com.bartex.states.view.fragments.geo.GeoFragment
 import com.bartex.states.view.fragments.help.HelpFragment
 import com.bartex.states.view.fragments.search.SearchFragment
 import com.bartex.states.view.fragments.states.StatesFragment
@@ -35,4 +36,9 @@ class Screens {
         override fun getActivityIntent(context: Context?): Intent =
             Intent(context, SettingsActivity::class.java)
     }
+
+    class GeoScreen(val state:State?) : SupportAppScreen() {
+        override fun getFragment() = GeoFragment.newInstance(state)
+    }
+
 }

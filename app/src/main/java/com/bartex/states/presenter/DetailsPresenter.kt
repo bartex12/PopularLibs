@@ -33,6 +33,11 @@ class DetailsPresenter:MvpPresenter<IDetailsView>()  {
         router.navigateTo(Screens.WeatherScreen(state))
     }
 
+    fun btnGeoClick(state:State){
+        Log.d(TAG, "DetailsPresenter btnGeoClick state = $state ")
+        router.navigateTo(Screens.GeoScreen(state))
+    }
+
     fun backPressed():Boolean {
         Log.d(TAG, "DetailsPresenter backPressed ")
         router.exit()

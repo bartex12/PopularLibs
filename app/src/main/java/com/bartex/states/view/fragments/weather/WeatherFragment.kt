@@ -37,11 +37,7 @@ class WeatherFragment : MvpAppCompatFragment(),
     }
 
     val presenter: WeatherPresenter by moxyPresenter {
-        arguments?.let {
-            state = it.getParcelable<State>(
-                ARG_STATE
-            )
-        }
+        arguments?.let {state = it.getParcelable<State>(ARG_STATE)}
         Log.d(TAG, "WeatherFragment  capital = ${state?.capital}")
         WeatherPresenter(state).apply {
             App.instance.appComponent.inject(this)
