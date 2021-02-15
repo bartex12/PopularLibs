@@ -38,4 +38,13 @@ class RoomStateCash(val db: Database): IRoomStateCash {
           }
         }
     }
+
+    override fun getSearchedStatesFromCash(search: String) : Single<List<State>>{
+        return  Single.fromCallable {
+            db.stateDao.findByName(search).map {roomState->
+                State(roomState.capital,roomState.flag, roomState.name, roomState.region,
+                    roomState.population, roomState.area)
+            }
+        }
+    }
 }

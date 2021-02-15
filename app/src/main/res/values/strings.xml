@@ -16,4 +16,26 @@
     <string name="identifier">android:id/search_close_btn</string>
     <string name="about">О приложении</string>
     <string name="settings">Настройки</string>
+    <string name="help">Справка</string>
+    <string name="message">MESSAGE</string>
+    <string name="aboutAppMessage">GeekBrains Андроид -популярные библиотеки</string>
+    <string name="cbSortOn">Выберите способ сортировки списка государств </string>
+    <string name="cbSortOff">Сортировка списков по алфавиту </string>
+    <string name="ListSort">Выбор способа сортировки списка государств</string>
+    <string name="noHelp">Справка недоступна</string>
+    <string name="ok">OK</string>
+
+    <string-array name="pref_entry_sort">
+        <item>По населению по убыванию</item>
+        <item>По населению по возрастанию</item>
+        <item>По площади по убыванию</item>
+        <item>По площади по возрастанию</item>
+    </string-array>
+
+    <string-array name="pref_entryValues_sort">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
 </resources>

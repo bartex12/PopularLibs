@@ -31,37 +31,41 @@ class StatesRepo(val api: IDataSourceState, val networkStatus: INetworkStatus,
                                 state.latlng?.size == 2 && //только с известными координатами
                                 state.capital.isNotEmpty() //только с известными столицами
                             }
+                               // .sortedBy {st -> st.area }
                             Log.d(TAG, "StatesRepo  getStates filtr_states.size = ${filtr_states.size}")
                             //реализация кэширования списка пользователей из сети в базу данных
                            roomCash.doStatesCash(filtr_states)
                         }
                 }else{
                     Log.d(TAG, "StatesRepo  isOnLine  = false")
-                            //получение списка пользователей из кэша
-                            roomCash.getStatesFromCash()
+                    //получение списка пользователей из кэша
+                    roomCash.getStatesFromCash()
                 }
             }.subscribeOn(Schedulers.io())
 
+    //в зависимости от статуса сети
+    // мы или получаем данные из сети, записывая их в базу данных с помощью Room через map
+    //    //или берём из базы, преобразуя их также через map
     override fun searchStates(search:String): Single<List<State>> =
     networkStatus.isOnlineSingle()
     .flatMap {isOnLine-> //получаем доступ к Boolean значениям
         if (isOnLine){ //если сеть есть
             Log.d(TAG, "StatesRepo searchStates isOnLine  = true   search = $search")
             api.searchStates(search) //получаем данные из сети в виде Single<List<State>>
-//                .flatMap {states->//получаем доступ к списку List<State>
-//                    val filtr_states =   states.filter {state->
-//                        state.capital!=null &&  //только со столицами !=null
-//                                state.latlng?.size == 2 && //только с известными координатами
-//                                state.capital.isNotEmpty() //только с известными столицами
-//                    }
-//                    Log.d(TAG, "StatesRepo  searchStates filtr_states.size = ${filtr_states.size}")
-//                    //реализация кэширования списка пользователей из сети в базу данных
-//                    roomCash.doStatesCash(filtr_states)
-//                }
+                .flatMap {states->//получаем доступ к списку List<State>
+                    val filtr_states =   states.filter {state->
+                        state.capital!=null &&  //только со столицами !=null
+                                state.latlng?.size == 2 && //только с известными координатами
+                                state.capital.isNotEmpty() //только с известными столицами
+                    }
+                    Log.d(TAG, "StatesRepo  searchStates filtr_states.size = ${filtr_states.size}")
+                    //реализация кэширования списка отобранных стран из сети в базу данных
+                    roomCash.doStatesCash(filtr_states)
+                }
         }else{
             Log.d(TAG, "StatesRepo  isOnLine  = false")
-            //получение списка пользователей из кэша
-            roomCash.getStatesFromCash()
+            //получение списка списка отобранных стран из кэша
+            roomCash.getSearchedStatesFromCash(search)
         }
     }.subscribeOn(Schedulers.io())
 }

@@ -39,6 +39,6 @@ interface StateDao {
     @Query("SELECT * FROM RoomState")
     fun getAll():List<RoomState>
 
-    @Query("SELECT * FROM RoomState WHERE name = :name LIMIT 1")
-    fun findByLogin(name:String): RoomState?
+    @Query("SELECT * FROM RoomState WHERE name LIKE '%' ||:name || '%'")
+    fun findByName(name:String): List<RoomState>
 }

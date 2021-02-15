@@ -26,4 +26,9 @@ class MainPresenter: MvpPresenter<MainView>() {
        Log.d(TAG, "MainPresenter doSearch search = $search ")
        router.navigateTo(Screens.SearchScreen(search))
    }
+
+    fun  showHelp(){
+        Log.d(TAG, "MainPresenter showHelp")
+        router.navigateTo(Screens.HelpScreen())
+    }
 }
