@@ -16,7 +16,6 @@ import ru.terrakok.cicerone.NavigatorHolder
 import ru.terrakok.cicerone.android.support.SupportAppNavigator
 import javax.inject.Inject
 
-
 const val TAG = "33333"
 
 class MainActivity: MvpAppCompatActivity(),
@@ -61,7 +60,6 @@ class MainActivity: MvpAppCompatActivity(),
                presenter. showSettingsActivity()
            }
             R.id.navigation_help->{
-
                 presenter.showHelp()
             }
             R.id.navigation_about->{
