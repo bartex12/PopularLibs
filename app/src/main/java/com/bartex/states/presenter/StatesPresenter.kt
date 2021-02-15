@@ -65,7 +65,7 @@ class StatesPresenter:MvpPresenter<IStatesView>() {
     }
 
     //грузим данные и делаем сортировку в соответствии с настройками
-    private fun loadData() {
+    fun loadData() {
         val istSorted = helper.istSorted()
         val getSortCase = helper.getSortCase()
         var f_st:List<State>?= null

@@ -1,6 +1,5 @@
 package com.bartex.states.view.main
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -11,7 +10,6 @@ import com.bartex.states.R
 import com.bartex.states.presenter.MainPresenter
 import com.bartex.states.view.fragments.BackButtonListener
 import com.bartex.states.view.main.dialogs.MessageDialog
-import com.bartex.states.view.settings.SettingsActivity
 import moxy.MvpAppCompatActivity
 import moxy.ktx.moxyPresenter
 import ru.terrakok.cicerone.NavigatorHolder
@@ -60,7 +58,7 @@ class MainActivity: MvpAppCompatActivity(),
         val id = item.itemId
         when (id){
            R.id.navigation_settings ->{
-               showSettingsActivity()
+               presenter. showSettingsActivity()
            }
             R.id.navigation_help->{
 
@@ -78,11 +76,6 @@ class MainActivity: MvpAppCompatActivity(),
         dialogMessage.show(supportFragmentManager, "dialogMessage")
     }
 
-    private fun showSettingsActivity() {
-        //todo
-        val intentSettings = Intent(this, SettingsActivity::class.java)
-        startActivity(intentSettings)
-    }
 
     override fun onPause() {
         super.onPause()

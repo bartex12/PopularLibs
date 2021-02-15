@@ -10,6 +10,8 @@ import com.bartex.states.view.fragments.search.ISearchView
 
 import com.bartex.states.view.main.TAG
 import io.reactivex.rxjava3.core.Scheduler
+import io.reactivex.rxjava3.core.Single
+import io.reactivex.rxjava3.schedulers.Schedulers
 import moxy.MvpPresenter
 import ru.terrakok.cicerone.Router
 import javax.inject.Inject
@@ -60,14 +62,32 @@ class SearchPresenter( val search:String? ): MvpPresenter<ISearchView>() {
         }
     }
 
-    private fun searchData() {
-        search?. let{
-            statesRepo.searchStates(it)
+    fun searchData() {
+        val istSorted = helper.istSorted()
+        val getSortCase = helper.getSortCase()
+        var f_st:List<State>?= null
+        search?. let{search->
+            statesRepo.searchStates(search)
+                .observeOn(Schedulers.computation())
+                .flatMap {state->
+                    if(istSorted){
+                        if(getSortCase == 1){
+                            f_st = state.filter {it.population!=null}.sortedByDescending {it.population}
+                        }else if(getSortCase == 2){
+                            f_st = state.filter {it.population!=null}.sortedBy {it.population}
+                        }else if(getSortCase == 3){
+                            f_st = state.filter {it.area!=null}.sortedByDescending {it.area}
+                        }else if(getSortCase == 4){
+                            f_st = state.filter {it.area!=null}.sortedBy {it.area}
+                        }
+                    }
+                    return@flatMap Single.just(f_st)
+                }
                 .observeOn(mainThreadScheduler)
                 .subscribe ({states->
-                    Log.d(TAG, "SearchPresenter  loadData states_search.size = ${states.size}")
+                    states?. let{ Log.d(TAG, "SearchPresenter  loadData states_search.size = ${it.size}")}
                     searchListPresenter.states.clear()
-                    searchListPresenter.states.addAll(states)
+                    states?. let{searchListPresenter.states.addAll(it)}
                     viewState.updateList()
                 }, {error -> Log.d(TAG, "SearchPresenter onError ${error.message}")
                 })

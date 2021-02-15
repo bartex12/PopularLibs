@@ -45,6 +45,13 @@ class StatesFragment : MvpAppCompatFragment(),
         position = presenter.getPosition()
     }
 
+    override fun onResume() {
+        super.onResume()
+        Log.d(TAG, "StatesFragment onResume ")
+        presenter.loadData() // обновляем данные при изменении настроек
+
+    }
+
     //запоминаем  позицию списка, на которой сделан клик - на случай поворота экрана
     override fun onPause() {
         super.onPause()

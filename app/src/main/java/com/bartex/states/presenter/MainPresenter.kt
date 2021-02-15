@@ -31,4 +31,8 @@ class MainPresenter: MvpPresenter<MainView>() {
         Log.d(TAG, "MainPresenter showHelp")
         router.navigateTo(Screens.HelpScreen())
     }
+
+    fun showSettingsActivity(){
+        router.navigateTo(Screens.SettingsScreen())
+    }
 }
