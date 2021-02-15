@@ -45,4 +45,19 @@ class PreferenceHelper(val app: App):
         Log.d(TAG, "PreferenceHelper getPositionSearch FIRST_POSITION_SEARCH = $position")
         return position
     }
+
+    //получаем файл с настройками сортировки для приложения
+    override fun getSortCase(): Int {
+        val prefSetting = PreferenceManager.getDefaultSharedPreferences(app)
+        val sort = prefSetting.getString("ListSort", "1")!!.toInt()
+        return sort
+    }
+
+    //получаем файл с настройками для приложения - нужна ли сортировка
+    override fun istSorted(): Boolean {
+        val prefSetting = PreferenceManager.getDefaultSharedPreferences(app)
+        val isSort = prefSetting.getBoolean("cbSort", false)
+        return isSort
+    }
+
 }

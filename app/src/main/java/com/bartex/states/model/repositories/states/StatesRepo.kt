@@ -23,18 +23,18 @@ class StatesRepo(val api: IDataSourceState, val networkStatus: INetworkStatus,
         networkStatus.isOnlineSingle()
             .flatMap {isOnLine-> //получаем доступ к Boolean значениям
                 if (isOnLine){ //если сеть есть
-                    Log.d(TAG, "StatesRepo getStates  isOnLine  = true")
+                    Log.d(TAG, "StatesRepo getStates  isOnLine  = true ")
                     api.getStates() //получаем данные из сети в виде Single<List<State>>
                         .flatMap {states->//получаем доступ к списку List<State>
-                            val filtr_states =   states.filter {state->
+                           val f_states =  states.filter {state->
                                 state.capital!=null &&  //только со столицами !=null
                                 state.latlng?.size == 2 && //только с известными координатами
                                 state.capital.isNotEmpty() //только с известными столицами
                             }
-                               // .sortedBy {st -> st.area }
-                            Log.d(TAG, "StatesRepo  getStates filtr_states.size = ${filtr_states.size}")
+                               //.sortedByDescending {st -> st.population }
+                            Log.d(TAG, "StatesRepo  getStates f_states.size = ${f_states.size}")
                             //реализация кэширования списка пользователей из сети в базу данных
-                           roomCash.doStatesCash(filtr_states)
+                           roomCash.doStatesCash(f_states)
                         }
                 }else{
                     Log.d(TAG, "StatesRepo  isOnLine  = false")

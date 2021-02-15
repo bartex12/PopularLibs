@@ -1,4 +1,4 @@
-package com.bartex.states.view.preferences
+package com.bartex.states.view.settings
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

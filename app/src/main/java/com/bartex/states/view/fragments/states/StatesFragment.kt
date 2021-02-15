@@ -48,6 +48,7 @@ class StatesFragment : MvpAppCompatFragment(),
     //запоминаем  позицию списка, на которой сделан клик - на случай поворота экрана
     override fun onPause() {
         super.onPause()
+        Log.d(TAG, "StatesFragment onPause ")
         //определяем первую видимую позицию
         val manager = rv_states.layoutManager as LinearLayoutManager
         val firstPosition = manager.findFirstVisibleItemPosition()

@@ -9,6 +9,8 @@ import com.bartex.states.view.adapter.StatesItemView
 import com.bartex.states.view.fragments.states.IStatesView
 import com.bartex.states.view.main.TAG
 import io.reactivex.rxjava3.core.Scheduler
+import io.reactivex.rxjava3.core.Single
+import io.reactivex.rxjava3.schedulers.Schedulers
 import moxy.MvpPresenter
 import ru.terrakok.cicerone.Router
 import javax.inject.Inject
@@ -62,13 +64,32 @@ class StatesPresenter:MvpPresenter<IStatesView>() {
         }
     }
 
+    //грузим данные и делаем сортировку в соответствии с настройками
     private fun loadData() {
+        val istSorted = helper.istSorted()
+        val getSortCase = helper.getSortCase()
+        var f_st:List<State>?= null
         statesRepo.getStates()
+            .observeOn(Schedulers.computation())
+            .flatMap {st->
+                if(istSorted){
+                    if(getSortCase == 1){
+                         f_st = st.filter {it.population!=null}.sortedByDescending {it.population}
+                    }else if(getSortCase == 2){
+                        f_st = st.filter {it.population!=null}.sortedBy {it.population}
+                    }else if(getSortCase == 3){
+                        f_st = st.filter {it.area!=null}.sortedByDescending {it.area}
+                    }else if(getSortCase == 4){
+                        f_st = st.filter {it.area!=null}.sortedBy {it.area}
+                    }
+                }
+                return@flatMap Single.just(f_st)
+            }
             .observeOn(mainThreadScheduler)
             .subscribe ({states->
-                Log.d(TAG, "StatesPresenter  loadData states_search.size = ${states.size}")
+                states?. let{Log.d(TAG, "StatesPresenter  loadData states.size = ${it.size}")}
                 statesListPresenter.states.clear()
-                statesListPresenter.states.addAll(states)
+                states?. let{statesListPresenter.states.addAll(it)}
                 viewState.updateList()
             }, {error -> Log.d(TAG, "StatesPresenter onError ${error.message}")
             })

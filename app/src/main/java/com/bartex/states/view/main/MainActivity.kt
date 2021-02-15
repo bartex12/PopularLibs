@@ -8,15 +8,13 @@ import android.view.MenuItem
 import androidx.appcompat.widget.SearchView
 import com.bartex.states.App
 import com.bartex.states.R
-import com.bartex.states.Screens
 import com.bartex.states.presenter.MainPresenter
 import com.bartex.states.view.fragments.BackButtonListener
 import com.bartex.states.view.main.dialogs.MessageDialog
-import com.bartex.states.view.preferences.SettingsActivity
+import com.bartex.states.view.settings.SettingsActivity
 import moxy.MvpAppCompatActivity
 import moxy.ktx.moxyPresenter
 import ru.terrakok.cicerone.NavigatorHolder
-import ru.terrakok.cicerone.Router
 import ru.terrakok.cicerone.android.support.SupportAppNavigator
 import javax.inject.Inject
 
