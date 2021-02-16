@@ -56,7 +56,7 @@ class DetailsFragment : MvpAppCompatFragment(),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        
+
         //здесь аргументы нужны для корректной обработки поворота экрана
         arguments?.let {state = it.getParcelable<State>(ARG_STATE )}
 
