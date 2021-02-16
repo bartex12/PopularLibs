@@ -54,7 +54,7 @@ class PreferenceHelper(val app: App):
     }
 
     //получаем файл с настройками для приложения - нужна ли сортировка
-    override fun istSorted(): Boolean {
+    override fun isSorted(): Boolean {
         val prefSetting = PreferenceManager.getDefaultSharedPreferences(app)
         val isSort = prefSetting.getBoolean("cbSort", false)
         return isSort

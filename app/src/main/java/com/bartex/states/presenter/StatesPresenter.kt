@@ -66,7 +66,7 @@ class StatesPresenter:MvpPresenter<IStatesView>() {
 
     //грузим данные и делаем сортировку в соответствии с настройками
     fun loadData() {
-        val istSorted = helper.istSorted()
+        val istSorted = helper.isSorted()
         val getSortCase = helper.getSortCase()
         var f_st:List<State>?= null
         statesRepo.getStates()
@@ -82,8 +82,10 @@ class StatesPresenter:MvpPresenter<IStatesView>() {
                     }else if(getSortCase == 4){
                         f_st = st.filter {it.area!=null}.sortedBy {it.area}
                     }
+                    return@flatMap Single.just(f_st)
+                }else{
+                    return@flatMap Single.just(st)
                 }
-                return@flatMap Single.just(f_st)
             }
             .observeOn(mainThreadScheduler)
             .subscribe ({states->

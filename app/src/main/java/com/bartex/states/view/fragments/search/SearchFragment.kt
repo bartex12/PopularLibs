@@ -57,7 +57,7 @@ class SearchFragment(): MvpAppCompatFragment(),
 
     override fun onResume() {
         super.onResume()
-        Log.d(TAG, "StatesFragment onResume ")
+        Log.d(TAG, "SearchFragment onResume ")
         presenter.searchData() // обновляем данные при изменении настроек
 
     }

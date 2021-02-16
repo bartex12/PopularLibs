@@ -7,7 +7,6 @@ import com.bartex.states.model.repositories.prefs.IPreferenceHelper
 import com.bartex.states.model.repositories.states.IStatesRepo
 import com.bartex.states.view.adapter.StatesItemView
 import com.bartex.states.view.fragments.search.ISearchView
-
 import com.bartex.states.view.main.TAG
 import io.reactivex.rxjava3.core.Scheduler
 import io.reactivex.rxjava3.core.Single
@@ -63,14 +62,15 @@ class SearchPresenter( val search:String? ): MvpPresenter<ISearchView>() {
     }
 
     fun searchData() {
-        val istSorted = helper.istSorted()
+        val isSorted = helper.isSorted()
         val getSortCase = helper.getSortCase()
-        var f_st:List<State>?= null
+        var f_st:List<State>?= mutableListOf()
+        Log.d(TAG, "SearchPresenter  searchData isSorted = $isSorted getSortCase = $getSortCase")
         search?. let{search->
             statesRepo.searchStates(search)
                 .observeOn(Schedulers.computation())
                 .flatMap {state->
-                    if(istSorted){
+                    if(isSorted){
                         if(getSortCase == 1){
                             f_st = state.filter {it.population!=null}.sortedByDescending {it.population}
                         }else if(getSortCase == 2){
@@ -80,16 +80,18 @@ class SearchPresenter( val search:String? ): MvpPresenter<ISearchView>() {
                         }else if(getSortCase == 4){
                             f_st = state.filter {it.area!=null}.sortedBy {it.area}
                         }
+                        return@flatMap Single.just(f_st)
+                    }else{
+                        return@flatMap Single.just(state)
                     }
-                    return@flatMap Single.just(f_st)
                 }
                 .observeOn(mainThreadScheduler)
                 .subscribe ({states->
-                    states?. let{ Log.d(TAG, "SearchPresenter  loadData states_search.size = ${it.size}")}
+                    states?. let{ Log.d(TAG, "SearchPresenter  searchData states_search.size = ${it.size}")}
                     searchListPresenter.states.clear()
                     states?. let{searchListPresenter.states.addAll(it)}
                     viewState.updateList()
-                }, {error -> Log.d(TAG, "SearchPresenter onError ${error.message}")
+                }, {error -> Log.d(TAG, "SearchPresenter onError in searchData ${error.message}")
                 })
         } ?: Log.d(TAG, "SearchPresenter searchData search = null")
     }

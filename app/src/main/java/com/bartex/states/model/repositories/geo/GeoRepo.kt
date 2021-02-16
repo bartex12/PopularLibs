@@ -1,6 +1,7 @@
 package com.bartex.states.model.repositories.geo
 
 import android.content.Intent
+import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.content.pm.PackageManager
 import android.net.Uri
 import com.bartex.states.App
