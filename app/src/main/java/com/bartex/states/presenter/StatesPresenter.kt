@@ -16,7 +16,7 @@ import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 
 //презентер для работы с фрагментом StatesFragment,  Router для навигации
-class StatesPresenter:MvpPresenter<IStatesView>() {
+class StatesPresenter():MvpPresenter<IStatesView>() {
 
     @Inject
     lateinit var helper : IPreferenceHelper

@@ -16,7 +16,8 @@ import javax.inject.Singleton
         RepoModule::class,
         PrefModule::class,
         HelpModule::class,
-        GeoModule::class
+        GeoModule::class,
+        UtilsModule::class
     ]
 )
 

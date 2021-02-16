@@ -9,8 +9,9 @@ interface IDetailsView: MvpView {
     fun setStateName()
     fun setStateRegion()
     fun setStateFlag()
-    fun setStateArea()
-    fun setStatePopulation()
-    fun setStateCapital()
-    fun setBtnCapitalEnabled()
+    fun setStateArea(area:String)
+    fun setStatePopulation(population:String)
+    fun setStateCapital(capital:String)
+//    fun setBtnCapitalEnabled()
+    fun sendGeoIntent(geoCoord:String)
 }
