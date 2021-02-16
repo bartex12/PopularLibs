@@ -15,16 +15,6 @@ class GlideToVectorYouLoader(val activity: Activity):
         GlideToVectorYou
             .init()
             .with(activity)
-//            .withListener(object : GlideToVectorYouListener {
-//                override fun onLoadFailed() {
-//                    Log.d(TAG, "GlideToVectorYouLoader onLoadFailed: ")
-//                }
-//
-//                override fun onResourceReady() {
-//                    //Log.d(TAG, "GlideToVectorYouLoader onResourceReady: ")
-//                }
-//            })
-//            .setPlaceHolder(placeholderLoading, placeholderError)
             .load(Uri.parse(url), container)
     }
 }

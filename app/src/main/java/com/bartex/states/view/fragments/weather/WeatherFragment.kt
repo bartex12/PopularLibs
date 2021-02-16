@@ -92,7 +92,7 @@ class WeatherFragment : MvpAppCompatFragment(),
         return true
     }
 
-    //Drawable это import android.graphics.drawable.Drawable
+    //Drawable это import android.graphics.drawable.Drawable - не буду тащить его в презентер
     private fun getIconFromIconCod(iconCod: String): Drawable? {
         return   when (iconCod) {
             "01d", "01n" -> ContextCompat.getDrawable(requireContext(), R.drawable.sun)

@@ -25,6 +25,10 @@
     <string name="ListSort">Выбор способа сортировки списка государств</string>
     <string name="noHelp">Справка недоступна</string>
     <string name="ok">OK</string>
+    <string name="home">Домой</string>
+    <string name="map">Карта</string>
+    <string name="select">Избр.</string>
+    <string name="weather">Погода</string>
 
     <string-array name="pref_entry_sort">
         <item>По населению по убыванию</item>

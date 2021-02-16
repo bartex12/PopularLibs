@@ -16,6 +16,7 @@ import com.bartex.states.presenter.DetailsPresenter
 import com.bartex.states.view.fragments.BackButtonListener
 import com.bartex.states.view.main.TAG
 import com.github.twocoffeesoneteam.glidetovectoryou.GlideToVectorYou
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.fragment_details.*
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
@@ -60,12 +61,35 @@ class DetailsFragment : MvpAppCompatFragment(),
         //здесь аргументы нужны для корректной обработки поворота экрана
         arguments?.let {state = it.getParcelable<State>(ARG_STATE )}
 
-        btn_show_weater.setOnClickListener {
-            state?. let {presenter.btnCapitalClick(it)}
-        }
+        bottom_navigation.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
+    }
 
-        btn_show_geo.setOnClickListener {
-            state?. let {presenter.sendGeoIntent(it)}
+    val onNavigationItemSelectedListener =
+        BottomNavigationView.OnNavigationItemSelectedListener { item ->
+        when(item.itemId) {
+            R.id.page_1 -> {
+                Log.d(TAG, "DetailsFragment BottomNavigationView page_1")
+                presenter.toHome()
+                true
+            }
+            R.id.page_2 -> {
+                Log.d(TAG, "DetailsFragment BottomNavigationView page_2")
+                state?. let {presenter.sendGeoIntent(it)}
+                true
+            }
+            R.id.page_3 -> {
+                Log.d(TAG, "DetailsFragment BottomNavigationView page_3")
+                state?. let {presenter.btnCapitalClick(it)}
+                true
+            }
+            R.id.page_4 -> {
+                Log.d(TAG, "DetailsFragment BottomNavigationView page_4")
+                true
+            }
+            else -> {
+                Log.d(TAG, "DetailsFragment BottomNavigationView else")
+                false
+            }
         }
     }
 
