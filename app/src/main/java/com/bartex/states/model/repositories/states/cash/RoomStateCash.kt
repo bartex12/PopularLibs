@@ -4,10 +4,13 @@ import android.util.Log
 import com.bartex.states.model.entity.state.State
 import com.bartex.states.model.room.Database
 import com.bartex.states.model.room.tables.RoomState
-import com.bartex.states.view.main.TAG
 import io.reactivex.rxjava3.core.Single
 
 class RoomStateCash(val db: Database): IRoomStateCash {
+
+    companion object{
+        const val TAG = "33333"
+    }
 
     override fun doStatesCash(listStates: List<State>): Single<List<State>> {
      return  Single.fromCallable { //создаём  Single из списка, по пути пишем в базу

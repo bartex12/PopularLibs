@@ -7,10 +7,13 @@ import com.bartex.states.model.entity.weather.Weather
 import com.bartex.states.model.entity.weather.WeatherInCapital
 import com.bartex.states.model.room.Database
 import com.bartex.states.model.room.tables.RoomWeather
-import com.bartex.states.view.main.TAG
 import io.reactivex.rxjava3.core.Single
 
 class RoomWeatherCash(val db: Database):IRoomWeatherCash {
+
+    companion object{
+        const val TAG = "33333"
+    }
 
     override fun doWeatherCash( weatherInCapital: WeatherInCapital)
             : Single<WeatherInCapital> {

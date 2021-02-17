@@ -5,7 +5,6 @@ import com.bartex.states.model.api.IDataSourceState
 import com.bartex.states.model.entity.state.State
 import com.bartex.states.model.network.INetworkStatus
 import com.bartex.states.model.repositories.states.cash.IRoomStateCash
-import com.bartex.states.view.main.TAG
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
 
@@ -16,6 +15,10 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 // не идёт о сети — во избежание выполнения операций в неверном потоке в вызывающем коде.
 class StatesRepo(val api: IDataSourceState, val networkStatus: INetworkStatus,
                  val roomCash: IRoomStateCash):    IStatesRepo {
+
+    companion object{
+        const val TAG = "33333"
+    }
     //метод  интерфейса IDataSourceState getStates() - в зависимости от статуса сети
     //мы или получаем данные из сети, записывая их в базу данных с помощью Room через map
     //или берём из базы, преобразуя их также через map

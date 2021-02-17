@@ -3,12 +3,12 @@ package com.bartex.states.model.repositories.prefs
 import androidx.preference.PreferenceManager
 import android.util.Log
 import com.bartex.states.App
-import com.bartex.states.view.main.TAG
 
 class PreferenceHelper(val app: App):
     IPreferenceHelper {
 
     companion object{
+        const val TAG = "33333"
         const val FIRST_POSITION = "FIRST_POSITION"
         const val FIRST_POSITION_SEARCH = "FIRST_POSITION_SEARCH"
     }

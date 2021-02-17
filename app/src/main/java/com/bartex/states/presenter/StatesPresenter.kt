@@ -7,7 +7,6 @@ import com.bartex.states.model.repositories.prefs.IPreferenceHelper
 import com.bartex.states.model.repositories.states.IStatesRepo
 import com.bartex.states.view.adapter.StatesItemView
 import com.bartex.states.view.fragments.states.IStatesView
-import com.bartex.states.view.main.TAG
 import io.reactivex.rxjava3.core.Scheduler
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -29,6 +28,10 @@ class StatesPresenter():MvpPresenter<IStatesView>() {
 
     @Inject
     lateinit var router: Router
+
+    companion object{
+        const val TAG = "33333"
+    }
 
     val statesListPresenter =
         StatesListPresenter()

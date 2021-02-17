@@ -12,7 +12,6 @@ import com.bartex.states.presenter.StatesPresenter
 import com.bartex.states.view.adapter.StatesRVAdapter
 import com.bartex.states.view.adapter.imageloader.GlideToVectorYouLoader
 import com.bartex.states.view.fragments.BackButtonListener
-import com.bartex.states.view.main.TAG
 import kotlinx.android.synthetic.main.fragment_states.*
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
@@ -25,6 +24,8 @@ class StatesFragment : MvpAppCompatFragment(),
     var adapter: StatesRVAdapter? = null
 
     companion object {
+        const val TAG = "33333"
+
         fun newInstance() = StatesFragment()
     }
 

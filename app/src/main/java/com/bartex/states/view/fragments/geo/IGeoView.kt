@@ -6,5 +6,4 @@ import moxy.viewstate.strategy.StateStrategyType
 
 @StateStrategyType(AddToEndSingleStrategy::class)
 interface IGeoView: MvpView {
-    //fun sendGeoIntent(geo:String)
 }

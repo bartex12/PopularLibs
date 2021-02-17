@@ -13,7 +13,6 @@ import com.bartex.states.R
 import com.bartex.states.model.entity.state.State
 import com.bartex.states.presenter.DetailsPresenter
 import com.bartex.states.view.fragments.BackButtonListener
-import com.bartex.states.view.main.TAG
 import com.github.twocoffeesoneteam.glidetovectoryou.GlideToVectorYou
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.fragment_details.*
@@ -25,6 +24,7 @@ class DetailsFragment : MvpAppCompatFragment(),
     BackButtonListener {
 
     companion object {
+        const val TAG = "33333"
         private const val ARG_STATE = "state"
 
         @JvmStatic

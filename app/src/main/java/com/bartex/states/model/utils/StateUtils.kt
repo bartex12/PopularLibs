@@ -5,6 +5,8 @@ import kotlinx.android.synthetic.main.fragment_details.*
 
 class StateUtils:IStateUtils {
 
+
+
     override fun getStateArea(state: State?): String {
       var   text_state_area = ""
         state?. let {

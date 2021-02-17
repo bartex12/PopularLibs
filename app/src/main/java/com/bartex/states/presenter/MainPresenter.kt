@@ -3,7 +3,6 @@ package com.bartex.states.presenter
 import android.util.Log
 import com.bartex.states.Screens
 import com.bartex.states.view.main.MainView
-import com.bartex.states.view.main.TAG
 import moxy.MvpPresenter
 import ru.terrakok.cicerone.Router
 import javax.inject.Inject
@@ -12,6 +11,10 @@ class MainPresenter: MvpPresenter<MainView>() {
 
     @Inject
     lateinit var router: Router
+
+    companion object{
+        const val TAG = "33333"
+    }
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()

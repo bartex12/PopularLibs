@@ -3,7 +3,6 @@ package com.bartex.states.presenter
 import android.util.Log
 import com.bartex.states.model.repositories.help.IHelpRepo
 import com.bartex.states.view.fragments.help.IHelpView
-import com.bartex.states.view.main.TAG
 import moxy.MvpPresenter
 import ru.terrakok.cicerone.Router
 import javax.inject.Inject
@@ -15,6 +14,10 @@ class HelpPresenter: MvpPresenter<IHelpView>() {
 
     @Inject
     lateinit var helpRepo:IHelpRepo
+
+    companion object{
+        const val TAG = "33333"
+    }
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()

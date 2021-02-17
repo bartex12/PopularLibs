@@ -4,7 +4,6 @@ import android.util.Log
 import com.bartex.states.model.entity.state.State
 import com.bartex.states.model.repositories.geo.IGeoRepo
 import com.bartex.states.view.fragments.geo.IGeoView
-import com.bartex.states.view.main.TAG
 import moxy.MvpPresenter
 import ru.terrakok.cicerone.Router
 import javax.inject.Inject
@@ -16,6 +15,10 @@ class GeoPresenter(val state: State?): MvpPresenter<IGeoView>() {
 
     @Inject
     lateinit var geoRepo: IGeoRepo
+
+    companion object{
+        const val TAG = "33333"
+    }
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()

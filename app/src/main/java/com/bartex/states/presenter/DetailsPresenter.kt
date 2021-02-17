@@ -5,7 +5,6 @@ import com.bartex.states.Screens
 import com.bartex.states.model.entity.state.State
 import com.bartex.states.model.utils.IStateUtils
 import com.bartex.states.view.fragments.details.IDetailsView
-import com.bartex.states.view.main.TAG
 import moxy.MvpPresenter
 import ru.terrakok.cicerone.Router
 import javax.inject.Inject
@@ -17,6 +16,10 @@ class DetailsPresenter(val state: State?):MvpPresenter<IDetailsView>()  {
 
     @Inject
     lateinit var stateUtils: IStateUtils
+
+    companion object{
+        const val TAG = "33333"
+    }
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()

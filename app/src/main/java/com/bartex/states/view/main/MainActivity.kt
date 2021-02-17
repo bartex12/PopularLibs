@@ -16,10 +16,14 @@ import ru.terrakok.cicerone.NavigatorHolder
 import ru.terrakok.cicerone.android.support.SupportAppNavigator
 import javax.inject.Inject
  
-const val TAG = "33333"
+
 
 class MainActivity: MvpAppCompatActivity(),
     MainView, SearchView.OnQueryTextListener {
+
+    companion object{
+        const val TAG = "33333"
+    }
 
     @Inject
     lateinit var navigatorHolder: NavigatorHolder
