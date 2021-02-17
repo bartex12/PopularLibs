@@ -66,13 +66,14 @@ class StatesPresenter():MvpPresenter<IStatesView>() {
 
     //грузим данные и делаем сортировку в соответствии с настройками
     fun loadData() {
-        val istSorted = helper.isSorted()
+        val isSorted = helper.isSorted()
         val getSortCase = helper.getSortCase()
         var f_st:List<State>?= null
+        Log.d(TAG, "StatesPresenter  loadData isSorted = $isSorted getSortCase = $getSortCase")
         statesRepo.getStates()
             .observeOn(Schedulers.computation())
             .flatMap {st->
-                if(istSorted){
+                if(isSorted){
                     if(getSortCase == 1){
                          f_st = st.filter {it.population!=null}.sortedByDescending {it.population}
                     }else if(getSortCase == 2){

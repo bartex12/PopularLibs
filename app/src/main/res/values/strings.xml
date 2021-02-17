@@ -29,6 +29,8 @@
     <string name="map">Карта</string>
     <string name="select">Избр.</string>
     <string name="weather">Погода</string>
+    <string name="no_data_available">Нет данных \n Попробуйте изменить поисковый запрос </string>
+    <string name="no_data_state">Нет данных \n Проверьте наличие Интернета </string>
 
     <string-array name="pref_entry_sort">
         <item>По населению по убыванию</item>

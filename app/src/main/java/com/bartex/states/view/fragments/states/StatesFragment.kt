@@ -74,9 +74,18 @@ class StatesFragment : MvpAppCompatFragment(),
     }
 
     override fun updateList() {
-        adapter?.notifyDataSetChanged()
+        if(presenter.statesListPresenter.states.isEmpty()){
+            rv_states.visibility = View.GONE
+            empty_view.visibility = View.VISIBLE
+        }else{
+            rv_states.visibility =  View.VISIBLE
+            empty_view.visibility =View.GONE
+
+            adapter?.notifyDataSetChanged()
+        }
     }
 
     override fun backPressed() = presenter.backPressed()
 
 }
+

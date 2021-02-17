@@ -69,20 +69,20 @@ class SearchPresenter( val search:String? ): MvpPresenter<ISearchView>() {
         search?. let{search->
             statesRepo.searchStates(search)
                 .observeOn(Schedulers.computation())
-                .flatMap {state->
+                .flatMap {states->
                     if(isSorted){
                         if(getSortCase == 1){
-                            f_st = state.filter {it.population!=null}.sortedByDescending {it.population}
+                            f_st = states.filter {it.population!=null}.sortedByDescending {it.population}
                         }else if(getSortCase == 2){
-                            f_st = state.filter {it.population!=null}.sortedBy {it.population}
+                            f_st = states.filter {it.population!=null}.sortedBy {it.population}
                         }else if(getSortCase == 3){
-                            f_st = state.filter {it.area!=null}.sortedByDescending {it.area}
+                            f_st = states.filter {it.area!=null}.sortedByDescending {it.area}
                         }else if(getSortCase == 4){
-                            f_st = state.filter {it.area!=null}.sortedBy {it.area}
+                            f_st = states.filter {it.area!=null}.sortedBy {it.area}
                         }
                         return@flatMap Single.just(f_st)
                     }else{
-                        return@flatMap Single.just(state)
+                        return@flatMap Single.just(states)
                     }
                 }
                 .observeOn(mainThreadScheduler)
@@ -91,7 +91,11 @@ class SearchPresenter( val search:String? ): MvpPresenter<ISearchView>() {
                     searchListPresenter.states.clear()
                     states?. let{searchListPresenter.states.addAll(it)}
                     viewState.updateList()
-                }, {error -> Log.d(TAG, "SearchPresenter onError in searchData ${error.message}")
+                }, {error ->
+                    //если ошибка- например 404 - данных нет по такому запросу и выводим пустой список
+                    searchListPresenter.states.clear()
+                    viewState.updateList()
+                    Log.d(TAG, "SearchPresenter onError in searchData ${error.message}")
                 })
         } ?: Log.d(TAG, "SearchPresenter searchData search = null")
     }

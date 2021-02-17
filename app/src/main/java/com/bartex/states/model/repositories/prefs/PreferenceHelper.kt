@@ -49,14 +49,14 @@ class PreferenceHelper(val app: App):
     //получаем файл с настройками сортировки для приложения
     override fun getSortCase(): Int {
         val prefSetting = PreferenceManager.getDefaultSharedPreferences(app)
-        val sort = prefSetting.getString("ListSort", "1")!!.toInt()
+        val sort = prefSetting.getString("ListSort", "3")!!.toInt()
         return sort
     }
 
     //получаем файл с настройками для приложения - нужна ли сортировка
     override fun isSorted(): Boolean {
         val prefSetting = PreferenceManager.getDefaultSharedPreferences(app)
-        val isSort = prefSetting.getBoolean("cbSort", false)
+        val isSort = prefSetting.getBoolean("cbSort", true)
         return isSort
     }
 

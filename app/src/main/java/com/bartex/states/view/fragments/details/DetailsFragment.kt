@@ -11,7 +11,6 @@ import android.view.ViewGroup
 import com.bartex.states.App
 import com.bartex.states.R
 import com.bartex.states.model.entity.state.State
-import com.bartex.states.model.utils.StateUtils
 import com.bartex.states.presenter.DetailsPresenter
 import com.bartex.states.view.fragments.BackButtonListener
 import com.bartex.states.view.main.TAG

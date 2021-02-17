@@ -14,6 +14,7 @@ import com.bartex.states.view.adapter.imageloader.GlideToVectorYouLoader
 import com.bartex.states.view.fragments.BackButtonListener
 import com.bartex.states.view.main.TAG
 import kotlinx.android.synthetic.main.fragment_search.*
+import kotlinx.android.synthetic.main.fragment_states.*
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 
@@ -59,7 +60,6 @@ class SearchFragment(): MvpAppCompatFragment(),
         super.onResume()
         Log.d(TAG, "SearchFragment onResume ")
         presenter.searchData() // обновляем данные при изменении настроек
-
     }
 
     //запоминаем  позицию списка, на которой сделан клик - на случай поворота экрана
@@ -85,7 +85,19 @@ class SearchFragment(): MvpAppCompatFragment(),
     }
 
     override fun updateList() {
-        adapter?.notifyDataSetChanged()
+        Log.d(TAG, "SearchFragment updateList ")
+        if(presenter.searchListPresenter.states.isEmpty()){
+            rv_search.visibility = View.GONE
+            empty_view_Search.visibility = View.VISIBLE
+            Log.d(TAG, "SearchFragment updateList  list = Empty")
+        }else{
+            rv_search.visibility =  View.VISIBLE
+            empty_view_Search.visibility =View.GONE
+
+            Log.d(TAG, "SearchFragment updateList  list size = " +
+                    "${presenter.searchListPresenter.states.size}")
+            adapter?.notifyDataSetChanged()
+        }
     }
 
     override fun backPressed(): Boolean = presenter.backPressed()
