@@ -1,15 +1,22 @@
 package com.bartex.states.view.main
 
+import android.content.Intent
+import android.content.Intent.createChooser
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.SearchView
+import androidx.core.view.GravityCompat
 import com.bartex.states.App
 import com.bartex.states.R
 import com.bartex.states.presenter.MainPresenter
 import com.bartex.states.view.fragments.BackButtonListener
-import com.bartex.states.view.main.dialogs.MessageDialog
+import com.google.android.material.navigation.NavigationView
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.app_bar_main.*
 import moxy.MvpAppCompatActivity
 import moxy.ktx.moxyPresenter
 import ru.terrakok.cicerone.NavigatorHolder
@@ -19,7 +26,7 @@ import javax.inject.Inject
 
 
 class MainActivity: MvpAppCompatActivity(),
-    MainView, SearchView.OnQueryTextListener {
+    MainView, SearchView.OnQueryTextListener, NavigationView.OnNavigationItemSelectedListener {
 
     companion object{
         const val TAG = "33333"
@@ -45,6 +52,16 @@ class MainActivity: MvpAppCompatActivity(),
         super.onCreate(savedInstanceState)
         Log.d(TAG, "MainActivity onCreate ")
         setContentView(R.layout.activity_main)
+
+        setSupportActionBar(toolbar) //поддержка экшенбара для создания строки поиска
+        //drawer_layout.openDrawer(GravityCompat.START) //шторка в открытом состоянии
+        val toggle = ActionBarDrawerToggle(this,drawer_layout,
+                toolbar,R.string.navigation_drawer_open,R.string.navigation_drawer_close )//гамбургер
+        drawer_layout.addDrawerListener(toggle) //слушатель гамбургера
+        toggle.syncState() //синхронизация гамбургера
+
+        nav_view.setNavigationItemSelectedListener(this) //слушатель меню шторки
+
         App.instance.appComponent.inject(this)
     }
 
@@ -66,18 +83,9 @@ class MainActivity: MvpAppCompatActivity(),
             R.id.navigation_help->{
                 presenter.showHelp()
             }
-            R.id.navigation_about->{
-                showMessageDialogFfagment(resources.getString(R.string.aboutAppMessage))
-            }
         }
         return super.onOptionsItemSelected(item)
     }
-
-    private fun showMessageDialogFfagment(message: String) {
-        val dialogMessage = MessageDialog.newInstance(message)
-        dialogMessage.show(supportFragmentManager, "dialogMessage")
-    }
-
 
     override fun onPause() {
         super.onPause()
@@ -104,6 +112,61 @@ class MainActivity: MvpAppCompatActivity(),
 
     override fun onQueryTextChange(newText: String?): Boolean {
         return false
+    }
+
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+
+        when (item.itemId) {
+            R.id.nav_favorites -> {
+                Log.d(TAG, "MainActivity onNavigationItemSelected nav_favorites")
+                //todo
+            }
+            R.id.nav_setting -> {
+                Log.d(TAG, "MainActivity onNavigationItemSelected nav_setting")
+                presenter. showSettingsActivity()
+            }
+            R.id.nav_help -> {
+                Log.d(TAG, "MainActivity onNavigationItemSelected nav_help")
+                presenter.showHelp()
+            }
+
+            R.id.nav_share -> {
+                Log.d(TAG, "MainActivity onNavigationItemSelected nav_share")
+                //поделиться - передаём ссылку на приложение в маркете
+                shareApp()
+            }
+            R.id.nav_rate -> {
+                Log.d(TAG, "MainActivity onNavigationItemSelected nav_send")
+                //оценить приложение - попадаем на страницу приложения в маркете
+                rateApp()
+            }
+            // Выделяем выбранный пункт меню в шторке
+        }
+        // Выделяем выбранный пункт меню в шторке
+        item.isChecked = true
+        drawer_layout.closeDrawer(GravityCompat.START)
+        return false
+    }
+
+    private fun shareApp() {
+        val sendIntent = Intent()
+        with(sendIntent){
+            type = "text/plain"
+            //чтобы отменить неправильный вариант Запомнить выбор - убрать и вставить эту строку
+            action = Intent.ACTION_SEND_MULTIPLE //задаём возможность отправки несколькими способами
+            putExtra(Intent.EXTRA_TEXT,
+                """ ${getString(R.string.app_name)}
+                    ${getString(R.string.uri_stor)}
+                """.trimIndent()
+            )
+        }
+        startActivity(sendIntent)
+    }
+
+    private fun rateApp() {
+        val intent = Intent(Intent.ACTION_VIEW)
+        intent.data = Uri.parse(getString(R.string.uri_stor))
+        startActivity(intent)
     }
 
 }

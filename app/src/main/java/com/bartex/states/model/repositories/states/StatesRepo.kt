@@ -34,7 +34,6 @@ class StatesRepo(val api: IDataSourceState, val networkStatus: INetworkStatus,
                                 state.latlng?.size == 2 && //только с известными координатами
                                 state.capital.isNotEmpty() //только с известными столицами
                             }
-                               //.sortedByDescending {st -> st.population }
                             Log.d(TAG, "StatesRepo  getStates f_states.size = ${f_states.size}")
                             //реализация кэширования списка пользователей из сети в базу данных
                            roomCash.doStatesCash(f_states)

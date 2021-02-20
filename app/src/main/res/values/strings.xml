@@ -17,6 +17,7 @@
     <string name="identifier">android:id/search_close_btn</string>
     <string name="about">О приложении</string>
     <string name="settings">Настройки</string>
+    <string name="favorites">Избранное</string>
     <string name="help">Справка</string>
     <string name="message">MESSAGE</string>
     <string name="aboutAppMessage">GeekBrains Андроид -популярные библиотеки</string>
@@ -31,6 +32,19 @@
     <string name="weather">Погода</string>
     <string name="no_data_available">Нет данных \n Попробуйте изменить поисковый запрос </string>
     <string name="no_data_state">Нет данных \n Проверьте наличие Интернета </string>
+
+    <string name="fruit">Фрукты</string>
+    <string name="vegetables">Овощи</string>
+    <string name="nature">Природа</string>
+    <string name="animals">Животные</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="sub_">Полезная информация о странах мира</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="addition">Дополнительно</string>
+    <string name="share">Поделиться</string>
+    <string name="send">Оценить</string>
+    <string name="uri_stor">https://play.google.com/store/apps/details?id=com.bartex.states_search</string>
 
     <string-array name="pref_entry_sort">
         <item>По населению по убыванию</item>
