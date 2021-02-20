@@ -37,7 +37,7 @@ class RoomStateCash(val db: Database): IRoomStateCash {
       return  Single.fromCallable {
           db.stateDao.getAll().map {roomState->
               State(roomState.capital,roomState.flag, roomState.name, roomState.region,
-                  roomState.population, roomState.area)
+                  roomState.population, roomState.area, arrayOf(roomState.lat, roomState.lng))
           }
         }
     }
@@ -46,7 +46,7 @@ class RoomStateCash(val db: Database): IRoomStateCash {
         return  Single.fromCallable {
             db.stateDao.findByName(search).map {roomState->
                 State(roomState.capital,roomState.flag, roomState.name, roomState.region,
-                    roomState.population, roomState.area)
+                    roomState.population, roomState.area, arrayOf(roomState.lat, roomState.lng))
             }
         }
     }
