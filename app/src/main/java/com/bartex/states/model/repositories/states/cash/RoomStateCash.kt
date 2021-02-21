@@ -3,6 +3,7 @@ package com.bartex.states.model.repositories.states.cash
 import android.util.Log
 import com.bartex.states.model.entity.state.State
 import com.bartex.states.model.room.Database
+import com.bartex.states.model.room.tables.RoomFavorite
 import com.bartex.states.model.room.tables.RoomState
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
@@ -52,16 +53,16 @@ class RoomStateCash(val db: Database): IRoomStateCash {
         }
     }
 
-//    override fun addToFavorite(state: State)= Completable.create {emitter->
-//        add(state). let{
-//            if(it){
-//                emitter.onComplete()
-//                Log.d(TAG, "RoomStateCash addToFavorite emitter.onComplete()")
-//            }else{
-//                emitter.onError(RuntimeException(" Ошибка при добавлении в избранное "))
-//            }
-//        }
-//    }
+    override fun addToFavorite(state: State)= Completable.create {emitter->
+        add(state). let{
+            if(it){
+                emitter.onComplete()
+                Log.d(TAG, "RoomStateCash addToFavorite emitter.onComplete()")
+            }else{
+                emitter.onError(RuntimeException(" Ошибка при добавлении в избранное "))
+            }
+        }
+    }
 
     override fun loadFavorite(): Single<List<State>> {
         return  Single.fromCallable {
@@ -73,29 +74,34 @@ class RoomStateCash(val db: Database): IRoomStateCash {
         }
     }
 
+    override fun isFavorite(state: State):Single<Boolean> {
+        return Single.fromCallable {
+            var rf: RoomFavorite? = null
+            state.name?.let {
+                rf = db.favoriteDao.findByName(it)
+            }
+            return@fromCallable rf!=null
+        }
+    }
 
-//    private fun add(state: State):Boolean {
-//        val roomState = RoomState(
-//            capital = state.capital ?: "",
-//            flag = state.flag ?: "",
-//            name = state.name ?: "",
-//            region =  state.region ?: "",
-//            population = state.population ?: 0,
-//            area =  state.area?:0f,
-//            lat = state.latlng?.get(0) ?:0f,
-//            lng =  state.latlng?.get(1) ?:0f
-//
-//        )
-//        state.capital?. let{
-//         val iFavorite =   db.stateDao.findByCapital(it).favorite
-//            if(!iFavorite){
-//                db.stateDao.insert(roomState)
-//                return true
-//            }/*else{
-//                db.stateDao.delete(roomState)
-//                return true
-//            }*/
-//        }
-//       return false
-//    }
+    private fun add(state: State):Boolean {
+        val roomFavorite = RoomFavorite(
+            capital = state.capital ?: "",
+            flag = state.flag ?: "",
+            name = state.name ?: "",
+            region =  state.region ?: "",
+            population = state.population ?: 0,
+            area =  state.area?:0f,
+            lat = state.latlng?.get(0) ?:0f,
+            lng =  state.latlng?.get(1) ?:0f
+        )
+        state.name?. let{
+         val rs:RoomFavorite? =   db.favoriteDao.findByName(it)
+            rs?: let{
+                db.favoriteDao.insert(roomFavorite)
+                return true
+            }
+        }
+       return false
+    }
 }

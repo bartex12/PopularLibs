@@ -35,10 +35,7 @@ interface FavoriteDao {
     @Query("SELECT * FROM RoomFavorite")
     fun getAll():List<RoomState>
 
+    @Query("SELECT * FROM RoomFavorite WHERE name = :stateName LIMIT 1 ")
+    fun findByName(stateName:String): RoomFavorite
 
-//    @Query("SELECT * FROM RoomFavorite WHERE capital = :capitalName LIMIT 1 ")
-//    fun findByCapital(capitalName:String): RoomState
-//
-//    @Query("SELECT * FROM RoomFavorite WHERE favorite = :isFavorite ")
-//    fun findByFavorite(isFavorite:Boolean): List<RoomFavorite>
 }

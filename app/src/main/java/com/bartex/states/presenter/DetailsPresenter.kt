@@ -15,6 +15,8 @@ import javax.inject.Inject
 
 class DetailsPresenter(val state: State?):MvpPresenter<IDetailsView>()  {
 
+    @Inject
+    lateinit var  roomCash: IRoomStateCash
 
     @Inject
     lateinit var router: Router
@@ -57,7 +59,33 @@ class DetailsPresenter(val state: State?):MvpPresenter<IDetailsView>()  {
         router.navigateTo(Screens.FavoriteScreen())
     }
 
+    fun isFavorite(state:State){
+      roomCash.isFavorite(state)
+          .subscribeOn(Schedulers.io())
+          .observeOn(AndroidSchedulers.mainThread())
+          .subscribe({
+                viewState.setVisibility(it)
+          }, {
+                Log.d(TAG, "DetailsPresenter isFavorite error = ${it.message} ")
+          })
+    }
 
+    fun addToFavorite(state:State){
+        roomCash.addToFavorite(state)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe (   {
+                viewState.showAddFavoriteToast()
+            },{
+                Log.d(TAG, "DetailsPresenter addToFavorite error = ${it.message} ")
+            })
+
+
+        Log.d(TAG, "DetailsPresenter addToFavorite ")
+    }
+    fun removeFavorite(state:State){
+        //todo
+    }
 
     fun backPressed():Boolean {
         Log.d(TAG, "DetailsPresenter backPressed ")

@@ -44,11 +44,11 @@ class MainPresenter: MvpPresenter<MainView>() {
     }
 
     fun addToFavorite(){
-        roomCash.
+        //todo
     }
 
     fun removeFromFavorite(){
-
+//todo
     }
 
 

@@ -63,6 +63,15 @@ class DetailsFragment : MvpAppCompatFragment(),
 
         bottom_navigation.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
 
+        state?. let { presenter.isFavorite(it)}
+
+        btn_addToFavorite.setOnClickListener {
+            state?. let { presenter.addToFavorite(it)}
+        }
+        btn_removeFavorite.setOnClickListener {
+            state?. let { presenter.removeFavorite(it)}
+        }
+
         //приводим меню тулбара в соответствии с onPrepareOptionsMenu в MainActivity
         setHasOptionsMenu(true)
         requireActivity().invalidateOptionsMenu()
@@ -71,22 +80,22 @@ class DetailsFragment : MvpAppCompatFragment(),
     val onNavigationItemSelectedListener =
         BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when(item.itemId) {
-            R.id.page_1 -> {
+            R.id.home -> {
                 Log.d(TAG, "DetailsFragment BottomNavigationView page_1")
                 presenter.toHome()
                 true
             }
-            R.id.page_2 -> {
+            R.id.geo -> {
                 Log.d(TAG, "DetailsFragment BottomNavigationView page_2")
                 state?. let {presenter.sendGeoIntent(it)}
                 true
             }
-            R.id.page_3 -> {
+            R.id.weather -> {
                 Log.d(TAG, "DetailsFragment BottomNavigationView page_3")
                 state?. let {presenter.btnCapitalClick(it)}
                 true
             }
-            R.id.page_4 -> {
+            R.id.showFavorite -> {
                 Log.d(TAG, "DetailsFragment BottomNavigationView page_4")
                 //state?. let {presenter.addToFavorite(it)}
                 state?. let {presenter. showFavoritesFragment()}
@@ -144,6 +153,16 @@ class DetailsFragment : MvpAppCompatFragment(),
 
     override fun showAddFavoriteToast() {
         Toast.makeText(requireActivity(), getString(R.string.addFavoriteToast), Toast.LENGTH_SHORT ).show()
+    }
+
+    override fun setVisibility(isFavorite: Boolean) {
+        if (isFavorite){
+            btn_addToFavorite.visibility = View.GONE
+            btn_removeFavorite.visibility = View.VISIBLE
+        }else{
+            btn_addToFavorite.visibility = View.VISIBLE
+            btn_removeFavorite.visibility = View.GONE
+        }
     }
 
     //если ошибка - возвращаем false
