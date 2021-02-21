@@ -38,7 +38,7 @@ class DetailsPresenter(val state: State?):MvpPresenter<IDetailsView>()  {
 
     fun toHome(){
         Log.d(TAG, "DetailsPresenter toHome  ")
-        router.exit()
+        router.newRootScreen(Screens.StatesScreen())
     }
 
     fun sendGeoIntent(state:State){

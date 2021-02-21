@@ -38,4 +38,5 @@ class MainPresenter: MvpPresenter<MainView>() {
     fun showSettingsActivity(){
         router.navigateTo(Screens.SettingsScreen())
     }
+
 }

@@ -20,6 +20,7 @@
         android:title="@string/help"
         app:showAsAction="never" />
 
-
 </menu>
-<!--с 30 версии андроид SearchView включен в androidx-->
+<!--    android:icon="@drawable/ic_camera_alt_black"&lt;!&ndash;&ndash;&gt;-->
+<!--    android:icon="@drawable/ic_videocam_black" -->
+    <!--с 30 версии андроид SearchView включен в androidx-->

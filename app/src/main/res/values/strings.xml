@@ -48,6 +48,10 @@
     <string name="share">Поделиться</string>
     <string name="send">Оценить</string>
     <string name="uri_stor">https://play.google.com/store/apps/details?id=com.bartex.states_search</string>
+    <string name="sorting">Сортировка</string>
+    <string name="is_sorting">Нужна сортировка?</string>
+    <string name="green">Зелёная тема</string>
+    <string name="violent">Фиолетовая тема</string>
 
     <string-array name="pref_entry_sort">
         <item>По населению по убыванию</item>

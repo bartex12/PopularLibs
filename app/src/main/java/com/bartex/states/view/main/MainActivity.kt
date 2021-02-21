@@ -1,7 +1,6 @@
 package com.bartex.states.view.main
 
 import android.content.Intent
-import android.content.Intent.createChooser
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -12,7 +11,6 @@ import androidx.appcompat.widget.SearchView
 import androidx.core.view.GravityCompat
 import com.bartex.states.App
 import com.bartex.states.R
-import com.bartex.states.Screens
 import com.bartex.states.presenter.MainPresenter
 import com.bartex.states.view.fragments.BackButtonListener
 import com.bartex.states.view.fragments.details.DetailsFragment
@@ -25,10 +23,8 @@ import kotlinx.android.synthetic.main.app_bar_main.*
 import moxy.MvpAppCompatActivity
 import moxy.ktx.moxyPresenter
 import ru.terrakok.cicerone.NavigatorHolder
-import ru.terrakok.cicerone.Router
 import ru.terrakok.cicerone.android.support.SupportAppNavigator
 import javax.inject.Inject
- 
 
 
 class MainActivity: MvpAppCompatActivity(),
@@ -60,16 +56,19 @@ class MainActivity: MvpAppCompatActivity(),
         setContentView(R.layout.activity_main)
 
         setSupportActionBar(toolbar) //поддержка экшенбара для создания строки поиска
-        //drawer_layout.openDrawer(GravityCompat.START) //шторка в открытом состоянии
         val toggle = ActionBarDrawerToggle(this,drawer_layout,
                 toolbar,R.string.navigation_drawer_open,R.string.navigation_drawer_close )//гамбургер
         drawer_layout.addDrawerListener(toggle) //слушатель гамбургера
         toggle.syncState() //синхронизация гамбургера
 
-
         nav_view.setNavigationItemSelectedListener(this) //слушатель меню шторки
 
         App.instance.appComponent.inject(this)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d(TAG, "MainActivity onResume ")
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -111,6 +110,7 @@ class MainActivity: MvpAppCompatActivity(),
 
     override fun onPause() {
         super.onPause()
+        Log.d(TAG, "MainActivity onPause ")
         navigatorHolder.removeNavigator()
     }
 
