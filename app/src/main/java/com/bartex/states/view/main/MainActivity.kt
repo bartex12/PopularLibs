@@ -12,14 +12,18 @@ import androidx.appcompat.widget.SearchView
 import androidx.core.view.GravityCompat
 import com.bartex.states.App
 import com.bartex.states.R
+import com.bartex.states.Screens
 import com.bartex.states.presenter.MainPresenter
 import com.bartex.states.view.fragments.BackButtonListener
+import com.bartex.states.view.fragments.search.SearchFragment
+import com.bartex.states.view.fragments.states.StatesFragment
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import moxy.MvpAppCompatActivity
 import moxy.ktx.moxyPresenter
 import ru.terrakok.cicerone.NavigatorHolder
+import ru.terrakok.cicerone.Router
 import ru.terrakok.cicerone.android.support.SupportAppNavigator
 import javax.inject.Inject
  
@@ -72,6 +76,15 @@ class MainActivity: MvpAppCompatActivity(),
         val searchView =searchItem.actionView as SearchView
         searchView.setOnQueryTextListener(this)
         return true
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
+
+        supportFragmentManager.findFragmentById(R.id.container)?. let{
+            menu?.findItem(R.id.search)?.isVisible = it is StatesFragment || it is SearchFragment
+            //menu?.findItem(R.id.search)?.isVisible = it.equals(R.layout.fragment_details)
+        }
+        return super.onPrepareOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

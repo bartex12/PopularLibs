@@ -32,7 +32,7 @@ class GeoRepo(val app: App):IGeoRepo {
             state?.latlng?.get(0).toString(), state?.latlng?.get(1).toString(), zoom.toString())
 
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(geoCoord))
-        // You could specify package for use the GoogleMaps app, only
+        // пакет для использования GoogleMaps
         val packageManager: PackageManager = app.getPackageManager()
         if (isPackageInstalled("com.google.android.apps.maps", packageManager)) {
             intent.setPackage("com.google.android.apps.maps")

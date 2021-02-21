@@ -53,6 +53,9 @@ class SearchFragment(): MvpAppCompatFragment(),
         Log.d(TAG, "SearchFragment onViewCreated ")
         //восстанавливаем позицию списка после поворота или возвращения на экран
         position = presenter.getPositionSearch()
+        //приводим меню тулбара в соответствии с onPrepareOptionsMenu в MainActivity
+        setHasOptionsMenu(true)
+        requireActivity().invalidateOptionsMenu()
     }
 
     override fun onResume() {

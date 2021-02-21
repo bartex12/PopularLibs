@@ -61,6 +61,10 @@ class DetailsFragment : MvpAppCompatFragment(),
         arguments?.let {state = it.getParcelable<State>(ARG_STATE )}
 
         bottom_navigation.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
+
+        //приводим меню тулбара в соответствии с onPrepareOptionsMenu в MainActivity
+        setHasOptionsMenu(true)
+        requireActivity().invalidateOptionsMenu()
     }
 
     val onNavigationItemSelectedListener =

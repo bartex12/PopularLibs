@@ -44,6 +44,9 @@ class StatesFragment : MvpAppCompatFragment(),
         Log.d(TAG, "StatesFragment onViewCreated ")
         //восстанавливаем позицию списка после поворота или возвращения на экран
         position = presenter.getPosition()
+        //приводим меню тулбара в соответствии с onPrepareOptionsMenu в MainActivity
+        setHasOptionsMenu(true)
+        requireActivity().invalidateOptionsMenu()
     }
 
     override fun onResume() {

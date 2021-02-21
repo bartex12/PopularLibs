@@ -52,6 +52,13 @@ class WeatherFragment : MvpAppCompatFragment(),
         return inflater.inflate(R.layout.fragment_weather, container, false)
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        //приводим меню тулбара в соответствии с onPrepareOptionsMenu в MainActivity
+        setHasOptionsMenu(true)
+        requireActivity().invalidateOptionsMenu()
+    }
+
     override fun setStateName(state: String) {
         tv_state_name.text = state
     }
