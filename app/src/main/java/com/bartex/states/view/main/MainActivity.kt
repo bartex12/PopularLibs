@@ -15,8 +15,10 @@ import com.bartex.states.R
 import com.bartex.states.Screens
 import com.bartex.states.presenter.MainPresenter
 import com.bartex.states.view.fragments.BackButtonListener
+import com.bartex.states.view.fragments.details.DetailsFragment
 import com.bartex.states.view.fragments.search.SearchFragment
 import com.bartex.states.view.fragments.states.StatesFragment
+import com.bartex.states.view.fragments.weather.WeatherFragment
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
@@ -64,6 +66,7 @@ class MainActivity: MvpAppCompatActivity(),
         drawer_layout.addDrawerListener(toggle) //слушатель гамбургера
         toggle.syncState() //синхронизация гамбургера
 
+
         nav_view.setNavigationItemSelectedListener(this) //слушатель меню шторки
 
         App.instance.appComponent.inject(this)
@@ -81,8 +84,14 @@ class MainActivity: MvpAppCompatActivity(),
     override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
 
         supportFragmentManager.findFragmentById(R.id.container)?. let{
-            menu?.findItem(R.id.search)?.isVisible = it is StatesFragment || it is SearchFragment
-            //menu?.findItem(R.id.search)?.isVisible = it.equals(R.layout.fragment_details)
+            menu?.findItem(R.id.search)?.isVisible = it is StatesFragment
+        }
+        toolbar.title = when(supportFragmentManager.findFragmentById(R.id.container)){
+            is StatesFragment -> getString(R.string.app_name)
+            is SearchFragment -> getString(R.string.search_name)
+            is WeatherFragment -> getString(R.string.weather_name)
+            is DetailsFragment -> getString(R.string.details_name)
+            else -> getString(R.string.app_name)
         }
         return super.onPrepareOptionsMenu(menu)
     }
@@ -153,7 +162,6 @@ class MainActivity: MvpAppCompatActivity(),
                 //оценить приложение - попадаем на страницу приложения в маркете
                 rateApp()
             }
-            // Выделяем выбранный пункт меню в шторке
         }
         // Выделяем выбранный пункт меню в шторке
         item.isChecked = true

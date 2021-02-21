@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">Мир на ладони</string>
+    <string name="search_name">Найдено</string>
+    <string name="weather_name">Погода в столице</string>
+    <string name="details_name">Коротко о главном</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="hello_state">Hello state!</string>
     <string name="state">state1</string>

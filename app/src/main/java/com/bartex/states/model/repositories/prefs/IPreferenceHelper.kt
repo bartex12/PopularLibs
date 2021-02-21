@@ -7,4 +7,5 @@ interface IPreferenceHelper {
     fun getPositionSearch(): Int
     fun getSortCase():Int
     fun isSorted():Boolean
+   fun  saveTextSearch(text:String)
 }

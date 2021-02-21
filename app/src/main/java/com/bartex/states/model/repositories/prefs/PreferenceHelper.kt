@@ -11,6 +11,7 @@ class PreferenceHelper(val app: App):
         const val TAG = "33333"
         const val FIRST_POSITION = "FIRST_POSITION"
         const val FIRST_POSITION_SEARCH = "FIRST_POSITION_SEARCH"
+        const val TEXT_SEARCH = "TEXT_SEARCH"
     }
 
     override fun savePosition(position:Int) {
@@ -58,6 +59,15 @@ class PreferenceHelper(val app: App):
         val prefSetting = PreferenceManager.getDefaultSharedPreferences(app)
         val isSort = prefSetting.getBoolean("cbSort", true)
         return isSort
+    }
+
+    override fun saveTextSearch(text: String) {
+        PreferenceManager.getDefaultSharedPreferences(app)
+            .edit()
+            .putString(TEXT_SEARCH, text)
+            .apply()
+        Log.d(TAG,"PreferenceHelper savePositionSearch TEXT_SEARCH = $text"
+        )
     }
 
 }
