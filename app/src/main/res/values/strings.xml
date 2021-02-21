@@ -20,7 +20,7 @@
     <string name="identifier">android:id/search_close_btn</string>
     <string name="about">О приложении</string>
     <string name="settings">Настройки</string>
-    <string name="favorites">Избранное</string>
+    <string name="favorites">Добавить в избранное</string>
     <string name="help">Справка</string>
     <string name="message">MESSAGE</string>
     <string name="aboutAppMessage">GeekBrains Андроид -популярные библиотеки</string>
@@ -31,7 +31,7 @@
     <string name="ok">OK</string>
     <string name="home">Домой</string>
     <string name="map">Карта</string>
-    <string name="select">Избр.</string>
+    <string name="select">В избр.</string>
     <string name="weather">Погода</string>
     <string name="no_data_available">Нет данных \n Попробуйте изменить поисковый запрос </string>
     <string name="no_data_state">Нет данных \n Проверьте наличие Интернета </string>
@@ -52,6 +52,11 @@
     <string name="is_sorting">Нужна сортировка?</string>
     <string name="green">Зелёная тема</string>
     <string name="violent">Фиолетовая тема</string>
+    <string name="favor">В избранное</string>
+    <string name="addFavoriteToast">Добавлено в Избранное</string>
+    <string name="no_data_favorite">"Нет данных. Добавьте страну в избранное "</string>
+    <string name="favorite_name">Избранное</string>
+    <string name="remove_favorites">Удалить из избранного</string>
 
     <string-array name="pref_entry_sort">
         <item>По населению по убыванию</item>

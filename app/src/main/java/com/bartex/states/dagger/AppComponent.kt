@@ -32,6 +32,6 @@ interface AppComponent {
     fun inject(searchPresenter: SearchPresenter)
     fun inject(helpPresenter: HelpPresenter)
     fun inject(geoPresenter: GeoPresenter)
-    //fun inject(glideToVectorYouLoader: GlideToVectorYouLoader)
+    fun inject(favoritePresenter: FavoritePresenter)
 
 }

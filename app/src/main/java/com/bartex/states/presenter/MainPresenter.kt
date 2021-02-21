@@ -2,6 +2,7 @@ package com.bartex.states.presenter
 
 import android.util.Log
 import com.bartex.states.Screens
+import com.bartex.states.model.repositories.states.cash.IRoomStateCash
 import com.bartex.states.view.main.MainView
 import moxy.MvpPresenter
 import ru.terrakok.cicerone.Router
@@ -11,6 +12,9 @@ class MainPresenter: MvpPresenter<MainView>() {
 
     @Inject
     lateinit var router: Router
+
+    @Inject
+    lateinit var  roomCash: IRoomStateCash
 
     companion object{
         const val TAG = "33333"
@@ -38,5 +42,14 @@ class MainPresenter: MvpPresenter<MainView>() {
     fun showSettingsActivity(){
         router.navigateTo(Screens.SettingsScreen())
     }
+
+    fun addToFavorite(){
+        roomCash.
+    }
+
+    fun removeFromFavorite(){
+
+    }
+
 
 }

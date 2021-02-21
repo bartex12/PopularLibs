@@ -16,4 +16,5 @@ class RoomState(
     var area :Float,
     var lat :Float,
     var lng :Float
+
 )

@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.bartex.states.App
 import com.bartex.states.R
 import com.bartex.states.model.entity.state.State
@@ -87,6 +88,8 @@ class DetailsFragment : MvpAppCompatFragment(),
             }
             R.id.page_4 -> {
                 Log.d(TAG, "DetailsFragment BottomNavigationView page_4")
+                //state?. let {presenter.addToFavorite(it)}
+                state?. let {presenter. showFavoritesFragment()}
                 true
             }
             else -> {
@@ -139,7 +142,11 @@ class DetailsFragment : MvpAppCompatFragment(),
         requireActivity().startActivity(intent)
     }
 
-     //если ошибка - возвращаем false
+    override fun showAddFavoriteToast() {
+        Toast.makeText(requireActivity(), getString(R.string.addFavoriteToast), Toast.LENGTH_SHORT ).show()
+    }
+
+    //если ошибка - возвращаем false
     private fun isPackageInstalled(packageName: String,packageManager: PackageManager): Boolean {
         return try {
             packageManager.getPackageInfo(packageName, 0)

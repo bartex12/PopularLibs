@@ -27,4 +27,5 @@ class CacheModule {
     @Singleton
     fun weatherCash(db: Database): IRoomWeatherCash = RoomWeatherCash(db)
 
+
 }

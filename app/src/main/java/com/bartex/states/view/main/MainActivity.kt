@@ -14,6 +14,7 @@ import com.bartex.states.R
 import com.bartex.states.presenter.MainPresenter
 import com.bartex.states.view.fragments.BackButtonListener
 import com.bartex.states.view.fragments.details.DetailsFragment
+import com.bartex.states.view.fragments.favorite.FavoriteFragment
 import com.bartex.states.view.fragments.search.SearchFragment
 import com.bartex.states.view.fragments.states.StatesFragment
 import com.bartex.states.view.fragments.weather.WeatherFragment
@@ -84,12 +85,15 @@ class MainActivity: MvpAppCompatActivity(),
 
         supportFragmentManager.findFragmentById(R.id.container)?. let{
             menu?.findItem(R.id.search)?.isVisible = it is StatesFragment
+            menu?.findItem(R.id.add_favorites)?.isVisible = it is DetailsFragment
+            menu?.findItem(R.id.remove_favorites)?.isVisible = it is DetailsFragment
         }
         toolbar.title = when(supportFragmentManager.findFragmentById(R.id.container)){
             is StatesFragment -> getString(R.string.app_name)
             is SearchFragment -> getString(R.string.search_name)
             is WeatherFragment -> getString(R.string.weather_name)
             is DetailsFragment -> getString(R.string.details_name)
+            is FavoriteFragment -> getString(R.string.favorite_name)
             else -> getString(R.string.app_name)
         }
         return super.onPrepareOptionsMenu(menu)
@@ -98,6 +102,13 @@ class MainActivity: MvpAppCompatActivity(),
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id = item.itemId
         when (id){
+
+            R.id.add_favorites ->{
+                presenter.addToFavorite()
+            }
+            R.id.remove_favorites ->{
+                presenter.removeFromFavorite()
+            }
            R.id.navigation_settings ->{
                presenter. showSettingsActivity()
            }

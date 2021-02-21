@@ -3,16 +3,24 @@ package com.bartex.states.presenter
 import android.util.Log
 import com.bartex.states.Screens
 import com.bartex.states.model.entity.state.State
+import com.bartex.states.model.repositories.states.cash.IRoomStateCash
 import com.bartex.states.model.utils.IStateUtils
 import com.bartex.states.view.fragments.details.IDetailsView
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Scheduler
+import io.reactivex.rxjava3.schedulers.Schedulers
 import moxy.MvpPresenter
 import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 
 class DetailsPresenter(val state: State?):MvpPresenter<IDetailsView>()  {
 
+
     @Inject
     lateinit var router: Router
+
+    @Inject
+    lateinit var mainThreadScheduler: Scheduler
 
     @Inject
     lateinit var stateUtils: IStateUtils
@@ -44,6 +52,12 @@ class DetailsPresenter(val state: State?):MvpPresenter<IDetailsView>()  {
     fun sendGeoIntent(state:State){
         viewState.sendGeoIntent(stateUtils.getStatezoom(state))
     }
+
+    fun showFavoritesFragment(){
+        router.navigateTo(Screens.FavoriteScreen())
+    }
+
+
 
     fun backPressed():Boolean {
         Log.d(TAG, "DetailsPresenter backPressed ")
