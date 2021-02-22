@@ -8,6 +8,7 @@ import com.bartex.states.model.repositories.states.cash.IRoomStateCash
 import com.bartex.states.view.adapter.StatesItemView
 import com.bartex.states.view.fragments.favorite.IFavoriteView
 import io.reactivex.rxjava3.core.Scheduler
+import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
 import moxy.MvpPresenter
 import ru.terrakok.cicerone.Router
@@ -70,7 +71,27 @@ class FavoritePresenter() : MvpPresenter<IFavoriteView>(){
     }
 
     private fun loadFavorite() {
+        val isSorted = helper.isSorted()
+        val getSortCase = helper.getSortCase()
+        var f_st:List<State>?= null
         roomCash. loadFavorite()
+            .observeOn(Schedulers.computation())
+            .flatMap {st->
+                if(isSorted){
+                    if(getSortCase == 1){
+                        f_st = st.filter {it.population!=null}.sortedByDescending {it.population}
+                    }else if(getSortCase == 2){
+                        f_st = st.filter {it.population!=null}.sortedBy {it.population}
+                    }else if(getSortCase == 3){
+                        f_st = st.filter {it.area!=null}.sortedByDescending {it.area}
+                    }else if(getSortCase == 4){
+                        f_st = st.filter {it.area!=null}.sortedBy {it.area}
+                    }
+                    return@flatMap Single.just(f_st)
+                }else{
+                    return@flatMap Single.just(st)
+                }
+            }
             .subscribeOn(Schedulers.io())
             .observeOn(mainThreadScheduler)
             .subscribe ({states->
