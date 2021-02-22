@@ -57,7 +57,7 @@ class DetailsFragment : MvpAppCompatFragment(),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        Log.d(TAG, "DetailsFragment onViewCreated")
         //здесь аргументы нужны для корректной обработки поворота экрана
         arguments?.let {state = it.getParcelable<State>(ARG_STATE )}
 
@@ -77,6 +77,11 @@ class DetailsFragment : MvpAppCompatFragment(),
         requireActivity().invalidateOptionsMenu()
     }
 
+    override fun onPause() {
+        super.onPause()
+        Log.d(TAG, "DetailsFragment onPause")
+    }
+
     val onNavigationItemSelectedListener =
         BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when(item.itemId) {
@@ -92,7 +97,7 @@ class DetailsFragment : MvpAppCompatFragment(),
             }
             R.id.weather -> {
                 Log.d(TAG, "DetailsFragment BottomNavigationView page_3")
-                state?. let {presenter.btnCapitalClick(it)}
+                state?. let {presenter.showWeather(it)}
                 true
             }
             R.id.showFavorite -> {
@@ -151,8 +156,20 @@ class DetailsFragment : MvpAppCompatFragment(),
         requireActivity().startActivity(intent)
     }
 
+    //если ошибка - возвращаем false
+    private fun isPackageInstalled(packageName: String,packageManager: PackageManager): Boolean {
+        return try {
+            packageManager.getPackageInfo(packageName, 0)
+            true
+        } catch (e: PackageManager.NameNotFoundException) {
+            false
+        }
+    }
+
     override fun showAddFavoriteToast() {
         Toast.makeText(requireActivity(), getString(R.string.addFavoriteToast), Toast.LENGTH_SHORT ).show()
+        btn_addToFavorite.visibility = View.GONE
+        btn_removeFavorite.visibility = View.VISIBLE
     }
 
     override fun setVisibility(isFavorite: Boolean) {
@@ -165,14 +182,10 @@ class DetailsFragment : MvpAppCompatFragment(),
         }
     }
 
-    //если ошибка - возвращаем false
-    private fun isPackageInstalled(packageName: String,packageManager: PackageManager): Boolean {
-        return try {
-            packageManager.getPackageInfo(packageName, 0)
-            true
-        } catch (e: PackageManager.NameNotFoundException) {
-            false
-        }
+    override fun showRemoveFavoriteToast() {
+        Toast.makeText(requireActivity(), getString(R.string.removeFavoriteToast), Toast.LENGTH_SHORT ).show()
+        btn_addToFavorite.visibility = View.VISIBLE
+        btn_removeFavorite.visibility = View.GONE
     }
 
 }

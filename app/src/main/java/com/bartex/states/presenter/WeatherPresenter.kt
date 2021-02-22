@@ -53,6 +53,9 @@ class WeatherPresenter( val state: State?): MvpPresenter<IWeatherView>() {
 
     fun backPressed():Boolean {
         Log.d(TAG, "DetailsPresenter backPressed ")
+        //так как карта вызывается через интент, мы не управляем экраном карты
+        //и она может появиться при нажатии на кнопку назад
+        //нужно делать свой экран с картой и заходить через API key
         state?. let{router.backTo(Screens.DetailsScreen(it))}
         return true
     }

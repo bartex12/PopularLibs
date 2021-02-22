@@ -15,4 +15,5 @@ interface IDetailsView: MvpView {
     fun sendGeoIntent(geoCoord:String)
     fun showAddFavoriteToast()
     fun setVisibility(isFavorite:Boolean)
+    fun showRemoveFavoriteToast()
 }

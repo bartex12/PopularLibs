@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         vectorDrawables.useSupportLibrary = true
-        applicationId "com.bartex.states_search"
+        applicationId "com.bartex.states"
         minSdkVersion 21
         targetSdkVersion 30
         versionCode 1

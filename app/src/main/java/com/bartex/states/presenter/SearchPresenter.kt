@@ -90,7 +90,7 @@ class SearchPresenter( val search:String? ): MvpPresenter<ISearchView>() {
                 }
                 .observeOn(mainThreadScheduler)
                 .subscribe ({states->
-                    states?. let{ Log.d(TAG, "SearchPresenter  searchData states_search.size = ${it.size}")}
+                    states?. let{ Log.d(TAG, "SearchPresenter  searchData toolbar_menu.size = ${it.size}")}
                     searchListPresenter.states.clear()
                     states?. let{searchListPresenter.states.addAll(it)}
                     viewState.updateList()

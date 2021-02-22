@@ -20,7 +20,7 @@
     <string name="identifier">android:id/search_close_btn</string>
     <string name="about">О приложении</string>
     <string name="settings">Настройки</string>
-    <string name="favorites">Добавить в избранное</string>
+    <string name="favorites">Избранное</string>
     <string name="help">Справка</string>
     <string name="message">MESSAGE</string>
     <string name="aboutAppMessage">GeekBrains Андроид -популярные библиотеки</string>
@@ -60,6 +60,9 @@
     <string name="remove_favorites">Удалить из избранного</string>
     <string name="addToFavorite">Добавить в избранное</string>
     <string name="removeFromFavorite">Удалить из избранного</string>
+    <string name="removeFavoriteToast">Удалено из избранного</string>
+    <string name="geo_name">Карта</string>
+    <string name="forExit">Для выхода нажмите  НАЗАД  ещё раз</string>
 
     <string-array name="pref_entry_sort">
         <item>По населению по убыванию</item>

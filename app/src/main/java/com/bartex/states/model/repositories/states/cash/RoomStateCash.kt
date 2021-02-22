@@ -31,7 +31,7 @@ class RoomStateCash(val db: Database): IRoomStateCash {
          }
            db.stateDao.insert(roomUsers) //пишем в базу
            Log.d(TAG, "RoomStateCash doStatesCash: roomUsers.size = ${roomUsers.size}")
-           return@fromCallable listStates //возвращаем states_search  в виде Single<List<State>>
+           return@fromCallable listStates //возвращаем toolbar_menu  в виде Single<List<State>>
        }
     }
 
@@ -53,16 +53,6 @@ class RoomStateCash(val db: Database): IRoomStateCash {
         }
     }
 
-    override fun addToFavorite(state: State)= Completable.create {emitter->
-        add(state). let{
-            if(it){
-                emitter.onComplete()
-                Log.d(TAG, "RoomStateCash addToFavorite emitter.onComplete()")
-            }else{
-                emitter.onError(RuntimeException(" Ошибка при добавлении в избранное "))
-            }
-        }
-    }
 
     override fun loadFavorite(): Single<List<State>> {
         return  Single.fromCallable {
@@ -81,6 +71,38 @@ class RoomStateCash(val db: Database): IRoomStateCash {
                 rf = db.favoriteDao.findByName(it)
             }
             return@fromCallable rf!=null
+        }
+    }
+
+    override fun removeFavorite(state: State)= Completable.create {emitter->
+        removeFavor(state). let{
+            if(it){
+                emitter.onComplete()
+                Log.d(TAG, "RoomStateCash addToFavorite emitter.onComplete()")
+            }else{
+                emitter.onError(RuntimeException(" Ошибка при добавлении в избранное "))
+            }
+        }
+    }
+
+    private fun removeFavor(state: State): Boolean{
+        var roomFavorite:RoomFavorite? = null
+        state.name?. let{roomFavorite = db.favoriteDao.findByName(it)}
+        roomFavorite?. let{
+            db.favoriteDao.delete(it)
+            return true
+        } ?:return false
+    }
+
+
+    override fun addToFavorite(state: State)= Completable.create {emitter->
+        add(state). let{
+            if(it){
+                emitter.onComplete()
+                Log.d(TAG, "RoomStateCash addToFavorite emitter.onComplete()")
+            }else{
+                emitter.onError(RuntimeException(" Ошибка при добавлении в избранное "))
+            }
         }
     }
 

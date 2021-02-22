@@ -12,10 +12,10 @@ import com.bartex.states.presenter.StatesPresenter
 import com.bartex.states.view.adapter.StatesRVAdapter
 import com.bartex.states.view.adapter.imageloader.GlideToVectorYouLoader
 import com.bartex.states.view.fragments.BackButtonListener
-import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.fragment_states.*
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
+
 
 class StatesFragment : MvpAppCompatFragment(),
     IStatesView,
@@ -43,6 +43,7 @@ class StatesFragment : MvpAppCompatFragment(),
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Log.d(TAG, "StatesFragment onViewCreated ")
+
         //восстанавливаем позицию списка после поворота или возвращения на экран
         position = presenter.getPosition()
         //приводим меню тулбара в соответствии с onPrepareOptionsMenu в MainActivity

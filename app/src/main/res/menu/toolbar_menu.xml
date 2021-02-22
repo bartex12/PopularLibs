@@ -7,18 +7,12 @@
         app:actionViewClass="androidx.appcompat.widget.SearchView" />
 
     <item
-        android:id="@+id/add_favorites"
+        android:id="@+id/favorites"
         android:icon="@drawable/ic_baseline_favorite_24_white"
         android:orderInCategory="10"
         android:title="@string/favorites"
         app:showAsAction="never" />
 
-    <item
-        android:id="@+id/remove_favorites"
-        android:icon="@drawable/ic_baseline_favorite_border_24"
-        android:orderInCategory="15"
-        android:title="@string/remove_favorites"
-        app:showAsAction="never" />
     <item
         android:id="@+id/navigation_settings"
         android:icon="@drawable/ic_settings_white_24dp"
@@ -34,7 +28,4 @@
         app:showAsAction="never" />
 
 </menu>
-<!--    android:icon="@drawable/ic_camera_alt_black"&lt;!&ndash;&ndash;&gt;-->
-<!--    android:icon="@drawable/ic_videocam_black" -->
-
     <!--с 30 версии андроид SearchView включен в androidx-->

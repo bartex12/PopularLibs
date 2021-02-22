@@ -65,7 +65,7 @@ class FavoritePresenter() : MvpPresenter<IFavoriteView>(){
                 StatesPresenter.TAG,
                 "StatesPresenter itemClickListener state name =${state.name}"
             )
-            router.navigateTo(Screens.DetailsScreen(state))
+            router.replaceScreen(Screens.DetailsScreen(state))
         }
     }
 

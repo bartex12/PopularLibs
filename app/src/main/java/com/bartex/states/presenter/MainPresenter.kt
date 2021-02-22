@@ -27,6 +27,7 @@ class MainPresenter: MvpPresenter<MainView>() {
 
     fun backClicked() {
         router.exit()
+        router.exit() //выход с белого экрана App
     }
 
    fun  doSearch(search:String){
@@ -43,13 +44,8 @@ class MainPresenter: MvpPresenter<MainView>() {
         router.navigateTo(Screens.SettingsScreen())
     }
 
-    fun addToFavorite(){
-        //todo
+    fun showToFavorites(){
+        router.navigateTo(Screens.FavoriteScreen())
     }
-
-    fun removeFromFavorite(){
-//todo
-    }
-
 
 }

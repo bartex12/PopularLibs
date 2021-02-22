@@ -13,6 +13,7 @@ import com.bartex.states.presenter.StatesPresenter
 import com.bartex.states.view.adapter.StatesRVAdapter
 import com.bartex.states.view.adapter.imageloader.GlideToVectorYouLoader
 import com.bartex.states.view.fragments.BackButtonListener
+import com.bartex.states.view.fragments.details.DetailsFragment
 import com.bartex.states.view.fragments.states.StatesFragment
 import kotlinx.android.synthetic.main.fragment_favorite.*
 import kotlinx.android.synthetic.main.fragment_states.*
@@ -43,12 +44,17 @@ class FavoriteFragment: MvpAppCompatFragment(), IFavoriteView,
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.d(TAG, "StatesFragment onViewCreated ")
+        Log.d(TAG, "FavoriteFragment onViewCreated ")
         //восстанавливаем позицию списка после поворота или возвращения на экран
        // position = presenter.getPosition()
         //приводим меню тулбара в соответствии с onPrepareOptionsMenu в MainActivity
         setHasOptionsMenu(true)
         requireActivity().invalidateOptionsMenu()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.d(DetailsFragment.TAG, "FavoriteFragment onPause")
     }
 
     override fun init() {

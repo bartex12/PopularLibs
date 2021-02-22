@@ -1,6 +1,7 @@
 package com.bartex.states.presenter
 
 import android.util.Log
+import com.bartex.states.Screens
 import com.bartex.states.model.entity.state.State
 import com.bartex.states.model.repositories.geo.IGeoRepo
 import com.bartex.states.view.fragments.geo.IGeoView
@@ -28,7 +29,9 @@ class GeoPresenter(val state: State?): MvpPresenter<IGeoView>() {
 
     fun backPressed():Boolean {
         Log.d(TAG, "GeoPresenter backPressed ")
-        router.exit()
+        state?. let {router.replaceScreen(Screens.DetailsScreen(it))}?: router.exit()
+        //router.exit() //выход из карт Google
+       // state?. let {router.backTo(Screens.DetailsScreen(it))}?: router.exit()
         return true
     }
 }

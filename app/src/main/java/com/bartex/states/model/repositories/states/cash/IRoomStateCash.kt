@@ -11,4 +11,5 @@ interface IRoomStateCash {
     fun addToFavorite(state:State):Completable
     fun loadFavorite():Single<List<State>>
     fun isFavorite(state:State):Single<Boolean>
+    fun removeFavorite(state:State):Completable
 }

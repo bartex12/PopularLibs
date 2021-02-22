@@ -41,7 +41,7 @@ class DetailsPresenter(val state: State?):MvpPresenter<IDetailsView>()  {
         viewState.setStateCapital(stateUtils.getStateCapital(state))
     }
 
-    fun btnCapitalClick(state: State){
+    fun showWeather(state: State){
         Log.d(TAG, "DetailsPresenter btnCapitalClick state = $state ")
         router.navigateTo(Screens.WeatherScreen(state))
     }
@@ -52,11 +52,12 @@ class DetailsPresenter(val state: State?):MvpPresenter<IDetailsView>()  {
     }
 
     fun sendGeoIntent(state:State){
+        //router.replaceScreen(Screens.GeoScreen(state))
         viewState.sendGeoIntent(stateUtils.getStatezoom(state))
     }
 
     fun showFavoritesFragment(){
-        router.navigateTo(Screens.FavoriteScreen())
+        router.replaceScreen(Screens.FavoriteScreen())
     }
 
     fun isFavorite(state:State){
@@ -71,6 +72,7 @@ class DetailsPresenter(val state: State?):MvpPresenter<IDetailsView>()  {
     }
 
     fun addToFavorite(state:State){
+        Log.d(TAG, "DetailsPresenter addToFavorite ")
         roomCash.addToFavorite(state)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -79,12 +81,17 @@ class DetailsPresenter(val state: State?):MvpPresenter<IDetailsView>()  {
             },{
                 Log.d(TAG, "DetailsPresenter addToFavorite error = ${it.message} ")
             })
-
-
-        Log.d(TAG, "DetailsPresenter addToFavorite ")
     }
     fun removeFavorite(state:State){
-        //todo
+        Log.d(TAG, "DetailsPresenter addToFavorite ")
+        roomCash.removeFavorite(state)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe (   {
+                viewState.showRemoveFavoriteToast()
+            },{
+                Log.d(TAG, "DetailsPresenter removeFavorite error = ${it.message} ")
+            })
     }
 
     fun backPressed():Boolean {
