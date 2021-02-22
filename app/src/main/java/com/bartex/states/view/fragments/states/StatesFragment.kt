@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bartex.states.App
 import com.bartex.states.R
+import com.bartex.states.presenter.base.IBaseView
 import com.bartex.states.presenter.StatesPresenter
 import com.bartex.states.view.adapter.StatesRVAdapter
 import com.bartex.states.view.adapter.imageloader.GlideToVectorYouLoader
@@ -18,7 +19,7 @@ import moxy.ktx.moxyPresenter
 
 
 class StatesFragment : MvpAppCompatFragment(),
-    IStatesView,
+    IBaseView,
     BackButtonListener {
 
     private var position = 0
@@ -46,6 +47,7 @@ class StatesFragment : MvpAppCompatFragment(),
 
         //восстанавливаем позицию списка после поворота или возвращения на экран
         position = presenter.getPosition()
+
         //приводим меню тулбара в соответствии с onPrepareOptionsMenu в MainActivity
         setHasOptionsMenu(true)
         requireActivity().invalidateOptionsMenu()

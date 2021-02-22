@@ -55,6 +55,7 @@ class RoomStateCash(val db: Database): IRoomStateCash {
 
 
     override fun loadFavorite(): Single<List<State>> {
+        Log.d(TAG, "RoomStateCash loadFavorite")
         return  Single.fromCallable {
             db.favoriteDao.getAll().map {roomFavorite->
                 State(roomFavorite.capital,roomFavorite.flag, roomFavorite.name,

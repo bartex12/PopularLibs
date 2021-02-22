@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.bartex.states.R
-import com.bartex.states.presenter.IStateListPresenter
+import com.bartex.states.presenter.list.IStateListPresenter
 import com.bartex.states.view.adapter.imageloader.IImageLoader
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_state.view.*

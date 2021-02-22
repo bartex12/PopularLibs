@@ -8,17 +8,17 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bartex.states.App
 import com.bartex.states.R
+import com.bartex.states.presenter.base.IBaseView
 import com.bartex.states.presenter.SearchPresenter
 import com.bartex.states.view.adapter.StatesRVAdapter
 import com.bartex.states.view.adapter.imageloader.GlideToVectorYouLoader
 import com.bartex.states.view.fragments.BackButtonListener
-import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.fragment_search.*
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 
 class SearchFragment(): MvpAppCompatFragment(),
-    ISearchView,
+    IBaseView,
     BackButtonListener {
 
     private var position = 0
@@ -78,7 +78,7 @@ class SearchFragment(): MvpAppCompatFragment(),
         Log.d(TAG, "SearchFragment init ")
         rv_search.layoutManager = LinearLayoutManager(context)
         adapter = StatesRVAdapter(
-            presenter.searchListPresenter,
+            presenter.listPresenter,
             GlideToVectorYouLoader(
                 requireActivity()
             )
@@ -89,7 +89,7 @@ class SearchFragment(): MvpAppCompatFragment(),
 
     override fun updateList() {
         Log.d(TAG, "SearchFragment updateList ")
-        if(presenter.searchListPresenter.states.isEmpty()){
+        if(presenter.listPresenter.states.isEmpty()){
             rv_search.visibility = View.GONE
             empty_view_Search.visibility = View.VISIBLE
             Log.d(TAG, "SearchFragment updateList  list = Empty")
@@ -98,7 +98,7 @@ class SearchFragment(): MvpAppCompatFragment(),
             empty_view_Search.visibility =View.GONE
 
             Log.d(TAG, "SearchFragment updateList  list size = " +
-                    "${presenter.searchListPresenter.states.size}")
+                    "${presenter.listPresenter.states.size}")
             adapter?.notifyDataSetChanged()
         }
     }

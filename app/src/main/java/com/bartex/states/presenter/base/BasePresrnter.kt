@@ -1,9 +1,11 @@
-package com.bartex.states.presenter
+package com.bartex.states.presenter.base
 
 import android.util.Log
 import com.bartex.states.model.entity.state.State
 import com.bartex.states.model.repositories.prefs.IPreferenceHelper
 import com.bartex.states.model.repositories.states.IStatesRepo
+import com.bartex.states.presenter.list.IStateListPresenter
+import com.bartex.states.presenter.StatesPresenter
 import com.bartex.states.view.adapter.StatesItemView
 import io.reactivex.rxjava3.core.Scheduler
 import io.reactivex.rxjava3.core.Single
@@ -12,6 +14,8 @@ import moxy.MvpPresenter
 import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 
+//презентер для работы с фрагментами  StatesFragment, SearchFragment,FavoriteFragment
+// Router для навигации
 abstract class BasePresenter: MvpPresenter<IBaseView>() {
 
     @Inject
@@ -32,10 +36,11 @@ abstract class BasePresenter: MvpPresenter<IBaseView>() {
 
     abstract fun getListData(): Single<List<State>>
     abstract fun navigateToScreen(state:State)
-    abstract fun init()
-    abstract fun updateList()
+//    abstract fun init()
+//    abstract fun updateList()
 
-    val listPresenter = ListPresenter()
+    val listPresenter =
+        ListPresenter()
 
     class ListPresenter :
         IStateListPresenter {
@@ -55,14 +60,14 @@ abstract class BasePresenter: MvpPresenter<IBaseView>() {
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
-        init()
+        viewState.init()
         loadData()
 
         //здесь присваиваем значение  слушателю щелчка по списку - ранее он был null
         listPresenter.itemClickListener = { itemView ->
             //переход на экран пользователя
             val state =  listPresenter.states[itemView.pos]
-            helper.savePosition(itemView.pos) //сохраняем позицию
+            helper.savePositionState(itemView.pos) //сохраняем позицию
             Log.d(TAG, "BasePresenter itemClickListener state name =${state.name}")
             navigateToScreen(state)
         }
@@ -98,7 +103,7 @@ abstract class BasePresenter: MvpPresenter<IBaseView>() {
                 Log.d(StatesPresenter.TAG, "BasePresenter  loadData states.size = ${it.size}")}
                 listPresenter.states.clear()
                 states?. let{listPresenter.states.addAll(it)}
-                updateList()
+                viewState.updateList()
             }, {error -> Log.d(StatesPresenter.TAG, "BasePresenter onError ${error.message}")
             })
     }
