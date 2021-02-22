@@ -100,12 +100,12 @@ class DetailsFragment : MvpAppCompatFragment(),
                 state?. let {presenter.showWeather(it)}
                 true
             }
-            R.id.showFavorite -> {
-                Log.d(TAG, "DetailsFragment BottomNavigationView page_4")
-                //state?. let {presenter.addToFavorite(it)}
-                state?. let {presenter. showFavoritesFragment()}
-                true
-            }
+//            R.id.showFavorite -> {
+//                Log.d(TAG, "DetailsFragment BottomNavigationView page_4")
+//                //state?. let {presenter.addToFavorite(it)}
+//                state?. let {presenter. showFavoritesFragment()}
+//                true
+//            }
             else -> {
                 Log.d(TAG, "DetailsFragment BottomNavigationView else")
                 false
@@ -167,7 +167,7 @@ class DetailsFragment : MvpAppCompatFragment(),
     }
 
     override fun showAddFavoriteToast() {
-        Toast.makeText(requireActivity(), getString(R.string.addFavoriteToast), Toast.LENGTH_SHORT ).show()
+        //Toast.makeText(requireActivity(), getString(R.string.addFavoriteToast), Toast.LENGTH_SHORT ).show()
         btn_addToFavorite.visibility = View.GONE
         btn_removeFavorite.visibility = View.VISIBLE
     }
@@ -183,7 +183,7 @@ class DetailsFragment : MvpAppCompatFragment(),
     }
 
     override fun showRemoveFavoriteToast() {
-        Toast.makeText(requireActivity(), getString(R.string.removeFavoriteToast), Toast.LENGTH_SHORT ).show()
+       // Toast.makeText(requireActivity(), getString(R.string.removeFavoriteToast), Toast.LENGTH_SHORT ).show()
         btn_addToFavorite.visibility = View.VISIBLE
         btn_removeFavorite.visibility = View.GONE
     }

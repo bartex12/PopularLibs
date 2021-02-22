@@ -114,6 +114,7 @@ class MainActivity: MvpAppCompatActivity(),
             menu?.findItem(R.id.search)?.isVisible = it is StatesFragment
             menu?.findItem(R.id.favorites)?.isVisible = it !is FavoriteFragment && it !is WeatherFragment
         }
+
         toolbar.title = when(supportFragmentManager.findFragmentById(R.id.container)){
             is StatesFragment -> getString(R.string.app_name)
             is SearchFragment -> getString(R.string.search_name)

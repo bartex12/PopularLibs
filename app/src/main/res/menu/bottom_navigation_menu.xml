@@ -17,10 +17,10 @@
         android:icon="@drawable/ic_baseline_beach_access_24_white"
         android:title="@string/weather"/>
 
-    <item
-        android:id="@+id/showFavorite"
-        android:enabled="true"
-        android:icon="@drawable/ic_baseline_star_24"
-        android:title="@string/select"/>
+<!--    <item-->
+<!--        android:id="@+id/showFavorite"-->
+<!--        android:enabled="true"-->
+<!--        android:icon="@drawable/ic_baseline_favorite_24_white"-->
+<!--        android:title="@string/select"/>-->
 
 </menu>
