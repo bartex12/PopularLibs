@@ -17,7 +17,7 @@ import moxy.MvpPresenter
 import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 
-class FavoritePresenter() : MvpPresenter<IFavoriteView>(){
+class FavoritePresenter : MvpPresenter<IFavoriteView>(){
 
     @Inject
     lateinit var roomCash: IRoomStateCash
@@ -78,7 +78,7 @@ class FavoritePresenter() : MvpPresenter<IFavoriteView>(){
     }
 
     //грузим данные и делаем сортировку в соответствии с настройками
-    private fun loadFavorite() {
+   fun loadFavorite() {
         val isSorted = helper.isSorted()
         val getSortCase = helper.getSortCase()
         var f_st:List<State>?= null
@@ -86,14 +86,11 @@ class FavoritePresenter() : MvpPresenter<IFavoriteView>(){
             .observeOn(Schedulers.computation())
             .flatMap {st->
                 if(isSorted){
-                    if(getSortCase == 1){
-                        f_st = st.filter {it.population!=null}.sortedByDescending {it.population}
-                    }else if(getSortCase == 2){
-                        f_st = st.filter {it.population!=null}.sortedBy {it.population}
-                    }else if(getSortCase == 3){
-                        f_st = st.filter {it.area!=null}.sortedByDescending {it.area}
-                    }else if(getSortCase == 4){
-                        f_st = st.filter {it.area!=null}.sortedBy {it.area}
+                    when (getSortCase) {
+                        1 -> {f_st = st.filter {it.population!=null}.sortedByDescending {it.population}}
+                        2 -> {f_st = st.filter {it.population!=null}.sortedBy {it.population}}
+                        3 -> {f_st = st.filter {it.area!=null}.sortedByDescending {it.area} }
+                        4 -> { f_st = st.filter {it.area!=null}.sortedBy {it.area} }
                     }
                     return@flatMap Single.just(f_st)
                 }else{

@@ -6,7 +6,7 @@ import com.bartex.states.presenter.base.BasePresenter
 import io.reactivex.rxjava3.core.Single
 
 //презентер для работы с фрагментом StatesFragment
-class StatesPresenter(): BasePresenter() {
+class StatesPresenter: BasePresenter() {
 
     companion object{
         const val TAG = "33333"

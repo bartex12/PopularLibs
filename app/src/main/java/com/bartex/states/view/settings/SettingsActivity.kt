@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.bartex.states.R
 import com.bartex.states.view.main.MainActivity
 import kotlinx.android.synthetic.main.activity_setting.*
-import kotlinx.android.synthetic.main.app_bar_main.*
 
 class SettingsActivity : AppCompatActivity() {
 

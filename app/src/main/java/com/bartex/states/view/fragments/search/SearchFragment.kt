@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.fragment_search.*
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 
-class SearchFragment(): MvpAppCompatFragment(),
+class SearchFragment: MvpAppCompatFragment(),
     IBaseView,
     BackButtonListener {
 
@@ -62,7 +62,7 @@ class SearchFragment(): MvpAppCompatFragment(),
     override fun onResume() {
         super.onResume()
         Log.d(TAG, "SearchFragment onResume ")
-        //presenter.searchData() // обновляем данные при изменении настроек
+        presenter.loadData() // обновляем данные при изменении настроек
     }
 
     //запоминаем  позицию списка, на которой сделан клик - на случай поворота экрана

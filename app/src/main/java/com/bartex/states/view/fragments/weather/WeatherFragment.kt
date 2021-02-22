@@ -12,7 +12,6 @@ import com.bartex.states.R
 import com.bartex.states.model.entity.state.State
 import com.bartex.states.presenter.WeatherPresenter
 import com.bartex.states.view.fragments.BackButtonListener
-import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.fragment_weather.*
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter

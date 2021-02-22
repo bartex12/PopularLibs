@@ -17,7 +17,7 @@ import com.bartex.states.presenter.MainPresenter
 import com.bartex.states.view.fragments.BackButtonListener
 import com.bartex.states.view.fragments.details.DetailsFragment
 import com.bartex.states.view.fragments.favorite.FavoriteFragment
-import com.bartex.states.view.fragments.geo.GeoFragment
+import com.bartex.states.view.fragments.help.HelpFragment
 import com.bartex.states.view.fragments.search.SearchFragment
 import com.bartex.states.view.fragments.states.StatesFragment
 import com.bartex.states.view.fragments.weather.WeatherFragment
@@ -37,7 +37,7 @@ class MainActivity: MvpAppCompatActivity(),
 
     private var doubleBackToExitPressedOnce = false
 
-    var toggle:ActionBarDrawerToggle? = null
+    private var toggle:ActionBarDrawerToggle? = null
 
     companion object{
         const val TAG = "33333"
@@ -46,7 +46,7 @@ class MainActivity: MvpAppCompatActivity(),
     @Inject
     lateinit var navigatorHolder: NavigatorHolder
 
-    val navigator = SupportAppNavigator(this, supportFragmentManager,
+    private val navigator = SupportAppNavigator(this, supportFragmentManager,
         R.id.container
     )
 
@@ -121,7 +121,7 @@ class MainActivity: MvpAppCompatActivity(),
             is WeatherFragment -> getString(R.string.weather_name)
             is DetailsFragment -> getString(R.string.details_name)
             is FavoriteFragment -> getString(R.string.favorite_name)
-            is GeoFragment -> getString(R.string.geo_name)
+            is HelpFragment -> getString(R.string.help_name)
             else -> getString(R.string.app_name)
         }
         return super.onPrepareOptionsMenu(menu)

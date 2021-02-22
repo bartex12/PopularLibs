@@ -8,8 +8,8 @@ import com.bartex.states.model.repositories.weather.cash.IRoomWeatherCash
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
 
-class WeatherRepo(val api: IDataSourceWeather, val networkStatus: INetworkStatus,
-                  val  roomWeatherCash: IRoomWeatherCash):IWeatherRepo {
+class WeatherRepo(val api: IDataSourceWeather, private val networkStatus: INetworkStatus,
+                  private val  roomWeatherCash: IRoomWeatherCash):IWeatherRepo {
 
     companion object{
         const val TAG = "33333"

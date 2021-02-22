@@ -4,7 +4,6 @@ import com.bartex.states.model.entity.state.State
 import io.reactivex.rxjava3.core.Single
 import retrofit2.http.GET
 import retrofit2.http.Path
-import retrofit2.http.Query
 
 interface IDataSourceState {
 

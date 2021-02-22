@@ -82,14 +82,11 @@ abstract class BasePresenter: MvpPresenter<IBaseView>() {
             .observeOn(Schedulers.computation())
             .flatMap {st->
                 if(isSorted){
-                    if(getSortCase == 1){
-                        f_st = st.filter {it.population!=null}.sortedByDescending {it.population}
-                    }else if(getSortCase == 2){
-                        f_st = st.filter {it.population!=null}.sortedBy {it.population}
-                    }else if(getSortCase == 3){
-                        f_st = st.filter {it.area!=null}.sortedByDescending {it.area}
-                    }else if(getSortCase == 4){
-                        f_st = st.filter {it.area!=null}.sortedBy {it.area}
+                    when (getSortCase) {
+                        1 -> {f_st = st.filter {it.population!=null}.sortedByDescending {it.population} }
+                        2 -> {f_st = st.filter {it.population!=null}.sortedBy {it.population} }
+                        3 -> {f_st = st.filter {it.area!=null}.sortedByDescending {it.area}}
+                        4 -> {f_st = st.filter {it.area!=null}.sortedBy {it.area}}
                     }
                     return@flatMap Single.just(f_st)
                 }else{

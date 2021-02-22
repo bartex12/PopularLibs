@@ -66,6 +66,7 @@
     <string name="sett">Настройки</string>
     <string name="area">"Площать "</string>
     <string name="population">Население</string>
+    <string name="help_name">Справка</string>
 
     <string-array name="pref_entry_sort">
         <item>По населению по убыванию</item>

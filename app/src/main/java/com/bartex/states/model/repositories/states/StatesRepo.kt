@@ -13,8 +13,8 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 // Таким образом, мы позволяем репозиторию самостоятельно следить за тем, чтобы сетевые вызовы
 // выполнялись именно в io-потоке. Всегда лучше поступать именно таким образом, даже когда речь
 // не идёт о сети — во избежание выполнения операций в неверном потоке в вызывающем коде.
-class StatesRepo(val api: IDataSourceState, val networkStatus: INetworkStatus,
-                 val roomCash: IRoomStateCash):    IStatesRepo {
+class StatesRepo(val api: IDataSourceState, private val networkStatus: INetworkStatus,
+                 private val roomCash: IRoomStateCash):    IStatesRepo {
 
     companion object{
         const val TAG = "33333"

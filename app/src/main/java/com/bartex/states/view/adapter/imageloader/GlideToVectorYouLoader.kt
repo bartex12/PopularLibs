@@ -5,7 +5,7 @@ import android.net.Uri
 import android.widget.ImageView
 import com.github.twocoffeesoneteam.glidetovectoryou.GlideToVectorYou
 
-class GlideToVectorYouLoader(val activity: Activity):
+class GlideToVectorYouLoader(private val activity: Activity):
     IImageLoader<ImageView> {
 
     override fun loadInto(url: String, container: ImageView) {

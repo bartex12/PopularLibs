@@ -8,7 +8,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import com.bartex.states.App
 import com.bartex.states.R
 import com.bartex.states.model.entity.state.State
@@ -42,7 +41,7 @@ class DetailsFragment : MvpAppCompatFragment(),
     val presenter: DetailsPresenter by moxyPresenter {
         //здесь аргументы нужны - иначе state = null
         arguments?.let {state = it.getParcelable<State>(ARG_STATE )}
-        Log.d(TAG, "DetailsFragment onCreate state = ${state}")
+        Log.d(TAG, "DetailsFragment onCreate state = $state")
         DetailsPresenter(state).apply {
             App.instance.appComponent.inject(this)
         }
@@ -82,7 +81,7 @@ class DetailsFragment : MvpAppCompatFragment(),
         Log.d(TAG, "DetailsFragment onPause")
     }
 
-    val onNavigationItemSelectedListener =
+    private val onNavigationItemSelectedListener =
         BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when(item.itemId) {
             R.id.home -> {
