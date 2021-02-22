@@ -29,7 +29,6 @@ import moxy.MvpAppCompatActivity
 import moxy.ktx.moxyPresenter
 import ru.terrakok.cicerone.NavigatorHolder
 import ru.terrakok.cicerone.android.support.SupportAppNavigator
-import java.util.*
 import javax.inject.Inject
 
 
@@ -131,7 +130,7 @@ class MainActivity: MvpAppCompatActivity(),
         val id = item.itemId
         when (id){
             R.id.favorites ->{
-                presenter.showToFavorites()
+                presenter.showFavorites()
                 return true
             }
            R.id.navigation_settings ->{
@@ -167,7 +166,7 @@ class MainActivity: MvpAppCompatActivity(),
         when (item.itemId) {
             R.id.nav_favorites -> {
                 Log.d(TAG, "MainActivity onNavigationItemSelected nav_favorites")
-                presenter.showToFavorites()
+                presenter.showFavorites()
             }
             R.id.nav_setting -> {
                 Log.d(TAG, "MainActivity onNavigationItemSelected nav_setting")

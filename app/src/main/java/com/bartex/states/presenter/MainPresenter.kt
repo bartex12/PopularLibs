@@ -44,7 +44,7 @@ class MainPresenter: MvpPresenter<MainView>() {
         router.navigateTo(Screens.SettingsScreen())
     }
 
-    fun showToFavorites(){
+    fun showFavorites(){
         router.navigateTo(Screens.FavoriteScreen())
     }
 
