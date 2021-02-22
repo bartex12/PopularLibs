@@ -71,7 +71,7 @@ class StatesFragment : MvpAppCompatFragment(),
     override fun init() {
         rv_states.layoutManager = LinearLayoutManager(context)
         adapter = StatesRVAdapter(
-            presenter.statesListPresenter,
+            presenter.listPresenter,
             GlideToVectorYouLoader(
                 requireActivity()
             )
@@ -81,7 +81,7 @@ class StatesFragment : MvpAppCompatFragment(),
     }
 
     override fun updateList() {
-        if(presenter.statesListPresenter.states.isEmpty()){
+        if(presenter.listPresenter.states.isEmpty()){
             rv_states.visibility = View.GONE
             empty_view.visibility = View.VISIBLE
         }else{

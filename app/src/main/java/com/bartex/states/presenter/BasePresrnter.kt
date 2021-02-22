@@ -1,12 +1,10 @@
 package com.bartex.states.presenter
 
 import android.util.Log
-import com.bartex.states.Screens
 import com.bartex.states.model.entity.state.State
 import com.bartex.states.model.repositories.prefs.IPreferenceHelper
-import com.bartex.states.model.repositories.states.cash.IRoomStateCash
+import com.bartex.states.model.repositories.states.IStatesRepo
 import com.bartex.states.view.adapter.StatesItemView
-import com.bartex.states.view.fragments.favorite.IFavoriteView
 import io.reactivex.rxjava3.core.Scheduler
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -14,13 +12,7 @@ import moxy.MvpPresenter
 import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 
-class FavoritePresenter() : MvpPresenter<IFavoriteView>(){
-
-    @Inject
-    lateinit var roomCash: IRoomStateCash
-
-    @Inject
-    lateinit var router: Router
+abstract class BasePresenter: MvpPresenter<IBaseView>() {
 
     @Inject
     lateinit var helper : IPreferenceHelper
@@ -28,14 +20,24 @@ class FavoritePresenter() : MvpPresenter<IFavoriteView>(){
     @Inject
     lateinit var mainThreadScheduler: Scheduler
 
+    @Inject
+    lateinit var statesRepo: IStatesRepo
+
+    @Inject
+    lateinit var router: Router
+
     companion object{
         const val TAG = "33333"
     }
 
-    val favoriteListPresenter =
-        FavoriteListPresenter()
+    abstract fun getListData(): Single<List<State>>
+    abstract fun navigateToScreen(state:State)
+    abstract fun init()
+    abstract fun updateList()
 
-    class FavoriteListPresenter :
+    val listPresenter = ListPresenter()
+
+    class ListPresenter :
         IStateListPresenter {
 
         val states = mutableListOf<State>()
@@ -51,29 +53,28 @@ class FavoritePresenter() : MvpPresenter<IFavoriteView>(){
         }
     }
 
-
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
-        viewState.init()
-        loadFavorite()
+        init()
+        loadData()
 
         //здесь присваиваем значение  слушателю щелчка по списку - ранее он был null
-        favoriteListPresenter.itemClickListener = { itemView ->
+        listPresenter.itemClickListener = { itemView ->
             //переход на экран пользователя
-            val state = favoriteListPresenter.states[itemView.pos]
+            val state =  listPresenter.states[itemView.pos]
             helper.savePosition(itemView.pos) //сохраняем позицию
-            Log.d(StatesPresenter.TAG,
-                "StatesPresenter itemClickListener state name =${state.name}"
-            )
-            router.replaceScreen(Screens.DetailsScreen(state))
+            Log.d(TAG, "BasePresenter itemClickListener state name =${state.name}")
+            navigateToScreen(state)
         }
     }
 
-    private fun loadFavorite() {
+    //грузим данные и делаем сортировку в соответствии с настройками
+    fun loadData() {
         val isSorted = helper.isSorted()
         val getSortCase = helper.getSortCase()
         var f_st:List<State>?= null
-        roomCash. loadFavorite()
+        Log.d(StatesPresenter.TAG, "BasePresenter  loadData isSorted = $isSorted getSortCase = $getSortCase")
+        getListData()
             .observeOn(Schedulers.computation())
             .flatMap {st->
                 if(isSorted){
@@ -91,20 +92,15 @@ class FavoritePresenter() : MvpPresenter<IFavoriteView>(){
                     return@flatMap Single.just(st)
                 }
             }
-            .subscribeOn(Schedulers.io())
             .observeOn(mainThreadScheduler)
             .subscribe ({states->
-                states?. let{Log.d(TAG, "FavoritePresenter  loadData states.size = ${it.size}")}
-                favoriteListPresenter.states.clear()
-                states?. let{favoriteListPresenter.states.addAll(it)}
-                viewState.updateList()
-            }, {error -> Log.d(StatesPresenter.TAG, "FavoritePresenter onError ${error.message}")
+                states?. let{
+                Log.d(StatesPresenter.TAG, "BasePresenter  loadData states.size = ${it.size}")}
+                listPresenter.states.clear()
+                states?. let{listPresenter.states.addAll(it)}
+                updateList()
+            }, {error -> Log.d(StatesPresenter.TAG, "BasePresenter onError ${error.message}")
             })
     }
 
-
-    fun backPressed(): Boolean {
-            router.exit()
-            return true
-        }
-    }
+}
