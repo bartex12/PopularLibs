@@ -1,4 +1,4 @@
-package com.bartex.states.view.adapter
+package com.bartex.states.view.adapter.state
 
 import android.view.LayoutInflater
 import android.view.View

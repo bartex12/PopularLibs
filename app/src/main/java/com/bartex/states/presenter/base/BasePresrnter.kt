@@ -4,9 +4,9 @@ import android.util.Log
 import com.bartex.states.model.entity.state.State
 import com.bartex.states.model.repositories.prefs.IPreferenceHelper
 import com.bartex.states.model.repositories.states.IStatesRepo
-import com.bartex.states.presenter.list.IStateListPresenter
 import com.bartex.states.presenter.StatesPresenter
-import com.bartex.states.view.adapter.StatesItemView
+import com.bartex.states.presenter.list.IStateListPresenter
+import com.bartex.states.view.adapter.state.StatesItemView
 import io.reactivex.rxjava3.core.Scheduler
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -14,7 +14,8 @@ import moxy.MvpPresenter
 import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 
-//презентер для работы с фрагментами  StatesFragment, SearchFragment,FavoriteFragment
+//презентер для работы с фрагментами  StatesFragment, SearchFragment
+// FavoriteFragment сделан с другим адаптером
 // Router для навигации
 abstract class BasePresenter: MvpPresenter<IBaseView>() {
 
@@ -36,8 +37,6 @@ abstract class BasePresenter: MvpPresenter<IBaseView>() {
 
     abstract fun getListData(): Single<List<State>>
     abstract fun navigateToScreen(state:State)
-//    abstract fun init()
-//    abstract fun updateList()
 
     val listPresenter =
         ListPresenter()

@@ -52,12 +52,7 @@ class DetailsPresenter(val state: State?):MvpPresenter<IDetailsView>()  {
     }
 
     fun sendGeoIntent(state:State){
-        //router.replaceScreen(Screens.GeoScreen(state))
         viewState.sendGeoIntent(stateUtils.getStatezoom(state))
-    }
-
-    fun showFavoritesFragment(){
-        router.replaceScreen(Screens.FavoriteScreen())
     }
 
     fun isFavorite(state:State){

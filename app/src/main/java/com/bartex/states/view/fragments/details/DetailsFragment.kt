@@ -100,12 +100,6 @@ class DetailsFragment : MvpAppCompatFragment(),
                 state?. let {presenter.showWeather(it)}
                 true
             }
-//            R.id.showFavorite -> {
-//                Log.d(TAG, "DetailsFragment BottomNavigationView page_4")
-//                //state?. let {presenter.addToFavorite(it)}
-//                state?. let {presenter. showFavoritesFragment()}
-//                true
-//            }
             else -> {
                 Log.d(TAG, "DetailsFragment BottomNavigationView else")
                 false

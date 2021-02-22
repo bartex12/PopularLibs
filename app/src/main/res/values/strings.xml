@@ -64,6 +64,8 @@
     <string name="geo_name">Карта</string>
     <string name="forExit">Для выхода нажмите  НАЗАД  ещё раз</string>
     <string name="sett">Настройки</string>
+    <string name="area">"Площать "</string>
+    <string name="population">Население</string>
 
     <string-array name="pref_entry_sort">
         <item>По населению по убыванию</item>

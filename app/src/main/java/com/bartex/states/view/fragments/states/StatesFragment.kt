@@ -10,7 +10,7 @@ import com.bartex.states.App
 import com.bartex.states.R
 import com.bartex.states.presenter.base.IBaseView
 import com.bartex.states.presenter.StatesPresenter
-import com.bartex.states.view.adapter.StatesRVAdapter
+import com.bartex.states.view.adapter.state.StatesRVAdapter
 import com.bartex.states.view.adapter.imageloader.GlideToVectorYouLoader
 import com.bartex.states.view.fragments.BackButtonListener
 import kotlinx.android.synthetic.main.fragment_states.*

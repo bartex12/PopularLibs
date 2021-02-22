@@ -10,18 +10,19 @@ import com.bartex.states.App
 import com.bartex.states.R
 import com.bartex.states.presenter.FavoritePresenter
 import com.bartex.states.presenter.base.IBaseView
-import com.bartex.states.view.adapter.StatesRVAdapter
+import com.bartex.states.view.adapter.favorite.FavoriteRVAdapter
+import com.bartex.states.view.adapter.state.StatesRVAdapter
 import com.bartex.states.view.adapter.imageloader.GlideToVectorYouLoader
 import com.bartex.states.view.fragments.BackButtonListener
 import kotlinx.android.synthetic.main.fragment_favorite.*
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 
-class FavoriteFragment: MvpAppCompatFragment(), IBaseView,
+class FavoriteFragment: MvpAppCompatFragment(), IFavoriteView,
     BackButtonListener {
 
     private var position = 0
-    var adapter: StatesRVAdapter? = null
+    var adapter: FavoriteRVAdapter? = null
 
     companion object {
         const val TAG = "33333"
@@ -61,8 +62,9 @@ class FavoriteFragment: MvpAppCompatFragment(), IBaseView,
 
     override fun init() {
         rv_favorite.layoutManager = LinearLayoutManager(context)
-        adapter = StatesRVAdapter(
-            presenter.listPresenter,
+
+        adapter = FavoriteRVAdapter(
+            presenter.favoritePresenter,
             GlideToVectorYouLoader(
                 requireActivity()
             )
@@ -73,7 +75,7 @@ class FavoriteFragment: MvpAppCompatFragment(), IBaseView,
     }
 
     override fun updateList() {
-        if(presenter.listPresenter.states.isEmpty()){
+        if(presenter.favoritePresenter.states.isEmpty()){
             rv_favorite.visibility = View.GONE
             empty_view_favorite.visibility = View.VISIBLE
         }else{
