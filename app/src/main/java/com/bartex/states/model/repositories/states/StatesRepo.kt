@@ -8,7 +8,7 @@ import com.bartex.states.model.repositories.states.cash.IRoomStateCash
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
 
-//Получаем интерфейс через конструктор и пользуемся им для получения пользователей.
+//Получаем интерфейс через конструктор и пользуемся им для получения стран.
 // Обратите внимание, что поток, на который мы подписываемся, указан именно тут.
 // Таким образом, мы позволяем репозиторию самостоятельно следить за тем, чтобы сетевые вызовы
 // выполнялись именно в io-потоке. Всегда лучше поступать именно таким образом, даже когда речь
@@ -47,7 +47,7 @@ class StatesRepo(val api: IDataSourceState, private val networkStatus: INetworkS
 
     //в зависимости от статуса сети
     // мы или получаем данные из сети, записывая их в базу данных с помощью Room через map
-    //    //или берём из базы, преобразуя их также через map
+    //или берём из базы, преобразуя их также через map
     override fun searchStates(search:String): Single<List<State>> =
     networkStatus.isOnlineSingle()
     .flatMap {isOnLine-> //получаем доступ к Boolean значениям

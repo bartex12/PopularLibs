@@ -4,8 +4,6 @@ import com.bartex.states.model.entity.state.State
 
 class StateUtils:IStateUtils {
 
-
-
     override fun getStateArea(state: State?): String {
       var   text_state_area = ""
         state?. let {

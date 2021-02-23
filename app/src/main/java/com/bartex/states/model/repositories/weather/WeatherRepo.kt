@@ -14,7 +14,6 @@ class WeatherRepo(val api: IDataSourceWeather, private val networkStatus: INetwo
     companion object{
         const val TAG = "33333"
     }
-
     //в зависимости от статуса сети
     //мы или получаем данные из сети, записывая их в базу данных с помощью Room через map
     //или берём из базы, преобразуя их также через map
@@ -25,7 +24,6 @@ class WeatherRepo(val api: IDataSourceWeather, private val networkStatus: INetwo
                 if (isOnLine){ //если сеть есть
                     Log.d(TAG, "WeatherRepo  isOnLine  = true")
                     //получаем данные из сети в виде Single<WeatherInCapital>
-                    //api.loadWeatherInCapitalRu(capital, keyApi, units, lang)
                     api.loadWeatherInCapitalEng(capital, keyApi, units)
                         .flatMap {weatherInCapital->
                             Log.d(TAG, "WeatherRepo  loadWeatherInCapitalRu name = " +
