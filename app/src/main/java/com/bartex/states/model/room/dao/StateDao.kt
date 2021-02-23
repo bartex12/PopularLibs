@@ -41,10 +41,4 @@ interface StateDao {
 
     @Query("SELECT * FROM RoomState WHERE name LIKE '%' ||:name || '%'")
     fun findByName(name:String): List<RoomState>
-
-//    @Query("SELECT * FROM RoomState WHERE capital = :capitalName LIMIT 1 ")
-//    fun findByCapital(capitalName:String): RoomState
-
-//    @Query("SELECT * FROM RoomState WHERE favorite = :isFavorite ")
-//    fun findByFavorite(isFavorite:Boolean): List<RoomState>
 }
