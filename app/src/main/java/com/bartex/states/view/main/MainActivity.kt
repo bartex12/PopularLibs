@@ -202,8 +202,20 @@ class MainActivity: MvpAppCompatActivity(),
             //чтобы отменить неправильный вариант Запомнить выбор - убрать и вставить эту строку
             action = Intent.ACTION_SEND_MULTIPLE //задаём возможность отправки несколькими способами
             putExtra(Intent.EXTRA_TEXT,
-                """ ${getString(R.string.app_name)}
+                """ 
+                    ${getString(R.string.header)}
+                    
                     ${getString(R.string.uri_stor)}
+                    
+                    ${getString(R.string.blok1)}
+                    
+                    ${getString(R.string.blok2)}
+                    
+                    ${getString(R.string.blok3)}
+                    
+                    ${getString(R.string.blok4)}
+                    
+                    ${getString(R.string.blok5)}
                 """.trimIndent()
             )
         }

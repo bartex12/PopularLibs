@@ -48,7 +48,6 @@
     <string name="addition">Дополнительно</string>
     <string name="share">Поделиться</string>
     <string name="send">Оценить</string>
-    <string name="uri_stor">https://play.google.com/store/apps/details?id=com.bartex.states_search</string>
     <string name="sorting">Сортировка</string>
     <string name="is_sorting">Нужна сортировка?</string>
     <string name="green">Зелёная тема</string>
@@ -67,6 +66,19 @@
     <string name="area">"Площать "</string>
     <string name="population">Население</string>
     <string name="help_name">Справка</string>
+    <string name="header">  Попробуйте моё новое приложение Мир на ладони,
+                    загрузив его из GooglePlay по ссылке</string>
+    <string name="uri_stor">https://play.google.com/store/apps/details?id=com.bartex.states_search</string>
+    <string name="blok1">Расскажу, как им пользоваться, чтобы получить максимум пользы.</string>
+    <string name="blok2">На главном экране список из 240 стран мира. Тыкаете в любую и попадаете на экран
+                    детализации, где увидите флаг, размер территории, население. Но всё это фигня.</string>
+    <string name="blok3"> В нижнем меню тыкаете на пункте Карта и попадаете на карту Google приблизительно в
+                    месте расположения указанной страны. Тыкаете в название страны на карте
+                    и перед вами открывается куча открыточных видов этой страны.</string>
+    <string name="blok4">  Кроме того, в некоторых местах есть панорамные фото, видео и
+                    гугловская навигация по дорогам. Смотрите не залипните - в некоторых странах
+                    есть ну очень красивые картинки. Россия, кстати, не исключение.</string>
+    <string name="blok5">Приятного путешествия.</string>
 
     <string-array name="pref_entry_sort">
         <item>По населению по убыванию</item>
