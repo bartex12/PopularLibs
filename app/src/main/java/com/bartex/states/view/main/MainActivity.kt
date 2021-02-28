@@ -75,16 +75,16 @@ class MainActivity: MvpAppCompatActivity(),
         //если в BackStack больше одного фрагмента (там почему то всегда есть 1 фрагмент)
         //то отображаем стрелку назад и устанавливаем слушатель на щелчок по ней с действием
         //onBackPressed(), иначе отображаем гамбургер и по щелчку открываем шторку
-        supportFragmentManager.addOnBackStackChangedListener {
+        supportFragmentManager.addOnBackStackChangedListener {  //слушатель BackStack
             if(supportFragmentManager.backStackEntryCount > 1){
-                supportActionBar?.setDisplayHomeAsUpEnabled(true)
-                toolbar.setNavigationOnClickListener {
+                supportActionBar?.setDisplayHomeAsUpEnabled(true) //показать стрелку
+                toolbar.setNavigationOnClickListener { // слушатель кнопки навигации- стрелка
                     onBackPressed()
                 }
             }else{
-                supportActionBar?.setDisplayHomeAsUpEnabled(false)
+                supportActionBar?.setDisplayHomeAsUpEnabled(false) //не показывать стрелку
                 toggle?.syncState()
-                toolbar.setNavigationOnClickListener {
+                toolbar.setNavigationOnClickListener {// слушатель кнопки навигации- гамбургер
                     drawer_layout.openDrawer(GravityCompat.START)
                 }
             }
@@ -109,7 +109,6 @@ class MainActivity: MvpAppCompatActivity(),
     }
 
     override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
-
         supportFragmentManager.findFragmentById(R.id.container)?. let{
             menu?.findItem(R.id.search)?.isVisible = it is StatesFragment
             menu?.findItem(R.id.favorites)?.isVisible = it !is FavoriteFragment && it !is WeatherFragment
