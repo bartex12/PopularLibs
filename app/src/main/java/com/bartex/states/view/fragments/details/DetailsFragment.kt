@@ -25,7 +25,7 @@ class DetailsFragment : MvpAppCompatFragment(),
 
     companion object {
         const val TAG = "33333"
-        private const val ARG_STATE = "state"
+        const val ARG_STATE = "state"
 
         @JvmStatic
         fun newInstance(state: State) =
@@ -60,8 +60,6 @@ class DetailsFragment : MvpAppCompatFragment(),
         //здесь аргументы нужны для корректной обработки поворота экрана
         arguments?.let {state = it.getParcelable<State>(ARG_STATE )}
 
-        bottom_navigation.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
-
         state?. let { presenter.isFavorite(it)}
 
         btn_addToFavorite.setOnClickListener {
@@ -81,30 +79,6 @@ class DetailsFragment : MvpAppCompatFragment(),
         Log.d(TAG, "DetailsFragment onPause")
     }
 
-    private val onNavigationItemSelectedListener =
-        BottomNavigationView.OnNavigationItemSelectedListener { item ->
-        when(item.itemId) {
-            R.id.home -> {
-                Log.d(TAG, "DetailsFragment BottomNavigationView page_1")
-                presenter.toHome()
-                true
-            }
-            R.id.geo -> {
-                Log.d(TAG, "DetailsFragment BottomNavigationView page_2")
-                state?. let {presenter.sendGeoIntent(it)}
-                true
-            }
-            R.id.weather -> {
-                Log.d(TAG, "DetailsFragment BottomNavigationView page_3")
-                state?. let {presenter.showWeather(it)}
-                true
-            }
-            else -> {
-                Log.d(TAG, "DetailsFragment BottomNavigationView else")
-                false
-            }
-        }
-    }
 
     //реализация метода BackButtonListener
     override fun backPressed(): Boolean = presenter.backPressed()
