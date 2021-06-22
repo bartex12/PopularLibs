@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bartex.states.R
 import com.bartex.states.presenter.list.IStateListPresenter
@@ -31,6 +32,7 @@ class StatesRVAdapter(val presenter: IStateListPresenter, val imageLoader: IImag
             //нельзя иначе осуществить вызов nullable-значения функционального типа.
             //вызовет itemClickListener, если он не равен null
             presenter.itemClickListener?.invoke(holder)
+            Toast.makeText(holder.containerView.context, holder.containerView.tv_name.text, Toast.LENGTH_SHORT).show()
         }
     }
 
