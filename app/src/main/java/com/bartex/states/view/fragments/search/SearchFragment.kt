@@ -33,7 +33,7 @@ class SearchFragment: MvpAppCompatFragment(),
             SearchFragment()
                 .apply {
                     arguments = Bundle().apply {
-                        putString(ARG_SEARCH, search)
+                                                putString(ARG_SEARCH, search)
                     }
                 }
     }
