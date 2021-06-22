@@ -107,7 +107,7 @@ class StatesFragmentRecyclerViewTest {
     // Для этого мы объединим функционал предыдущих методов: прокрутим список до нужного
     // элемента и нажмем на него
     @Test
-    fun activitySearch_PerformClickOnItem() {
+    fun  statesFragment_PerformClickOnItem() {
         //Ожидаем конкретного события: появления ресайклера rv_states
         uiDevice.wait(
             Until.findObject(By.res(packageName, "rv_states")), TIMEOUT
@@ -129,6 +129,39 @@ class StatesFragmentRecyclerViewTest {
                         click()
                     )
                 )
+    }
+
+    //Убеждаемся, что DetailsFragment открывается
+    @Test
+    fun  statesFragment_OpenDetailsFragment() {
+        //Ожидаем конкретного события: появления ресайклера rv_states
+        uiDevice.wait(
+            Until.findObject(By.res(packageName, "rv_states")), TIMEOUT
+        )
+        //Обратите внимание, что мы проматываем чуть ниже - до Norway. Это сделано для того,
+        // чтобы искомый элемент был примерно посередине экрана.
+        // Так работает промотка списка через метод scrollTo: .
+        // Промотка останавливается, как только элемент появляется на экране.
+        Espresso.onView(withId(R.id.rv_states))
+            .perform(
+                RecyclerViewActions.scrollTo<StatesRVAdapter.ViewHolder>(
+                    ViewMatchers.hasDescendant(ViewMatchers.withText("Norway"))
+                ))
+
+        Espresso.onView(withId(R.id.rv_states))
+            .perform(
+                RecyclerViewActions.actionOnItem<StatesRVAdapter.ViewHolder>(
+                    ViewMatchers.hasDescendant(ViewMatchers.withText("Italy")),
+                    click()
+                )
+            )
+        //Ожидаем конкретного события: появления появления текстового поля tv_state_name.
+        //Это будет означать, что DetailsFragment открылся и это поле видно на экране
+        val stateName = uiDevice.wait(
+            Until.findObject(By.res(packageName, "tv_state_name")), TIMEOUT
+        )
+        //Убеждаемся, что поле видно и содержит предполагаемый текст.
+        Assert.assertEquals(stateName.text, "Italy")
     }
 
 }
