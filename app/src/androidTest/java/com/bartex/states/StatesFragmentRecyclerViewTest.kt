@@ -23,7 +23,7 @@ import org.junit.runner.RunWith
 class StatesFragmentRecyclerViewTest {
 
     companion object {
-        private const val TIMEOUT = 5000L
+        private const val TIMEOUT = 10000L
     }
 
     //Класс UiDevice предоставляет доступ к вашему устройству.
@@ -43,7 +43,7 @@ class StatesFragmentRecyclerViewTest {
 
         //Запускаем наше приложение
         val intent = context.packageManager.getLaunchIntentForPackage(packageName)
-        //Мы уже проверяли Интент на null в предыдущем тесте, поэтому допускаем, что Интент у нас не null
+        //допускаем, что Интент у нас не null
         intent!!.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)//Чистим бэкстек от запущенных ранее Активити
         context.startActivity(intent)
 
@@ -106,6 +106,8 @@ class StatesFragmentRecyclerViewTest {
     //усложним задачу и будем нажимать на элемент списка, который не виден на экране.
     // Для этого мы объединим функционал предыдущих методов: прокрутим список до нужного
     // элемента и нажмем на него
+    // тест работает нестабильно !!!  иногда при прокрутке к Norway
+    // возникает сбой -> добавил uiDevice.waitForIdle()
     @Test
     fun  statesFragment_PerformClickOnItem() {
         //Ожидаем конкретного события: появления ресайклера rv_states
@@ -121,6 +123,8 @@ class StatesFragmentRecyclerViewTest {
                 RecyclerViewActions.scrollTo<StatesRVAdapter.ViewHolder>(
                     ViewMatchers.hasDescendant(ViewMatchers.withText("Norway"))
                 ))
+
+        uiDevice.waitForIdle(1000L)
 
             Espresso.onView(withId(R.id.rv_states))
                 .perform(
