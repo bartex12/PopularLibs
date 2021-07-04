@@ -6,12 +6,11 @@ import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStream
 import java.io.InputStreamReader
-import javax.inject.Inject
 
 class HelpRepo(val app: App): IHelpRepo {
 
     override fun getHelpText(): String? {
-        val iFile: InputStream = app.getResources().openRawResource(R.raw.help_states)
+        val iFile: InputStream = app.resources.openRawResource(R.raw.help_states)
         return inputStreamToString(iFile)
     }
 

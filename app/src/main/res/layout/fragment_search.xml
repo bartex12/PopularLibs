@@ -13,4 +13,13 @@
         android:paddingBottom="16dp"
         tools:context=".view.main.MainActivity"/>
 
+    <TextView
+        android:id="@+id/empty_view_Search"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:textSize="18sp"
+        android:visibility="gone"
+        android:text="@string/no_data_available" />
+
 </RelativeLayout>

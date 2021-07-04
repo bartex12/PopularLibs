@@ -12,6 +12,8 @@ interface IDetailsView: MvpView {
     fun setStateArea(area:String)
     fun setStatePopulation(population:String)
     fun setStateCapital(capital:String)
-//    fun setBtnCapitalEnabled()
     fun sendGeoIntent(geoCoord:String)
+    fun showAddFavoriteToast()
+    fun setVisibility(isFavorite:Boolean)
+    fun showRemoveFavoriteToast()
 }

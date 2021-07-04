@@ -8,23 +8,24 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bartex.states.App
 import com.bartex.states.R
+import com.bartex.states.presenter.base.IBaseView
 import com.bartex.states.presenter.SearchPresenter
-import com.bartex.states.view.adapter.StatesRVAdapter
+import com.bartex.states.view.adapter.state.StatesRVAdapter
 import com.bartex.states.view.adapter.imageloader.GlideToVectorYouLoader
 import com.bartex.states.view.fragments.BackButtonListener
-import com.bartex.states.view.main.TAG
 import kotlinx.android.synthetic.main.fragment_search.*
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 
-class SearchFragment(): MvpAppCompatFragment(),
-    ISearchView,
+class SearchFragment: MvpAppCompatFragment(),
+    IBaseView,
     BackButtonListener {
 
     private var position = 0
     var adapter: StatesRVAdapter? = null
 
     companion object {
+        const val TAG = "33333"
         private const val ARG_SEARCH = "search"
 
         @JvmStatic
@@ -53,13 +54,15 @@ class SearchFragment(): MvpAppCompatFragment(),
         Log.d(TAG, "SearchFragment onViewCreated ")
         //восстанавливаем позицию списка после поворота или возвращения на экран
         position = presenter.getPositionSearch()
+        //приводим меню тулбара в соответствии с onPrepareOptionsMenu в MainActivity
+        setHasOptionsMenu(true)
+        requireActivity().invalidateOptionsMenu()
     }
 
     override fun onResume() {
         super.onResume()
         Log.d(TAG, "SearchFragment onResume ")
-        presenter.searchData() // обновляем данные при изменении настроек
-
+        presenter.loadData() // обновляем данные при изменении настроек
     }
 
     //запоминаем  позицию списка, на которой сделан клик - на случай поворота экрана
@@ -75,7 +78,7 @@ class SearchFragment(): MvpAppCompatFragment(),
         Log.d(TAG, "SearchFragment init ")
         rv_search.layoutManager = LinearLayoutManager(context)
         adapter = StatesRVAdapter(
-            presenter.searchListPresenter,
+            presenter.listPresenter,
             GlideToVectorYouLoader(
                 requireActivity()
             )
@@ -85,7 +88,19 @@ class SearchFragment(): MvpAppCompatFragment(),
     }
 
     override fun updateList() {
-        adapter?.notifyDataSetChanged()
+        Log.d(TAG, "SearchFragment updateList ")
+        if(presenter.listPresenter.states.isEmpty()){
+            rv_search.visibility = View.GONE
+            empty_view_Search.visibility = View.VISIBLE
+            Log.d(TAG, "SearchFragment updateList  list = Empty")
+        }else{
+            rv_search.visibility =  View.VISIBLE
+            empty_view_Search.visibility =View.GONE
+
+            Log.d(TAG, "SearchFragment updateList  list size = " +
+                    "${presenter.listPresenter.states.size}")
+            adapter?.notifyDataSetChanged()
+        }
     }
 
     override fun backPressed(): Boolean = presenter.backPressed()

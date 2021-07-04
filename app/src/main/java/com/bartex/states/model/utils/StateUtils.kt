@@ -1,9 +1,10 @@
 package com.bartex.states.model.utils
 
 import com.bartex.states.model.entity.state.State
-import kotlinx.android.synthetic.main.fragment_details.*
 
 class StateUtils:IStateUtils {
+
+
 
     override fun getStateArea(state: State?): String {
       var   text_state_area = ""
@@ -63,9 +64,8 @@ class StateUtils:IStateUtils {
                 zoom = 1
             }
         }
-        val geoCoord = String.format("geo:%s,%s?z=%s",
+        return String.format("geo:%s,%s?z=%s",
             state?.latlng?.get(0).toString(), state?.latlng?.get(1).toString(), zoom.toString())
-        return geoCoord
     }
 
     override fun getStateCapital(state: State?): String {

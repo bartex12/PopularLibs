@@ -12,7 +12,6 @@ import com.bartex.states.R
 import com.bartex.states.model.entity.state.State
 import com.bartex.states.presenter.WeatherPresenter
 import com.bartex.states.view.fragments.BackButtonListener
-import com.bartex.states.view.main.TAG
 import kotlinx.android.synthetic.main.fragment_weather.*
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
@@ -24,6 +23,7 @@ class WeatherFragment : MvpAppCompatFragment(),
     private var state: State? = null
 
     companion object {
+        const val TAG = "33333"
         private const val ARG_STATE = "state"
 
         @JvmStatic
@@ -50,7 +50,13 @@ class WeatherFragment : MvpAppCompatFragment(),
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_weather, container, false)
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        //приводим меню тулбара в соответствии с onPrepareOptionsMenu в MainActivity
+        setHasOptionsMenu(true)
+        requireActivity().invalidateOptionsMenu()
     }
 
     override fun setStateName(state: String) {
@@ -63,7 +69,6 @@ class WeatherFragment : MvpAppCompatFragment(),
 
     override fun setTemp(temp: Float) {
         tv_capital_temp.text = String.format("%.0f \u2103", temp)
-
     }
 
     override fun setPressure(pressure: Int) {
@@ -92,7 +97,7 @@ class WeatherFragment : MvpAppCompatFragment(),
         return true
     }
 
-    //Drawable это import android.graphics.drawable.Drawable
+    //Drawable это import android.graphics.drawable.Drawable - не буду тащить его в презентер
     private fun getIconFromIconCod(iconCod: String): Drawable? {
         return   when (iconCod) {
             "01d", "01n" -> ContextCompat.getDrawable(requireContext(), R.drawable.sun)

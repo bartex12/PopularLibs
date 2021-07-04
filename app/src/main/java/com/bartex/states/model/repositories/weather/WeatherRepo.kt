@@ -5,12 +5,15 @@ import com.bartex.states.model.api.IDataSourceWeather
 import com.bartex.states.model.entity.weather.WeatherInCapital
 import com.bartex.states.model.network.INetworkStatus
 import com.bartex.states.model.repositories.weather.cash.IRoomWeatherCash
-import com.bartex.states.view.main.TAG
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
 
-class WeatherRepo(val api: IDataSourceWeather, val networkStatus: INetworkStatus,
-                  val  roomWeatherCash: IRoomWeatherCash):IWeatherRepo {
+class WeatherRepo(val api: IDataSourceWeather, private val networkStatus: INetworkStatus,
+                  private val  roomWeatherCash: IRoomWeatherCash):IWeatherRepo {
+
+    companion object{
+        const val TAG = "33333"
+    }
 
     //в зависимости от статуса сети
     //мы или получаем данные из сети, записывая их в базу данных с помощью Room через map

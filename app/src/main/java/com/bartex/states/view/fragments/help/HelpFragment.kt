@@ -5,7 +5,6 @@ import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.text.HtmlCompat.FROM_HTML_MODE_LEGACY
 import com.bartex.states.App
 import com.bartex.states.R
 import com.bartex.states.presenter.HelpPresenter
@@ -33,7 +32,7 @@ class HelpFragment: MvpAppCompatFragment(),
 
     override fun setText(text:String?) {
         text?. let{
-            tv_help.setText(Html.fromHtml(it))
+            tv_help.text = Html.fromHtml(it)
         }  ?:  getString(R.string.noHelp)
     }
 

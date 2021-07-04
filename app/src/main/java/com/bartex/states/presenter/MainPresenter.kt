@@ -2,8 +2,8 @@ package com.bartex.states.presenter
 
 import android.util.Log
 import com.bartex.states.Screens
+import com.bartex.states.model.repositories.states.cash.IRoomStateCash
 import com.bartex.states.view.main.MainView
-import com.bartex.states.view.main.TAG
 import moxy.MvpPresenter
 import ru.terrakok.cicerone.Router
 import javax.inject.Inject
@@ -13,6 +13,13 @@ class MainPresenter: MvpPresenter<MainView>() {
     @Inject
     lateinit var router: Router
 
+    @Inject
+    lateinit var  roomCash: IRoomStateCash
+
+    companion object{
+        const val TAG = "33333"
+    }
+
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
         router.navigateTo(Screens.StatesScreen())
@@ -20,6 +27,7 @@ class MainPresenter: MvpPresenter<MainView>() {
 
     fun backClicked() {
         router.exit()
+        router.exit() //выход с белого экрана App
     }
 
    fun  doSearch(search:String){
@@ -35,4 +43,9 @@ class MainPresenter: MvpPresenter<MainView>() {
     fun showSettingsActivity(){
         router.navigateTo(Screens.SettingsScreen())
     }
+
+    fun showFavorites(){
+        router.navigateTo(Screens.FavoriteScreen())
+    }
+
 }

@@ -16,7 +16,6 @@ import javax.inject.Singleton
         RepoModule::class,
         PrefModule::class,
         HelpModule::class,
-        GeoModule::class,
         UtilsModule::class
     ]
 )
@@ -31,7 +30,6 @@ interface AppComponent {
     fun inject(weatherPresenter: WeatherPresenter)
     fun inject(searchPresenter: SearchPresenter)
     fun inject(helpPresenter: HelpPresenter)
-    fun inject(geoPresenter: GeoPresenter)
-    //fun inject(glideToVectorYouLoader: GlideToVectorYouLoader)
+    fun inject(favoritePresenter: FavoritePresenter)
 
 }

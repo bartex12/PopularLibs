@@ -3,10 +3,13 @@
 <androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <PreferenceCategory
+        android:title="@string/sorting">
 
     <CheckBoxPreference
         android:key="cbSort"
-        android:title="Сортировка"
+        android:title="@string/is_sorting"
+        app:defaultValue="true"
         android:summaryOn="@string/cbSortOn"
         android:summaryOff="@string/cbSortOff">
     </CheckBoxPreference>
@@ -17,8 +20,9 @@
         android:entryValues="@array/pref_entryValues_sort"
         android:key="ListSort"
         android:title="Способ сортировки"
-        app:defaultValue="1"
+        app:defaultValue="3"
         android:summary="@string/ListSort">
     </ListPreference>
+    </PreferenceCategory>
 
 </androidx.preference.PreferenceScreen>
